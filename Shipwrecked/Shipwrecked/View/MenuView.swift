@@ -19,7 +19,7 @@ struct MenuView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                Image("Beach")
+                Image("beach")
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(1.25)

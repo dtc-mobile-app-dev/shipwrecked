@@ -14,7 +14,7 @@ struct StoryView: View {
             
             HStack {
                 Text("Your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked big story explaining this or could do an animation?")
-//                    .font(CustomFontRetro.body)
+                    .font(CustomFontRetro.body)
                     .foregroundColor(.white)
                     .padding()
             }

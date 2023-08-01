@@ -47,7 +47,7 @@ struct SelectPlayerView: View {
                             Button(action: {
                                 characterIsSelected.toggle()
                             }, label: {
-                                Image("WelderProfilePic")
+                                Image("KevinDown2")
                                     .resizable()
                                     .scaledToFill()
                             })

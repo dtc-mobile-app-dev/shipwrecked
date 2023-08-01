@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6AD861F12A79A4600062B171 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD861F02A79A4600062B171 /* Font.swift */; };
+		6AD861F32A79A4A00062B171 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AD861F22A79A4A00062B171 /* Block.ttf */; };
+		6AD861F52A79A4AD0062B171 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AD861F42A79A4AD0062B171 /* Retro Gaming.ttf */; };
+		6AD861F72A79A4B80062B171 /* 8-bit Arcade In.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AD861F62A79A4B80062B171 /* 8-bit Arcade In.ttf */; };
+		6AD861FB2A79A6010062B171 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD861FA2A79A6010062B171 /* SelectPlayerView.swift */; };
+		6AD861FE2A79A8300062B171 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD861FD2A79A8300062B171 /* StoryView.swift */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
 		B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C92A7059CA005D645D /* Preview Assets.xcassets */; };
@@ -38,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6AD861F02A79A4600062B171 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		6AD861F22A79A4A00062B171 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Block.ttf; path = "../../../../../../../../Downloads/04b_30 (7)/Block.ttf"; sourceTree = "<group>"; };
+		6AD861F42A79A4AD0062B171 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Retro Gaming.ttf"; path = "../../../../../../../../Downloads/Retro Gaming.ttf"; sourceTree = "<group>"; };
+		6AD861F62A79A4B80062B171 /* 8-bit Arcade In.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "8-bit Arcade In.ttf"; path = "../../../../../../../../Downloads/8_bit_arcade/8-bit Arcade In.ttf"; sourceTree = "<group>"; };
+		6AD861FA2A79A6010062B171 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
+		6AD861FC2A79A7010062B171 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6AD861FD2A79A8300062B171 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
 		B34979C62A7059CA005D645D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +92,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6AD861EF2A79A43F0062B171 /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				6AD861F02A79A4600062B171 /* Font.swift */,
+				6AD861F22A79A4A00062B171 /* Block.ttf */,
+				6AD861F42A79A4AD0062B171 /* Retro Gaming.ttf */,
+				6AD861F62A79A4B80062B171 /* 8-bit Arcade In.ttf */,
+			);
+			path = CustomFont;
+			sourceTree = "<group>";
+		};
 		B34979B62A7059C8005D645D = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +126,7 @@
 		B34979C12A7059C8005D645D /* Shipwrecked */ = {
 			isa = PBXGroup;
 			children = (
+				6AD861FC2A79A7010062B171 /* Info.plist */,
 				B34979EE2A705ADD005D645D /* Model */,
 				B34979ED2A705ACC005D645D /* ViewModel */,
 				B34979EC2A705AC2005D645D /* View */,
@@ -124,6 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				B3497A362A7074CB005D645D /* MenuView.swift */,
+				6AD861FA2A79A6010062B171 /* SelectPlayerView.swift */,
+				6AD861FD2A79A8300062B171 /* StoryView.swift */,
+				6AD861EF2A79A43F0062B171 /* CustomFont */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,7 +281,10 @@
 			files = (
 				B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */,
 				B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */,
+				6AD861F32A79A4A00062B171 /* Block.ttf in Resources */,
+				6AD861F52A79A4AD0062B171 /* Retro Gaming.ttf in Resources */,
 				B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */,
+				6AD861F72A79A4B80062B171 /* 8-bit Arcade In.ttf in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,10 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AD861FE2A79A8300062B171 /* StoryView.swift in Sources */,
 				B3497A3D2A707710005D645D /* Enemy.swift in Sources */,
 				B3497A3B2A707707005D645D /* Inventory.swift in Sources */,
+				6AD861FB2A79A6010062B171 /* SelectPlayerView.swift in Sources */,
 				B3497A372A7074CB005D645D /* MenuView.swift in Sources */,
 				B34979F22A705B00005D645D /* ViewModel.swift in Sources */,
+				6AD861F12A79A4600062B171 /* Font.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
 				B3497A392A7075A4005D645D /* Player.swift in Sources */,
 				B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */,
@@ -443,6 +477,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Shipwrecked/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shipwrecked/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -471,6 +506,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Shipwrecked/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shipwrecked/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

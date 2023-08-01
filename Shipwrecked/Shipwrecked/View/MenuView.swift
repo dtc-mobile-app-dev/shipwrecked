@@ -19,7 +19,7 @@ struct MenuView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                Image("beach")
+                Image("Beach")
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(1.25)
@@ -56,6 +56,6 @@ struct MenuView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        MenuView().previewInterfaceOrientation(.landscapeRight)
     }
 }

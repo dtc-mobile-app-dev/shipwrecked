@@ -24,6 +24,6 @@ struct StoryView: View {
 
 struct StoryView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView()
+        StoryView().previewInterfaceOrientation(.landscapeRight)
     }
 }

@@ -67,6 +67,6 @@ struct SelectPlayerView: View {
 
 struct SelectPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectPlayerView()
+        SelectPlayerView().previewInterfaceOrientation(.landscapeRight)
     }
 }

@@ -18,8 +18,8 @@ struct SelectPlayerView: View {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    Text("Select a character to continue")
-//                        .font(CustomFontRetro.medium)
+                    Text("select a character to continue")
+                        .font(CustomFontBlock.medium)
                         .foregroundColor(.white)
                         .padding(25)
                     
@@ -30,7 +30,7 @@ struct SelectPlayerView: View {
                                 Button(action: {
                                     self.characterIsSelected = true
                                 }, label: {
-                                    Image("Gunner")
+                                    Image("GunnerProfilePic")
                                         .resizable()
                                         .scaledToFill()
                                 })
@@ -39,7 +39,7 @@ struct SelectPlayerView: View {
                             Button(action: {
                                 characterIsSelected.toggle()
                             }, label: {
-                                Image("Welder")
+                                Image("WelderProfilePic")
                                     .resizable()
                                     .scaledToFill()
                             })
@@ -47,13 +47,13 @@ struct SelectPlayerView: View {
                             Button(action: {
                                 characterIsSelected.toggle()
                             }, label: {
-                                Image("Welder")
+                                Image("WelderProfilePic")
                                     .resizable()
                                     .scaledToFill()
                             })
                         }
                         .padding()
-                        .shadow(color: .white.opacity(0.25), radius: 5)
+//                        .shadow(color: .white.opacity(0.25), radius: 5)
                     }
                 }
             }

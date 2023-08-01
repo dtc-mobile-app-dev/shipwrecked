@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
+		6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F652A79B1D600025DD9 /* StoryView.swift */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
 		B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C92A7059CA005D645D /* Preview Assets.xcassets */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
+		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
 		B34979C62A7059CA005D645D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				B3497A362A7074CB005D645D /* MenuView.swift */,
+				6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */,
+				6A904F652A79B1D600025DD9 /* StoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -312,9 +318,11 @@
 				FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */,
 				B3497A372A7074CB005D645D /* MenuView.swift in Sources */,
 				B34979F22A705B00005D645D /* ViewModel.swift in Sources */,
+				6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */,
 				FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
 				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
+				6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */,
 				FAF216702A79A855002D4CCC /* AnimationManager.swift in Sources */,
 				B3497A392A7075A4005D645D /* Player.swift in Sources */,
 				B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */,

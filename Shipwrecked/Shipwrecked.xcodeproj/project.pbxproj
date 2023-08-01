@@ -10,9 +10,9 @@
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
 		6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F652A79B1D600025DD9 /* StoryView.swift */; };
 		6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F682A79B67C00025DD9 /* CustomFont.swift */; };
-		6A904F6B2A79B6C400025DD9 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F6A2A79B6C400025DD9 /* Block.ttf */; };
-		6A904F6D2A79B6CE00025DD9 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F6C2A79B6CE00025DD9 /* Retro Gaming.ttf */; };
-		6A904F6F2A79B6D800025DD9 /* 8-bit Arcade In.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F6E2A79B6D800025DD9 /* 8-bit Arcade In.ttf */; };
+		6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F712A79C0B800025DD9 /* 8-bit Arcade In.ttf */; };
+		6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */; };
+		6A904F762A79C0B800025DD9 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F732A79C0B800025DD9 /* Block.ttf */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
 		B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C92A7059CA005D645D /* Preview Assets.xcassets */; };
@@ -51,10 +51,10 @@
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
 		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		6A904F682A79B67C00025DD9 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
-		6A904F6A2A79B6C400025DD9 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Block.ttf; path = "../../../../../../../../Downloads/04b_30 (7)/Block.ttf"; sourceTree = "<group>"; };
-		6A904F6C2A79B6CE00025DD9 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Retro Gaming.ttf"; path = "../../../../../../../../Downloads/Retro Gaming.ttf"; sourceTree = "<group>"; };
-		6A904F6E2A79B6D800025DD9 /* 8-bit Arcade In.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "8-bit Arcade In.ttf"; path = "../../../../../../../../Downloads/8_bit_arcade/8-bit Arcade In.ttf"; sourceTree = "<group>"; };
 		6A904F702A79B6F800025DD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6A904F712A79C0B800025DD9 /* 8-bit Arcade In.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "8-bit Arcade In.ttf"; sourceTree = "<group>"; };
+		6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Retro Gaming.ttf"; sourceTree = "<group>"; };
+		6A904F732A79C0B800025DD9 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Block.ttf; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
 		B34979C62A7059CA005D645D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,9 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				6A904F682A79B67C00025DD9 /* CustomFont.swift */,
-				6A904F6A2A79B6C400025DD9 /* Block.ttf */,
-				6A904F6C2A79B6CE00025DD9 /* Retro Gaming.ttf */,
-				6A904F6E2A79B6D800025DD9 /* 8-bit Arcade In.ttf */,
+				6A904F712A79C0B800025DD9 /* 8-bit Arcade In.ttf */,
+				6A904F732A79C0B800025DD9 /* Block.ttf */,
+				6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -309,10 +309,10 @@
 			files = (
 				B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */,
 				B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */,
-				6A904F6B2A79B6C400025DD9 /* Block.ttf in Resources */,
-				6A904F6D2A79B6CE00025DD9 /* Retro Gaming.ttf in Resources */,
 				B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */,
-				6A904F6F2A79B6D800025DD9 /* 8-bit Arcade In.ttf in Resources */,
+				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
+				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
+				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

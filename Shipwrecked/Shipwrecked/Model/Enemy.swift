@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+// YOOOOO
+
+var wow = 0

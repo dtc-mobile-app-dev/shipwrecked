@@ -27,10 +27,9 @@ struct MenuView: View {
                 
                 ZStack {
                     Text("SHIPWRECKED")
-//                        .font(CustomFontBlock.title)
+                        .font(CustomFontBlock.title)
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
-                        .shadow(radius: 5)
                         .padding(.top, 75)
                     
                     ZStack {
@@ -38,7 +37,7 @@ struct MenuView: View {
                             startGame.toggle()
                         }, label: {
                             Text("start")
-//                                .font(CustomFontRetro.small)
+                                .font(CustomFontRetro.small)
                                 .foregroundColor(.clear)
                                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                         })
@@ -47,6 +46,7 @@ struct MenuView: View {
                 }
             }
         }
+        
         if startGame {
             SelectPlayerView()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

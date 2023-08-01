@@ -18,6 +18,10 @@
 		B3497A3F2A70771A005D645D /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3497A3E2A70771A005D645D /* NPC.swift */; };
 		B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4A2A799DD0005D645D /* IslandScene.sks */; };
 		B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4C2A799DE9005D645D /* AllTileSets.sks */; };
+		FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF2166C2A79A810002D4CCC /* GameScene.swift */; };
+		FAF216702A79A855002D4CCC /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF2166F2A79A855002D4CCC /* AnimationManager.swift */; };
+		FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF216712A79A870002D4CCC /* TileMapManager.swift */; };
+		FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF216732A79A880002D4CCC /* SpriteNodeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		B3497A3E2A70771A005D645D /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
 		B3497A4A2A799DD0005D645D /* IslandScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IslandScene.sks; sourceTree = "<group>"; };
 		B3497A4C2A799DE9005D645D /* AllTileSets.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AllTileSets.sks; sourceTree = "<group>"; };
+		FAF2166C2A79A810002D4CCC /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		FAF2166F2A79A855002D4CCC /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
+		FAF216712A79A870002D4CCC /* TileMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileMapManager.swift; sourceTree = "<group>"; };
+		FAF216732A79A880002D4CCC /* SpriteNodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteNodeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,7 @@
 			children = (
 				B34979EE2A705ADD005D645D /* Model */,
 				B34979ED2A705ACC005D645D /* ViewModel */,
+				FAF2166B2A79A7EB002D4CCC /* GameSceneModel */,
 				B34979EC2A705AC2005D645D /* View */,
 				B34979C22A7059C8005D645D /* ShipwreckedApp.swift */,
 				B34979C62A7059CA005D645D /* Assets.xcassets */,
@@ -145,6 +154,25 @@
 				B3497A3E2A70771A005D645D /* NPC.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FAF2166B2A79A7EB002D4CCC /* GameSceneModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAF2166C2A79A810002D4CCC /* GameScene.swift */,
+				FAF2166E2A79A83A002D4CCC /* ManagersForGameScene */,
+			);
+			path = GameSceneModel;
+			sourceTree = "<group>";
+		};
+		FAF2166E2A79A83A002D4CCC /* ManagersForGameScene */ = {
+			isa = PBXGroup;
+			children = (
+				FAF2166F2A79A855002D4CCC /* AnimationManager.swift */,
+				FAF216712A79A870002D4CCC /* TileMapManager.swift */,
+				FAF216732A79A880002D4CCC /* SpriteNodeManager.swift */,
+			);
+			path = ManagersForGameScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,9 +309,13 @@
 			files = (
 				B3497A3D2A707710005D645D /* Enemy.swift in Sources */,
 				B3497A3B2A707707005D645D /* Inventory.swift in Sources */,
+				FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */,
 				B3497A372A7074CB005D645D /* MenuView.swift in Sources */,
 				B34979F22A705B00005D645D /* ViewModel.swift in Sources */,
+				FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
+				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
+				FAF216702A79A855002D4CCC /* AnimationManager.swift in Sources */,
 				B3497A392A7075A4005D645D /* Player.swift in Sources */,
 				B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */,
 			);

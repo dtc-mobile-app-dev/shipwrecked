@@ -48,8 +48,8 @@ struct MenuView: View {
             }
         }
         if startGame {
-//            SelectPlayerView()
-//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            SelectPlayerView()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
     }
 }

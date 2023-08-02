@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */; };
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
 		6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F652A79B1D600025DD9 /* StoryView.swift */; };
 		6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F682A79B67C00025DD9 /* CustomFont.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDiedView.swift; sourceTree = "<group>"; };
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
 		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		6A904F682A79B67C00025DD9 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				B3497A362A7074CB005D645D /* MenuView.swift */,
 				6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */,
 				6A904F652A79B1D600025DD9 /* StoryView.swift */,
+				6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */,
 				6A904F672A79B66100025DD9 /* Fonts */,
 			);
 			path = View;
@@ -351,6 +354,7 @@
 				FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */,
 				6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
+				6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */,
 				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
 				6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */,
 				FAF216702A79A855002D4CCC /* AnimationManager.swift in Sources */,

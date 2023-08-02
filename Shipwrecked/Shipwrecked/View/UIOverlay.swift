@@ -17,14 +17,10 @@ struct UIOverlay: View {
                     .foregroundColor(.red)
                 Spacer()
                 
-                    //                Image(name: "border")
-                    //                    .zIndex(0)
-                    //                itemEquipped
-                    //                    .zIndex(1)
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.red)
-                        .overlay{ Image("WelderProfilePic").resizable().padding(5)}
+                Image("BorderWithRedBackground")
+                    .resizable()
+                    .foregroundColor(.red)
+                    .overlay{ Image("WelderProfilePic").resizable().padding(5)}
                 .padding(30)
                 //            Image(name: "border")
                 //                .zIndex(0)

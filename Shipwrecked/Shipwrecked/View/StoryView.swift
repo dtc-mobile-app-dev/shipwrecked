@@ -12,8 +12,14 @@ struct StoryView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
-            HStack {
-                Text("Your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked big story explaining this or could do an animation?")
+            NavigationLink {
+//                GameView()
+//                    .navigationBarBackButtonHidden(true)
+                
+                /// CRASHES APP
+                
+            } label: {
+                Text("Your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked SOMEONE WRITE A STORY THATS GOOD your ship wrecked your ship wrecked your ship wrecked your ship wrecked big story explaining this or could do an animation?")
                     .font(CustomFontRetro.body)
                     .foregroundColor(.white)
                     .padding()

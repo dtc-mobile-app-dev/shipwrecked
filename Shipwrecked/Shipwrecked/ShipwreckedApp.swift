@@ -11,9 +11,7 @@ import SwiftUI
 struct ShipwreckedApp: App {
     var body: some Scene {
         WindowGroup {
-//            MenuView()
-            GameView()
-//            SelectPlayerView()
+            MenuView()
         }
     }
 }

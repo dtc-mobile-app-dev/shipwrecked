@@ -10,17 +10,6 @@ import SpriteKit
 
 class AnimationManager {
     
-    enum Direction {
-        case up
-        case down
-        case left
-        case right
-        case upRight
-        case upLeft
-        case downRight
-        case downLeft
-    }
-    
     static let instance = AnimationManager() // Singleton
     
     init() {

@@ -9,11 +9,8 @@
 import SwiftUI
 
 struct SelectPlayerView: View {
-    
-    @State var characterIsSelected = false
-    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
@@ -24,44 +21,29 @@ struct SelectPlayerView: View {
                         .padding(25)
                     
                     ZStack {
-                        HStack {
-                            NavigationLink(value: characterIsSelected) {
+                        NavigationLink {
+                            StoryView()
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            HStack {
+                                Image("GunnerProfilePic")
+                                    .resizable()
+                                    .scaledToFill()
                                 
-                                Button(action: {
-                                    self.characterIsSelected = true
-                                }, label: {
-                                    Image("GunnerProfilePic")
-                                        .resizable()
-                                        .scaledToFill()
-                                })
+                                Image("WelderProfilePic")
+                                    .resizable()
+                                    .scaledToFill()
+                                
+                                Image("KevinProfilePic")
+                                    .resizable()
+                                    .scaledToFill()
                             }
-                            
-                            Button(action: {
-                                characterIsSelected.toggle()
-                            }, label: {
-                                Image("WelderProfilePic")
-                                    .resizable()
-                                    .scaledToFill()
-                            })
-                            
-                            Button(action: {
-                                characterIsSelected.toggle()
-                            }, label: {
-                                Image("WelderProfilePic")
-                                    .resizable()
-                                    .scaledToFill()
-                            })
                         }
                         .padding()
-//                        .shadow(color: .white.opacity(0.25), radius: 5)
+                        .shadow(color: .white.opacity(0.25), radius: 5)
                     }
                 }
             }
-        }
-        
-        if characterIsSelected {
-            StoryView()
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
     }
 }

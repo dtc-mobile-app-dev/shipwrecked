@@ -11,7 +11,7 @@ import SpriteKit
 
 struct GameView: View {
     
-    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
+    @StateObject var scene = SKScene(fileNamed: "MyScene.sks") as! GameScene
     
     var body: some View {
         ZStack {
@@ -20,11 +20,11 @@ struct GameView: View {
         }
     }
 }
-//
-//struct GameView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GameView()
-//            .previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+
+struct GameView_Previews: PreviewProvider {
+    static var previews: some View {
+        GameView()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}
 

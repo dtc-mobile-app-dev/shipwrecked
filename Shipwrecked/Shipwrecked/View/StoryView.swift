@@ -20,7 +20,7 @@ struct StoryView: View {
                 
             } label: {
                 Text("Your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked your ship wrecked SOMEONE WRITE A STORY THATS GOOD your ship wrecked your ship wrecked your ship wrecked your ship wrecked big story explaining this or could do an animation?")
-                    .font(CustomFontRetro.body)
+                    .font(CustomFontRetro.small)
                     .foregroundColor(.white)
                     .padding()
             }

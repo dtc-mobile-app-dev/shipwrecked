@@ -53,13 +53,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - TileMapNodes
         
-        tileMap.createTileMapNode(tileMapSceneName: "Wall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        
-        tileMap.createTileMapNode(tileMapSceneName: "Wall2", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+//        tileMap.createTileMapNode(tileMapSceneName: "Wall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+//
+//        tileMap.createTileMapNode(tileMapSceneName: "Wall2", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         
         // MARK: - SignNodes
         
-        node.createSpriteNode(spriteNode: signNode, sceneNodeName: "Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: signNode, sceneNodeName: "Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Characters
         
@@ -97,7 +97,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 
         enemyNode.zPosition = 10
         enemyNode.setScale(0.5)
-        enemyNode.physicsBody = SKPhysicsBody(rectangleOf: captainNode.size)
+        enemyNode.physicsBody = SKPhysicsBody(rectangleOf: enemyNode.size)
         enemyNode.physicsBody?.categoryBitMask = enemyCategory
         enemyNode.physicsBody?.collisionBitMask = playerCategory
         enemyNode.physicsBody?.contactTestBitMask = playerCategory
@@ -110,12 +110,38 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let differenceX = enemyNode.position.x - captainNode.position.x
         let differenceY = enemyNode.position.y - captainNode.position.y
         let angle = atan2(differenceY, differenceX)
-        let chaseSpeed: CGFloat = -0.7
+        let chaseSpeed: CGFloat = -1
         let vx = chaseSpeed * cos(angle)
         let vy = chaseSpeed * sin(angle)
+        
+        let pi = Double.pi
+        
+        let angle2 = angle + 7 * pi/8
+        
+        if angle2 < pi/4 { // UPRIGHT
+            animation.animate(character: "gunner", direction: .upRight, characterNode: enemyNode)
+        } else if angle2 < pi/2 { // UP
+            animation.animate(character: "gunner", direction: .up, characterNode: enemyNode)
+        } else if angle2 < 3 * pi/4 { // UPLEFT
+            animation.animate(character: "gunner", direction: .upLeft, characterNode: enemyNode)
+        } else if angle2 < pi { // LEFT
+            animation.animate(character: "gunner", direction: .left, characterNode: enemyNode)
+        } else if angle2 < 5 * pi/4 { // DOWNLEFT
+            animation.animate(character: "gunner", direction: .downLeft, characterNode: enemyNode)
+        } else if angle2 < 3 * pi/2 { // DOWN
+            animation.animate(character: "gunner", direction: .down, characterNode: enemyNode)
+        } else if angle2 < 7 * pi/4 { // DOWNRIGHT
+            animation.animate(character: "gunner", direction: .downRight, characterNode: enemyNode)
+        } else {
+            animation.animate(character: "gunner", direction: .right, characterNode: enemyNode)
+        }
+        
+        
         enemyNode.position.x += vx
         enemyNode.position.y += vy
     }
+    
+    // MARK: - CAMERA
     
     func camera() {
         
@@ -128,6 +154,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         camera = cam
     }
     
+    // MARK: - PHYSICS INTERACTION
     
     func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA.node?.name
@@ -141,6 +168,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
         }
     }
+    
+    // MARK: - CONTROLLER
     
     func connectVirtualController() {
         
@@ -308,6 +337,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             cam.position.x = captainNode.position.x
             cam.position.y = captainNode.position.y
+            
+            // MARK: - ENEMY CHASE
+            
+            enemyMove()
         }
     }
 }

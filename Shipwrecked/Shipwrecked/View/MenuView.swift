@@ -10,46 +10,30 @@ import SwiftUI
 /// FIRST SCREEN OR LOADING SCREEN
 
 struct MenuView: View {
-    
-    @State var startGame = false
-    
     var body: some View {
-        NavigationView {
-            
+        NavigationStack {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                Image("beach")
+                Image("Beach")
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(1.25)
                     .padding(.top, 25)
                 
-                ZStack {
+                NavigationLink {
+                    SelectPlayerView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title)
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
                         .padding(.top, 75)
                     
-                    ZStack {
-                        Button(action: {
-                            startGame.toggle()
-                        }, label: {
-                            Text("start")
-                                .font(CustomFontRetro.small)
-                                .foregroundColor(.clear)
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                        })
-                        
-                    }
+                        .shadow(color: .black.opacity(0.25), radius: 2.5)
                 }
             }
-        }
-        
-        if startGame {
-            SelectPlayerView()
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
     }
 }

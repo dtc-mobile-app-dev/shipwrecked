@@ -26,15 +26,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var captainPosx: CGFloat = 0
     var captainPosy: CGFloat = 0
     
-    var isRunning = false
-    var isAnimatingLeft = false
-    var isAnimatingRight = false
-    var isAnimatingUp = false
-    var isAnimatingDown = false
-    var isAnimatingUpRightDiagonal = false
-    var isAnimatingUpLeftDiagonal = false
-    var isAnimatingDownRightDiagonal = false
-    var isAnimatingDownLeftDiagonal = false
+    var direction: Direction = .right
     
     var cam: SKCameraNode!
     var virtualController: GCVirtualController?
@@ -43,6 +35,24 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let playerCategory: UInt32 = 0x10
     let signCategory: UInt32 = 0x100
     let enemyCategory: UInt32 = 0x1000
+    
+    var isAnimatingLeftPlayer = false
+    var isAnimatingRightPlayer = false
+    var isAnimatingUpPlayer = false
+    var isAnimatingDownPlayer = false
+    var isAnimatingUpRightDiagonalPlayer = false
+    var isAnimatingUpLeftDiagonalPlayer = false
+    var isAnimatingDownRightDiagonalPlayer = false
+    var isAnimatingDownLeftDiagonalPlayer = false
+    
+    var isAnimatingLeftEnemy = false
+    var isAnimatingRightEnemy = false
+    var isAnimatingUpEnemy = false
+    var isAnimatingDownEnemy = false
+    var isAnimatingUpRightDiagonalEnemy = false
+    var isAnimatingUpLeftDiagonalEnemy = false
+    var isAnimatingDownRightDiagonalEnemy = false
+    var isAnimatingDownLeftDiagonalEnemy = false
     
     let blank: UInt32 = 0x10000
     let blank2: UInt32 = 0x100000
@@ -53,13 +63,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - TileMapNodes
         
-        tileMap.createTileMapNode(tileMapSceneName: "Wall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        
-        tileMap.createTileMapNode(tileMapSceneName: "Wall2", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //        tileMap.createTileMapNode(tileMapSceneName: "Wall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //
+        //        tileMap.createTileMapNode(tileMapSceneName: "Wall2", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         
         // MARK: - SignNodes
         
-        node.createSpriteNode(spriteNode: signNode, sceneNodeName: "Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+        //        node.createSpriteNode(spriteNode: signNode, sceneNodeName: "Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Characters
         
@@ -68,19 +78,19 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - Enemies
         
         createEnemy()
-
+        
         
         camera()
         connectVirtualController()
     }
     
-// MARK: - CHARACTERS
+    // MARK: - CHARACTERS
     
     // MARK: - CAPTAIN
     
     func createCaptain() {
         captainNode = self.childNode(withName: "Captain") as! SKSpriteNode
-
+        
         captainNode.zPosition = 10
         captainNode.setScale(0.5)
         captainNode.physicsBody = SKPhysicsBody(rectangleOf: captainNode.size)
@@ -94,10 +104,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func createEnemy() {
         enemyNode = self.childNode(withName: "Enemy") as! SKSpriteNode
-
+        
         enemyNode.zPosition = 10
         enemyNode.setScale(0.5)
-        enemyNode.physicsBody = SKPhysicsBody(rectangleOf: captainNode.size)
+        enemyNode.physicsBody = SKPhysicsBody(rectangleOf: enemyNode.size)
         enemyNode.physicsBody?.categoryBitMask = enemyCategory
         enemyNode.physicsBody?.collisionBitMask = playerCategory
         enemyNode.physicsBody?.contactTestBitMask = playerCategory
@@ -110,12 +120,61 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let differenceX = enemyNode.position.x - captainNode.position.x
         let differenceY = enemyNode.position.y - captainNode.position.y
         let angle = atan2(differenceY, differenceX)
-        let chaseSpeed: CGFloat = -0.7
+        let chaseSpeed: CGFloat = -1
         let vx = chaseSpeed * cos(angle)
         let vy = chaseSpeed * sin(angle)
+        
+        let pi = Double.pi
+        
+        let angle2 = angle + 7 * pi/8
+        
+        if angle2 < pi/4 { // UPRIGHT
+            if !isAnimatingUpRightDiagonalEnemy {
+                animation.animate(character: "gunner", direction: .upRight, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .upRight)
+            }
+        } else if angle2 < pi/2 { // UP
+            if !isAnimatingUpEnemy {
+                animation.animate(character: "gunner", direction: .up, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .up)
+            }
+        } else if angle2 < 3 * pi/4 { // UPLEFT
+            if !isAnimatingUpLeftDiagonalEnemy {
+                animation.animate(character: "gunner", direction: .upLeft, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .upLeft)
+            }
+        } else if angle2 < pi { // LEFT
+            if !isAnimatingLeftEnemy {
+                animation.animate(character: "gunner", direction: .left, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .left)
+            }
+        } else if angle2 < 5 * pi/4 { // DOWNLEFT
+            if !isAnimatingDownLeftDiagonalEnemy {
+                animation.animate(character: "gunner", direction: .downLeft, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .downLeft)
+            }
+        } else if angle2 < 3 * pi/2 { // DOWN
+            if !isAnimatingDownEnemy {
+                animation.animate(character: "gunner", direction: .down, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .down)
+            }
+        } else if angle2 < 7 * pi/4 { // DOWNRIGHT
+            if !isAnimatingDownRightDiagonalEnemy {
+                animation.animate(character: "gunner", direction: .downRight, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .downRight)
+            }
+        } else { // RIGHT
+            if !isAnimatingRightEnemy {
+                animation.animate(character: "gunner", direction: .right, characterNode: enemyNode)
+                setAnimateBoolsEnemy(direction: .right)
+            }
+        }
+        
         enemyNode.position.x += vx
         enemyNode.position.y += vy
     }
+    
+    // MARK: - CAMERA
     
     func camera() {
         
@@ -128,6 +187,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         camera = cam
     }
     
+    // MARK: - PHYSICS INTERACTION
     
     func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA.node?.name
@@ -136,11 +196,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         print("ContactA = \(bodyA), ContactB \(bodyB)")
         
         if((bodyA == "Captain") && (bodyB == "Sign")) {
-
+            
         } else {
             
         }
     }
+    
+    // MARK: - CONTROLLER
     
     func connectVirtualController() {
         
@@ -163,151 +225,246 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - ButtonA
         
         let buttonA = (virtualController?.controller?.extendedGamepad?.buttonA.isTouched)!
-    
+        
         // MARK: - Joystick Movement
         
-        if !isRunning {
-            if captainPosy <= -0.5 && captainPosx <= -0.5 { // GOING DOWN LEFT
-                captainNode.position.y += -2.5
-                captainNode.position.x += -2.5
-                
-                if !isAnimatingDownLeftDiagonal {
-                    animation.animate(character: "captain", direction: .downLeft, characterNode: captainNode)
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = true
-                    isAnimatingDownRightDiagonal = false
-                }
-            } else if captainPosy <= -0.5 && captainPosx >= 0.5 { // GOING DOWN RIGHT
-                captainNode.position.y += -2.5
-                captainNode.position.x += 2.5
-                
-                if !isAnimatingDownRightDiagonal {
-                    animation.animate(character: "captain", direction: .downRight, characterNode: captainNode)
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = true
-                }
-            } else if captainPosy >= 0.5 && captainPosx <= -0.5 { // GOING UP Left
-                captainNode.position.y += 2.5
-                captainNode.position.x += -2.5
-                
-                if !isAnimatingUpLeftDiagonal {
-                    animation.animate(character: "captain", direction: .upLeft, characterNode: captainNode)
-()
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = true
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-            } else if captainPosy >= 0.5 && captainPosx >= 0.5 { // GOING UP RIGHT
-                captainNode.position.y += 2.5
-                captainNode.position.x += 2.5
-                
-                if !isAnimatingUpRightDiagonal {
-                    animation.animate(character: "captain", direction: .upRight, characterNode: captainNode)
-                    
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = true
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-            } else if captainPosx >= 0.5 { // GOING RIGHT
-                captainNode.position.x += 5
-                if !isAnimatingRight {
-                    animation.animate(character: "captain", direction: .right, characterNode: captainNode)
-
-                    isAnimatingLeft = false
-                    isAnimatingRight = true
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-                
-            } else if captainPosx <= -0.5 { // GOING LEFT
-                captainNode.position.x -= 5
-                if !isAnimatingLeft {
-                    animation.animate(character: "captain", direction: .left, characterNode: captainNode)
-                    
-                    isAnimatingLeft = true
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-            } else if captainPosy >= 0.5 { // GOING UP
-                captainNode.position.y += 5
-                
-                if !isAnimatingUp {
-                    animation.animate(character: "captain", direction: .up, characterNode: captainNode)
-
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = true
-                    isAnimatingDown = false
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-                
-            } else if captainPosy <= -0.5 { // GOING DOWN
-                
-                captainNode.position.y -= 5
-                
-                if !isAnimatingDown {
-                    animation.animate(character: "captain", direction: .down, characterNode: captainNode)
-
-                    isAnimatingLeft = false
-                    isAnimatingRight = false
-                    isAnimatingUp = false
-                    isAnimatingDown = true
-                    isAnimatingUpLeftDiagonal = false
-                    isAnimatingUpRightDiagonal = false
-                    isAnimatingDownLeftDiagonal = false
-                    isAnimatingDownRightDiagonal = false
-                }
-            } else {
-                captainNode.removeAllActions()
-                
-                isAnimatingLeft = false
-                isAnimatingRight = false
-                isAnimatingUp = false
-                isAnimatingDown = false
-                isAnimatingUpLeftDiagonal = false
-                isAnimatingUpRightDiagonal = false
-                isAnimatingDownLeftDiagonal = false
-                isAnimatingDownRightDiagonal = false
-                
-                
-            }
-            // MARK: - Cam with Player
+        if captainPosy <= -0.5 && captainPosx <= -0.5 { // GOING DOWN LEFT
+            captainNode.position.y += -2.5
+            captainNode.position.x += -2.5
             
-            cam.position.x = captainNode.position.x
-            cam.position.y = captainNode.position.y
+            if !isAnimatingDownLeftDiagonalPlayer {
+                animation.animate(character: "captain", direction: .downLeft, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .downLeft)
+            }
+        } else if captainPosy <= -0.5 && captainPosx >= 0.5 { // GOING DOWN RIGHT
+            captainNode.position.y += -2.5
+            captainNode.position.x += 2.5
+            
+            if !isAnimatingDownRightDiagonalPlayer {
+                animation.animate(character: "captain", direction: .downRight, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .downRight)
+            }
+        } else if captainPosy >= 0.5 && captainPosx <= -0.5 { // GOING UP Left
+            captainNode.position.y += 2.5
+            captainNode.position.x += -2.5
+            
+            if !isAnimatingUpLeftDiagonalPlayer {
+                animation.animate(character: "captain", direction: .upLeft, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .upLeft)
+            }
+        } else if captainPosy >= 0.5 && captainPosx >= 0.5 { // GOING UP RIGHT
+            captainNode.position.y += 2.5
+            captainNode.position.x += 2.5
+            
+            if !isAnimatingUpRightDiagonalPlayer {
+                animation.animate(character: "captain", direction: .upRight, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .upRight)
+            }
+        } else if captainPosx >= 0.5 { // GOING RIGHT
+            captainNode.position.x += 5
+            if !isAnimatingRightPlayer {
+                animation.animate(character: "captain", direction: .right, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .right)
+            }
+            
+        } else if captainPosx <= -0.5 { // GOING LEFT
+            captainNode.position.x -= 5
+            if !isAnimatingLeftPlayer {
+                animation.animate(character: "captain", direction: .left, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .left)
+            }
+        } else if captainPosy >= 0.5 { // GOING UP
+            captainNode.position.y += 5
+            
+            if !isAnimatingUpPlayer {
+                animation.animate(character: "captain", direction: .up, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .up)
+            }
+            
+        } else if captainPosy <= -0.5 { // GOING DOWN
+            
+            captainNode.position.y -= 5
+            
+            if !isAnimatingDownPlayer {
+                animation.animate(character: "captain", direction: .down, characterNode: captainNode)
+                
+                setAnimateBoolsPlayer(direction: .down)
+            }
+        } else {
+            captainNode.removeAllActions()
+            
+            setAnimateBoolsPlayer(direction: .down)
+        }
+        // MARK: - Cam with Player
+        
+        cam.position.x = captainNode.position.x
+        cam.position.y = captainNode.position.y
+        
+        // MARK: - ENEMY CHASE
+        
+        enemyMove()
+    }
+    
+    func setAnimateBoolsPlayer(direction: Direction) {
+        
+        switch direction {
+        case .up:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = true
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .down:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = true
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .left:
+            isAnimatingLeftPlayer = true
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .right:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = true
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .upRight:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = true
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .upLeft:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = true
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .downRight:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = true
+            isAnimatingDownLeftDiagonalPlayer = false
+        case .downLeft:
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = true
+        }
+    }
+    
+    func setAnimateBoolsEnemy(direction: Direction) {
+        
+        switch direction {
+        case .up:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = true
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .down:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = true
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .left:
+            isAnimatingLeftEnemy = true
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .right:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = true
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .upRight:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = true
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .upLeft:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = true
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .downRight:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = true
+            isAnimatingDownLeftDiagonalEnemy = false
+        case .downLeft:
+            isAnimatingLeftEnemy = false
+            isAnimatingRightEnemy = false
+            isAnimatingUpEnemy = false
+            isAnimatingDownEnemy = false
+            isAnimatingUpRightDiagonalEnemy = false
+            isAnimatingUpLeftDiagonalEnemy = false
+            isAnimatingDownRightDiagonalEnemy = false
+            isAnimatingDownLeftDiagonalEnemy = true
         }
     }
 }

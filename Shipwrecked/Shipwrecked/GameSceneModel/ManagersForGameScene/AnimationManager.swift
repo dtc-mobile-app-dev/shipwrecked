@@ -10,17 +10,6 @@ import SpriteKit
 
 class AnimationManager {
     
-    enum Direction {
-        case up
-        case down
-        case left
-        case right
-        case upRight
-        case upLeft
-        case downRight
-        case downLeft
-    }
-    
     static let instance = AnimationManager() // Singleton
     
     init() {
@@ -43,7 +32,7 @@ class AnimationManager {
             
                     leftImages: ["GunnerLeft1", "GunnerLeft2", "GunnerLeft3", "GunnerLeft4"],
                     rightImages: ["GunnerRight1", "GunnerRight2", "GunnerRight3", "GunnerRight4"],
-                    downImages: ["GunnerDwn1", "GunnerDwn2", "GunnerDwn3", "GunnerDwn4"],
+                    downImages: ["GunnerDown1", "GunnerDown2", "GunnerDown3", "GunnerDown4"],
                     upImages: ["GunnerUp1", "GunnerUp2", "GunnerUp3", "GunnerUp4"],
                     upLeftImages: ["GunnerDiagUpLeft1", "GunnerDiagUpLeft2", "GunnerDiagUpLeft3", "GunnerDiagUpLeft4"],
                     upRightImages: ["GunnerDiagUpRight1", "GunnerDiagUpRight2", "GunnerDiagUpRight3", "GunnerDiagUpRight4"],

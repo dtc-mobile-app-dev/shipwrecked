@@ -14,8 +14,8 @@ struct StoryView: View {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
                 NavigationLink {
-                    //                GameView()
-                    //                    .navigationBarBackButtonHidden(true)
+                                    GameView()
+                                        .navigationBarBackButtonHidden(true)
                     
                     /// CRASHES APP
                     

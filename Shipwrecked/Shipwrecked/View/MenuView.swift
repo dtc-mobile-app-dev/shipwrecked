@@ -30,6 +30,8 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
                         .padding(.top, 75)
+                    
+                        .shadow(color: .black.opacity(0.25), radius: 2.5)
                 }
             }
         }

@@ -13,6 +13,7 @@
 		6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F712A79C0B800025DD9 /* 8-bit Arcade In.ttf */; };
 		6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */; };
 		6A904F762A79C0B800025DD9 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F732A79C0B800025DD9 /* Block.ttf */; };
+		988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D90792A7AE37A0050F79A /* UIOverlay.swift */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
 		B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C92A7059CA005D645D /* Preview Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		6A904F712A79C0B800025DD9 /* 8-bit Arcade In.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "8-bit Arcade In.ttf"; sourceTree = "<group>"; };
 		6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Retro Gaming.ttf"; sourceTree = "<group>"; };
 		6A904F732A79C0B800025DD9 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Block.ttf; sourceTree = "<group>"; };
+		988D90792A7AE37A0050F79A /* UIOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOverlay.swift; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
 		B34979C62A7059CA005D645D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				FA725EFC2A79C3B200D09378 /* GameView.swift */,
+				988D90792A7AE37A0050F79A /* UIOverlay.swift */,
 				B3497A362A7074CB005D645D /* MenuView.swift */,
 				6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */,
 				6A904F652A79B1D600025DD9 /* StoryView.swift */,
@@ -351,6 +354,7 @@
 				FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */,
 				6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
+				988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */,
 				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
 				6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */,
 				FAF216702A79A855002D4CCC /* AnimationManager.swift in Sources */,

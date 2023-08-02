@@ -13,18 +13,26 @@ struct YouDiedView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                Text("GAME OVER")
+                Image("ScarySign")
+                    .resizable()
+                    .scaledToFit()
+                    .scaleEffect(1.75)
+                    .padding(.bottom)
+                    .shadow(color: .black, radius: 25)
+                
+                Text("YOU DIED")
                     .font(CustomFontBlock.title)
                     .foregroundColor(.white)
                 
                     NavigationLink {
-                        SelectPlayerView()
+                        MenuView()
                             .navigationBarBackButtonHidden(true)
                     } label: {
                         Text("RESTART")
-                            .font(CustomFontRetro.small)
+                            .font(CustomFontBlock.small)
                             .foregroundColor(.white)
                             .padding(.top, 300)
+                            .padding(.leading, 500)
                
                 }
             }

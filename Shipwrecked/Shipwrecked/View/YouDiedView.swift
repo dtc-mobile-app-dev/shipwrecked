@@ -24,7 +24,7 @@ struct YouDiedView: View {
                         Text("RESTART")
                             .font(CustomFontRetro.small)
                             .foregroundColor(.white)
-                            .padding(.top, 250)
+                            .padding(.top, 300)
                
                 }
             }

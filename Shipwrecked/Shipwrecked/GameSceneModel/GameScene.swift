@@ -63,13 +63,14 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - TileMapNodes
         
-        //        tileMap.createTileMapNode(tileMapSceneName: "Wall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         //
-        //        tileMap.createTileMapNode(tileMapSceneName: "Wall2", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //
+                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         
         // MARK: - SignNodes
         
-        //        node.createSpriteNode(spriteNode: signNode, sceneNodeName: "Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Characters
         
@@ -92,8 +93,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         captainNode = self.childNode(withName: "Captain") as! SKSpriteNode
         
         captainNode.zPosition = 10
-        captainNode.setScale(0.5)
-        captainNode.physicsBody = SKPhysicsBody(rectangleOf: captainNode.size)
+        captainNode.setScale(0.8)
+        captainNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: captainNode.size.width / 2, height: captainNode.size.height / 2))
         captainNode.physicsBody?.categoryBitMask = playerCategory
         captainNode.physicsBody?.collisionBitMask = wallCategory
         captainNode.physicsBody?.contactTestBitMask = wallCategory
@@ -106,7 +107,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         enemyNode = self.childNode(withName: "Enemy") as! SKSpriteNode
         
         enemyNode.zPosition = 10
-        enemyNode.setScale(0.5)
+        enemyNode.setScale(0.8)
         enemyNode.physicsBody = SKPhysicsBody(rectangleOf: enemyNode.size)
         enemyNode.physicsBody?.categoryBitMask = enemyCategory
         enemyNode.physicsBody?.collisionBitMask = playerCategory
@@ -120,7 +121,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let differenceX = enemyNode.position.x - captainNode.position.x
         let differenceY = enemyNode.position.y - captainNode.position.y
         let angle = atan2(differenceY, differenceX)
-        let chaseSpeed: CGFloat = -1
+        let chaseSpeed: CGFloat = -5
         let vx = chaseSpeed * cos(angle)
         let vy = chaseSpeed * sin(angle)
         
@@ -181,7 +182,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         cam = SKCameraNode()
         cam.zPosition = 10
         cam.position = CGPoint(x: 0, y: 0)
-        cam.setScale(3)
+        cam.setScale(4)
         
         addChild(cam)
         camera = cam
@@ -213,7 +214,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         controller.connect()
         virtualController = controller
     }
-    
     
     override func update(_ currentTime: TimeInterval) {
         
@@ -273,7 +273,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
             
         } else if captainPosx <= -0.5 { // GOING LEFT
-            captainNode.position.x -= 5
+            captainNode.position.x -= 10
             if !isAnimatingLeftPlayer {
                 animation.animate(character: "captain", direction: .left, characterNode: captainNode)
                 
@@ -300,7 +300,14 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         } else {
             captainNode.removeAllActions()
             
-            setAnimateBoolsPlayer(direction: .down)
+            isAnimatingLeftPlayer = false
+            isAnimatingRightPlayer = false
+            isAnimatingUpPlayer = false
+            isAnimatingDownPlayer = false
+            isAnimatingUpRightDiagonalPlayer = false
+            isAnimatingUpLeftDiagonalPlayer = false
+            isAnimatingDownRightDiagonalPlayer = false
+            isAnimatingDownLeftDiagonalPlayer = false
         }
         // MARK: - Cam with Player
         
@@ -467,5 +474,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             isAnimatingDownLeftDiagonalEnemy = true
         }
     }
+}
+
+
+extension GameScene {
+    
+    
 }
 

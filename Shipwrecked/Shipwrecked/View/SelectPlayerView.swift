@@ -40,7 +40,6 @@ struct SelectPlayerView: View {
                         }
                         .padding()
                         .shadow(color: .white.opacity(0.25), radius: 2.5)
-                    
                 }
             }
         }

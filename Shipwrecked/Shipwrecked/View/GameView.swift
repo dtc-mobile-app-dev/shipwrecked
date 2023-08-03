@@ -13,6 +13,8 @@ struct GameView: View {
     
     @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
     
+    var gameManager: GameScene
+
     var body: some View {
         ZStack {
             SpriteView(scene: scene)

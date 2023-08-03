@@ -11,6 +11,9 @@ import SpriteKit
 /// FIRST SCREEN OR LOADING SCREEN
 
 struct MenuView: View {
+    
+//    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -22,11 +25,9 @@ struct MenuView: View {
                     .scaleEffect(1.25)
                     .padding(.top, 25)
                 
-                
                 NavigationLink {
                     SelectPlayerView()
                         .navigationBarBackButtonHidden(true)
-                    
                   
                 } label: {
                     Text("SHIPWRECKED")

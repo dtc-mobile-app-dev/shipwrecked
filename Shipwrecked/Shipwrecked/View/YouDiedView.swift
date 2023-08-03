@@ -9,29 +9,27 @@ import SwiftUI
 
 struct YouDiedView: View {
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
-                
-                Image("Skull")
-                    .resizable()
-                    .scaledToFit()
-                    .scaleEffect(1.25)
-                    
-                Text("YOU DIED")
-                    .font(CustomFont8Bit.title)
-                    .foregroundColor(.red)
-                    
-                NavigationLink {
-                    MenuView()
-                        .navigationBarBackButtonHidden(true)
-                } label: {
-                    Text("RESTART")
-                        .font(CustomFont8Bit.body)
-                        .foregroundColor(.white)
-                        .padding(.top, 325)
-                        .padding(.leading, 525)
-                }
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            Image("Skull")
+                .resizable()
+                .scaledToFit()
+                .scaleEffect(1.25)
+            
+            Text("YOU DIED")
+                .font(CustomFont8Bit.title)
+                .foregroundColor(.red)
+            
+            NavigationLink {
+                MenuView()
+                    .navigationBarBackButtonHidden(true)
+            } label: {
+                Text("RESTART")
+                    .font(CustomFont8Bit.body)
+                    .foregroundColor(.white)
+                    .padding(.top, 325)
+                    .padding(.leading, 525)
             }
         }
     }
@@ -41,7 +39,6 @@ struct YouDiedView: View {
 
 //struct YouWinView: View {
 //    var body: some View {
-//        NavigationStack {
 //            ZStack {
 //                Color.black.edgesIgnoringSafeArea(.all)
 //
@@ -63,7 +60,6 @@ struct YouDiedView: View {
 //                            .foregroundColor(.white)
 //                            .padding(.top, 300)
 //                            .padding(.trailing, 500)
-//                }
 //            }
 //        }
 //    }

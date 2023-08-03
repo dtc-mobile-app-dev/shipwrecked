@@ -16,12 +16,12 @@ struct YouDiedView: View {
                 Image("Skull")
                     .resizable()
                     .scaledToFit()
-                    .scaleEffect(1.5)
-                
+                    .scaleEffect(1.25)
+                    
                 Text("YOU DIED")
                     .font(CustomFont8Bit.title)
                     .foregroundColor(.red)
-                
+                    
                 NavigationLink {
                     MenuView()
                         .navigationBarBackButtonHidden(true)
@@ -29,8 +29,8 @@ struct YouDiedView: View {
                     Text("RESTART")
                         .font(CustomFont8Bit.body)
                         .foregroundColor(.white)
-                        .padding(.top, 300)
-                        .padding(.leading, 500)
+                        .padding(.top, 325)
+                        .padding(.leading, 525)
                 }
             }
         }
@@ -62,7 +62,7 @@ struct YouDiedView: View {
 //                            .font(CustomFont8Bit.body)
 //                            .foregroundColor(.white)
 //                            .padding(.top, 300)
-//                            .padding(.leading, 500)
+//                            .padding(.trailing, 500)
 //                }
 //            }
 //        }

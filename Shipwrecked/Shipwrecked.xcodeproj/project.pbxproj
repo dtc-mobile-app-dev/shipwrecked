@@ -18,6 +18,8 @@
 		6A904F762A79C0B800025DD9 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F732A79C0B800025DD9 /* Block.ttf */; };
 		988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D90792A7AE37A0050F79A /* UIOverlay.swift */; };
 		988D907C2A7C4ED10050F79A /* Weapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D907B2A7C4ED10050F79A /* Weapons.swift */; };
+		988D907E2A7C5B940050F79A /* VolcanoScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 988D907D2A7C5B940050F79A /* VolcanoScene.sks */; };
+		988D90802A7C5BAC0050F79A /* JungleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 988D907F2A7C5BAC0050F79A /* JungleScene.sks */; };
 		B31C4C9B2A7AEC84008BED0C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C4C9A2A7AEC84008BED0C /* Item.swift */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		6A904F732A79C0B800025DD9 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Block.ttf; sourceTree = "<group>"; };
 		988D90792A7AE37A0050F79A /* UIOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOverlay.swift; sourceTree = "<group>"; };
 		988D907B2A7C4ED10050F79A /* Weapons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapons.swift; sourceTree = "<group>"; };
+		988D907D2A7C5B940050F79A /* VolcanoScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = VolcanoScene.sks; sourceTree = "<group>"; };
+		988D907F2A7C5BAC0050F79A /* JungleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JungleScene.sks; sourceTree = "<group>"; };
 		B31C4C9A2A7AEC84008BED0C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				B3497A4C2A799DE9005D645D /* AllTileSets.sks */,
+				988D907F2A7C5BAC0050F79A /* JungleScene.sks */,
+				988D907D2A7C5B940050F79A /* VolcanoScene.sks */,
 				B3497A4A2A799DD0005D645D /* IslandScene.sks */,
 				B34979C12A7059C8005D645D /* Shipwrecked */,
 				B34979C02A7059C8005D645D /* Products */,
@@ -334,10 +340,12 @@
 				B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */,
 				B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */,
 				B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */,
+				988D90802A7C5BAC0050F79A /* JungleScene.sks in Resources */,
 				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
 				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
 				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
+				988D907E2A7C5B940050F79A /* VolcanoScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,10 +25,10 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var signNode = SKSpriteNode()
     
     // Leo Stuff
-    var currentWeapon: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6)
-    let wSentientStick: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6)
-    let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11)
-    let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13)
+    var currentWeapon: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6, isGun: false)
+    let wSentientStick: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6, isGun: false)
+    let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11, isGun: true)
+    let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13, isGun: false)
     
     
     var captainPosx: CGFloat = 0

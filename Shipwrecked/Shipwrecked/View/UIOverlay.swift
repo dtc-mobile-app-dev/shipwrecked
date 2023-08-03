@@ -11,24 +11,17 @@ struct UIOverlay: View {
     var body: some View {
         VStack{
             HStack {
-                //            Image(name: "HeartHealthBar")
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 200, height: 20)
-                    .foregroundColor(.red)
+                Image("HealthBar6MAX")
                 Spacer()
-                
                 Image("BorderWithRedBackground")
                     .resizable()
-                    .foregroundColor(.red)
-                    .overlay{ Image("WelderProfilePic").resizable().padding(5)}
+                    .frame(width: 70, height: 70)
+                    .overlay{ Image("Gun").resizable().padding(5)}
                 .padding(30)
-                //            Image(name: "border")
-                //                .zIndex(0)
-                //            Image(name: "inventory")
-                //                .zIndex(1)
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.red)
+                Image("BorderWithRedBackground")
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .overlay{ Image("WelderProfilePic").resizable().padding(5)}
             }
             .padding(.top)
             Spacer()

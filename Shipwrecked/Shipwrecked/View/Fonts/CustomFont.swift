@@ -17,10 +17,10 @@ struct CustomFontBlock {
 }
 
 struct CustomFont8Bit {
-    static let body = Font.Bit(size: 24)
-    static let title = Font.Bit(size: 60)
+    static let body = Font.Bit(size: 32)
+    static let title = Font.Bit(size: 164)
     static let small = Font.Bit(size: 18)
-    static let medium = Font.Bit(size: 28)
+    static let medium = Font.Bit(size: 48)
     static let large = Font.Bit(size: 100)
 }
 

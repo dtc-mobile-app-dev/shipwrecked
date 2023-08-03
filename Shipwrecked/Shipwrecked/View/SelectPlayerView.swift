@@ -16,7 +16,7 @@ struct SelectPlayerView: View {
                 
                 VStack {
                     Text("select a character to continue")
-                        .font(CustomFontBlock.medium)
+                        .font(CustomFont8Bit.medium)
                         .foregroundColor(.white)
                         .padding(25)
                     
@@ -40,7 +40,7 @@ struct SelectPlayerView: View {
                             }
                         }
                         .padding()
-                        .shadow(color: .white.opacity(0.25), radius: 2.5)
+//                        .shadow(color: .white.opacity(0.25), radius: 2.5)
                     }
                 }
             }

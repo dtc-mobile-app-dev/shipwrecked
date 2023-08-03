@@ -13,32 +13,61 @@ struct YouDiedView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                Image("ScarySign")
+                Image("Skull")
                     .resizable()
                     .scaledToFit()
-                    .scaleEffect(1.75)
-                    .padding(.bottom)
-                    .shadow(color: .black, radius: 25)
+                    .scaleEffect(1.5)
                 
                 Text("YOU DIED")
-                    .font(CustomFontBlock.title)
-                    .foregroundColor(.white)
+                    .font(CustomFont8Bit.title)
+                    .foregroundColor(.red)
                 
-                    NavigationLink {
-                        MenuView()
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        Text("RESTART")
-                            .font(CustomFontBlock.small)
-                            .foregroundColor(.white)
-                            .padding(.top, 300)
-                            .padding(.leading, 500)
-               
+                NavigationLink {
+                    MenuView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Text("RESTART")
+                        .font(CustomFont8Bit.body)
+                        .foregroundColor(.white)
+                        .padding(.top, 300)
+                        .padding(.leading, 500)
                 }
             }
         }
     }
 }
+
+/// WOULD BE A DIFFERENT VIEW
+
+//struct YouWinView: View {
+//    var body: some View {
+//        NavigationStack {
+//            ZStack {
+//                Color.black.edgesIgnoringSafeArea(.all)
+//
+//                Image("Sun")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .scaleEffect(1.5)
+//
+//                Text("YOU ESCAPED HOORAY")
+//                    .font(CustomFont8Bit.title)
+//                    .foregroundColor(.white)
+//
+//                    NavigationLink {
+//                        MenuView()
+//                            .navigationBarBackButtonHidden(true)
+//                    } label: {
+//                        Text("PLAY AGAIN")
+//                            .font(CustomFont8Bit.body)
+//                            .foregroundColor(.white)
+//                            .padding(.top, 300)
+//                            .padding(.leading, 500)
+//                }
+//            }
+//        }
+//    }
+//}
 
 struct YouDiedView_Previews: PreviewProvider {
     static var previews: some View {

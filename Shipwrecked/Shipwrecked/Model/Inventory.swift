@@ -8,8 +8,8 @@
 import Foundation
 
 struct Inventory {
-    
     let inventorySlots: Int
     let availableInventorySlots: Int
+    var canUse: Bool
 }
 

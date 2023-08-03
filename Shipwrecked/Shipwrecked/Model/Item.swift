@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Weapon {
     let name: String
+    let image: Image
     let damage: Int
 }
 
 struct Consumable {
     let name: String
+    let image: Image
     let heal: Int
 }

@@ -21,7 +21,7 @@ struct CustomFont8Bit {
     static let title = Font.Bit(size: 164)
     static let small = Font.Bit(size: 28)
     static let medium = Font.Bit(size: 48)
-    static let large = Font.Bit(size: 100)
+    static let large = Font.Bit(size: 124)
 }
 
 struct CustomFontRetro {

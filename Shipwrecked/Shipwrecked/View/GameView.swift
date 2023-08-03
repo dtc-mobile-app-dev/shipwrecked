@@ -17,6 +17,7 @@ struct GameView: View {
         ZStack {
             SpriteView(scene: scene)
                 .ignoresSafeArea()
+            
         }
     }
 }

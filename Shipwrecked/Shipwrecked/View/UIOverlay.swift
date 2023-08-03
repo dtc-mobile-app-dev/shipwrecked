@@ -21,7 +21,6 @@ struct UIOverlay: View {
                             .frame(width: 50, height: 50)
                             .padding(5)
                     }
-//                .padding()
                 Image("InventoryIconNew")
                     .resizable()
                     .frame(width: 70, height: 70)

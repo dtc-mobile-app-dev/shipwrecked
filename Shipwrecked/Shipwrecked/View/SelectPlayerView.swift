@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
@@ -41,7 +40,7 @@ struct SelectPlayerView: View {
                         }
                         .padding()
                         .shadow(color: .white.opacity(0.25), radius: 2.5)
-                    }
+                    
                 }
             }
         }

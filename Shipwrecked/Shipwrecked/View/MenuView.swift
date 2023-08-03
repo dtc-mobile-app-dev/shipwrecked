@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 /// FIRST SCREEN OR LOADING SCREEN
 
@@ -21,9 +22,12 @@ struct MenuView: View {
                     .scaleEffect(1.25)
                     .padding(.top, 25)
                 
+                
                 NavigationLink {
                     SelectPlayerView()
                         .navigationBarBackButtonHidden(true)
+                    
+                  
                 } label: {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title)

@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct Item {
-    
+struct Weapon {
     let name: String
-    let isWeapon: Bool
-    let isFood: Bool
     let damage: Int
+}
+
+struct Consumable {
+    let name: String
     let heal: Int
 }

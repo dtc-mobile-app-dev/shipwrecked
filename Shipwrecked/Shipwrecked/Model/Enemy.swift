@@ -7,6 +7,7 @@
 
 import Foundation
 
-// YOOOOO
-
-var wow = 0
+struct Enemy {
+    var health: Int
+    var strength: Int
+}

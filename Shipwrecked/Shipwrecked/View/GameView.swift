@@ -19,14 +19,7 @@ struct GameView: View {
         ZStack {
             SpriteView(scene: scene)
                 .ignoresSafeArea()
-            Button {
-                showInventory.toggle()
-            } label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.red)
-                    .frame(width: 220, height: 120)
-                    .padding(EdgeInsets.init(top: 0, leading: 200, bottom: 0, trailing: 0))
-            }
+
         }
     }
 }
@@ -34,7 +27,7 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
-            .previewInterfaceOrientation(.landscapeLeft)
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }
 

@@ -12,6 +12,7 @@ struct Weapon {
     let name: String
     let image: Image
     let damage: Int
+    var isGun: Bool
 }
 
 struct Consumable {

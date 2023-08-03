@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */; };
+		6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4A2A7C4792005818DA /* YouWinView.swift */; };
+		6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4C2A7C48B9005818DA /* LoadingView.swift */; };
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
 		6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F652A79B1D600025DD9 /* StoryView.swift */; };
 		6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F682A79B67C00025DD9 /* CustomFont.swift */; };
@@ -15,6 +17,7 @@
 		6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */; };
 		6A904F762A79C0B800025DD9 /* Block.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A904F732A79C0B800025DD9 /* Block.ttf */; };
 		988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D90792A7AE37A0050F79A /* UIOverlay.swift */; };
+		988D907C2A7C4ED10050F79A /* Weapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D907B2A7C4ED10050F79A /* Weapons.swift */; };
 		B31C4C9B2A7AEC84008BED0C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C4C9A2A7AEC84008BED0C /* Item.swift */; };
 		B34979C32A7059C8005D645D /* ShipwreckedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34979C22A7059C8005D645D /* ShipwreckedApp.swift */; };
 		B34979C72A7059CA005D645D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B34979C62A7059CA005D645D /* Assets.xcassets */; };
@@ -54,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDiedView.swift; sourceTree = "<group>"; };
+		6A67FE4A2A7C4792005818DA /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
+		6A67FE4C2A7C48B9005818DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
 		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		6A904F682A79B67C00025DD9 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
@@ -62,6 +67,7 @@
 		6A904F722A79C0B800025DD9 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Retro Gaming.ttf"; sourceTree = "<group>"; };
 		6A904F732A79C0B800025DD9 /* Block.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Block.ttf; sourceTree = "<group>"; };
 		988D90792A7AE37A0050F79A /* UIOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOverlay.swift; sourceTree = "<group>"; };
+		988D907B2A7C4ED10050F79A /* Weapons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapons.swift; sourceTree = "<group>"; };
 		B31C4C9A2A7AEC84008BED0C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B34979BF2A7059C8005D645D /* Shipwrecked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shipwrecked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34979C22A7059C8005D645D /* ShipwreckedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipwreckedApp.swift; sourceTree = "<group>"; };
@@ -173,6 +179,8 @@
 				6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */,
 				6A904F652A79B1D600025DD9 /* StoryView.swift */,
 				6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */,
+				6A67FE4A2A7C4792005818DA /* YouWinView.swift */,
+				6A67FE4C2A7C48B9005818DA /* LoadingView.swift */,
 				6A904F672A79B66100025DD9 /* Fonts */,
 			);
 			path = View;
@@ -190,10 +198,11 @@
 			isa = PBXGroup;
 			children = (
 				B3497A382A7075A4005D645D /* Player.swift */,
-				B3497A3A2A707707005D645D /* Inventory.swift */,
 				B3497A3C2A707710005D645D /* Enemy.swift */,
-				B3497A3E2A70771A005D645D /* NPC.swift */,
 				B31C4C9A2A7AEC84008BED0C /* Item.swift */,
+				B3497A3A2A707707005D645D /* Inventory.swift */,
+				988D907B2A7C4ED10050F79A /* Weapons.swift */,
+				B3497A3E2A70771A005D645D /* NPC.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,14 +367,17 @@
 				FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */,
 				B3497A372A7074CB005D645D /* MenuView.swift in Sources */,
 				B31C4C9B2A7AEC84008BED0C /* Item.swift in Sources */,
+				6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */,
 				FA725EFD2A79C3B200D09378 /* GameView.swift in Sources */,
 				B34979F22A705B00005D645D /* ViewModel.swift in Sources */,
 				6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */,
 				FAF216742A79A880002D4CCC /* SpriteNodeManager.swift in Sources */,
+				988D907C2A7C4ED10050F79A /* Weapons.swift in Sources */,
 				FA72F9112A7B07B600D8D25D /* DirectionEnum.swift in Sources */,
 				6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
 				6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */,
+				6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */,
 				988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */,
 				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
 				6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */,

@@ -12,8 +12,8 @@ import SpriteKit
 
 struct MenuView: View {
     
-//    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
-    
+    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
+        
     var body: some View {
         NavigationStack {
             ZStack {
@@ -28,7 +28,7 @@ struct MenuView: View {
                 NavigationLink {
                     SelectPlayerView()
                         .navigationBarBackButtonHidden(true)
-                  
+                    
                 } label: {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title)
@@ -41,6 +41,7 @@ struct MenuView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

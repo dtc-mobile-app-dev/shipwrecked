@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */; };
+		6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4A2A7C4792005818DA /* YouWinView.swift */; };
+		6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4C2A7C48B9005818DA /* LoadingView.swift */; };
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
 		6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F652A79B1D600025DD9 /* StoryView.swift */; };
 		6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F682A79B67C00025DD9 /* CustomFont.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDiedView.swift; sourceTree = "<group>"; };
+		6A67FE4A2A7C4792005818DA /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
+		6A67FE4C2A7C48B9005818DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
 		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		6A904F682A79B67C00025DD9 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 				6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */,
 				6A904F652A79B1D600025DD9 /* StoryView.swift */,
 				6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */,
+				6A67FE4A2A7C4792005818DA /* YouWinView.swift */,
+				6A67FE4C2A7C48B9005818DA /* LoadingView.swift */,
 				6A904F672A79B66100025DD9 /* Fonts */,
 			);
 			path = View;
@@ -361,6 +367,7 @@
 				FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */,
 				B3497A372A7074CB005D645D /* MenuView.swift in Sources */,
 				B31C4C9B2A7AEC84008BED0C /* Item.swift in Sources */,
+				6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */,
 				FA725EFD2A79C3B200D09378 /* GameView.swift in Sources */,
 				B34979F22A705B00005D645D /* ViewModel.swift in Sources */,
 				6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */,
@@ -370,6 +377,7 @@
 				6A904F692A79B67C00025DD9 /* CustomFont.swift in Sources */,
 				B3497A3F2A70771A005D645D /* NPC.swift in Sources */,
 				6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */,
+				6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */,
 				988D907A2A7AE37A0050F79A /* UIOverlay.swift in Sources */,
 				FAF216722A79A870002D4CCC /* TileMapManager.swift in Sources */,
 				6A904F662A79B1D600025DD9 /* StoryView.swift in Sources */,

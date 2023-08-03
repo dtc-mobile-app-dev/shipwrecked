@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 /// FIRST SCREEN OR LOADING SCREEN
 
 struct MenuView: View {
+    
+//    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -24,14 +28,14 @@ struct MenuView: View {
                 NavigationLink {
                     SelectPlayerView()
                         .navigationBarBackButtonHidden(true)
+                  
                 } label: {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title)
+                        .kerning(2.5)
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
-                        .padding(.top, 75)
-                    
-//                        .shadow(color: .black.opacity(0.25), radius: 2.5)
+                        .padding(.top, 50)
                 }
             }
         }

@@ -6,4 +6,9 @@
 //
 
 import Foundation
-//ds store
+
+struct Player {
+    var character: String
+    var weapon: String
+    var heathPoints: Int
+}

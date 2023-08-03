@@ -16,12 +16,15 @@ struct UIOverlay: View {
                 Image("BorderWithRedBackground")
                     .resizable()
                     .frame(width: 70, height: 70)
-                    .overlay{ Image("Gun").resizable().padding(5)}
-                .padding(30)
-                Image("BorderWithRedBackground")
+                    .overlay{ Image("Gun")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .padding(5)
+                    }
+//                .padding()
+                Image("InventoryIconNew")
                     .resizable()
                     .frame(width: 70, height: 70)
-                    .overlay{ Image("WelderProfilePic").resizable().padding(5)}
             }
             .padding(.top)
             Spacer()

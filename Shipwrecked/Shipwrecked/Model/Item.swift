@@ -10,6 +10,7 @@ import Foundation
 struct Weapon {
     let name: String
     let damage: Int
+    var isGun: Bool
 }
 
 struct Consumable {

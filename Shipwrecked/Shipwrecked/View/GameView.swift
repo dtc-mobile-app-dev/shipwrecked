@@ -17,7 +17,9 @@ struct GameView: View {
         ZStack {
             SpriteView(scene: scene)
                 .ignoresSafeArea()
-            
+                .overlay {
+                    UIOverlay()
+                }
         }
     }
 }
@@ -25,7 +27,7 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
-            .previewInterfaceOrientation(.landscapeLeft)
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }
 

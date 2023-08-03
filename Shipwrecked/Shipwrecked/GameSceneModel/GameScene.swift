@@ -9,6 +9,7 @@ import Foundation
 import SpriteKit
 import GameController
 import GameplayKit
+import SwiftUI
 
 
 final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
@@ -22,6 +23,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var captainNode = SKSpriteNode()
     var enemyNode = SKSpriteNode()
     var signNode = SKSpriteNode()
+    
+    // Leo Stuff
+    var currentWeapon: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6)
+    let wSentientStick: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6)
+    let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11)
+    let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13)
+    
     
     var captainPosx: CGFloat = 0
     var captainPosy: CGFloat = 0

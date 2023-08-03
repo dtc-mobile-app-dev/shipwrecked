@@ -11,15 +11,15 @@ import SpriteKit
 
 struct GameView: View {
     
+    @State var showInventory = false
+    
     @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
     
     var body: some View {
         ZStack {
             SpriteView(scene: scene)
                 .ignoresSafeArea()
-                .overlay {
-                    UIOverlay()
-                }
+
         }
     }
 }

@@ -127,7 +127,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let pi = Double.pi
         
-        let angle2 = angle + 7 * pi/8
+        var angle2 = angle + 7 * pi/8
+        
+        if angle2 < 0 {
+            angle2 = angle2 + 2 * pi
+        }
         
         if angle2 < pi/4 { // UPRIGHT
             if !isAnimatingUpRightDiagonalEnemy {
@@ -479,6 +483,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 
 extension GameScene {
     
+    private struct Constants {
+        
+    }
     
 }
 

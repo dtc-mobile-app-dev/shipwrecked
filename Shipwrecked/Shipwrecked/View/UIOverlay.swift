@@ -14,11 +14,23 @@ struct UIOverlay: View {
                 .scaledToFit()
                 .shadow(color: .white, radius: 25)
             
-            Image("InventoryIcon")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 75, height: 75)
-                .shadow(color: .white, radius: 25)
+            NavigationLink {
+                
+                /// Will go to Inventory View like sheet or a popup
+                
+            } label: {
+                Image("OrangeBox")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75)
+                    .shadow(color: .white, radius: 25)
+                    .overlay {
+                        Image("InventoryIcon")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .padding(.bottom, 5)
+                    }
+            }
         }
         .padding(.bottom, 275)
     }

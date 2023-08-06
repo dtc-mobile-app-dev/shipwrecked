@@ -6,14 +6,8 @@
 //
 
 import SwiftUI
-import SpriteKit
-
-/// FIRST SCREEN OR LOADING SCREEN
 
 struct MenuView: View {
-    
-    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
-        
     var body: some View {
         NavigationStack {
             ZStack {
@@ -31,7 +25,7 @@ struct MenuView: View {
                     
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFontBlock.title)
+                        .font(CustomFont8Bit.large)
                         .kerning(2.5)
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)

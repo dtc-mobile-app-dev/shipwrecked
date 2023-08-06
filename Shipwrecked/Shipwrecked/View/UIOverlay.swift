@@ -9,25 +9,18 @@ import SwiftUI
 
 struct UIOverlay: View {
     var body: some View {
-        VStack{
-            HStack {
-                Image("HealthBar6MAX")
-                Spacer()
-                Image("BorderWithRedBackground")
-                    .resizable()
-                    .frame(width: 70, height: 70)
-                    .overlay{ Image("Gun")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(5)
-                    }
-                Image("InventoryIconNew")
-                    .resizable()
-                    .frame(width: 70, height: 70)
-            }
-            .padding(.top)
-            Spacer()
+        HStack(spacing: 550) {
+            Image("HealthBar6MAX")
+                .scaledToFit()
+                .shadow(color: .white, radius: 25)
+            
+            Image("InventoryIcon")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 75, height: 75)
+                .shadow(color: .white, radius: 25)
         }
+        .padding(.bottom, 275)
     }
 }
 

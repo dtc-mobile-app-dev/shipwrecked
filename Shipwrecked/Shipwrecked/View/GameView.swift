@@ -10,7 +10,7 @@ import SpriteKit
 
 struct GameView: View {
     
-    @StateObject var scene = SKScene(fileNamed: "VolcanoScene.sks") as! GameScene
+    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks") as! GameScene
     
     var body: some View {
         ZStack {

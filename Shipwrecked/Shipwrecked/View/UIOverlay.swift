@@ -9,9 +9,11 @@ import SwiftUI
 
 struct UIOverlay: View {
     var body: some View {
-        HStack(spacing: 550) {
+        HStack(spacing: 500) {
             Image("HealthBar6MAX")
+                .resizable()
                 .scaledToFit()
+//                .frame(width: 200, height: 200)
                 .shadow(color: .white, radius: 25)
             
             NavigationLink {
@@ -28,6 +30,8 @@ struct UIOverlay: View {
                         Image("InventoryIcon")
                             .resizable()
                             .frame(width: 50, height: 50)
+                            .shadow(color: .white, radius: 5)
+
                             .padding(.bottom, 5)
                     }
             }

@@ -25,7 +25,7 @@ struct MenuView: View {
                     
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFont8Bit.large)
+                        .font(CustomFontBlock.title)
                         .kerning(2.5)
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width, alignment: .bottom)

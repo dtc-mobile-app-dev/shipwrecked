@@ -12,22 +12,22 @@ struct YouWinView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
-            Image("Sun")
+            Image("PurpleSun")
                 .resizable()
                 .scaledToFit()
                 .scaleEffect(1.5)
             
             Text("YOU SURVIVED")
-                .font(CustomFont8Bit.large)
+                .font(CustomFontBlock.title)
                 .foregroundColor(.white)
-                .padding(.bottom, 100)
+                .padding(.bottom, 175)
             
             NavigationLink {
                 MenuView()
                     .navigationBarBackButtonHidden(true)
             } label: {
                 Text("PLAY AGAIN")
-                    .font(CustomFont8Bit.body)
+                    .font(CustomFontBlock.small)
                     .foregroundColor(.white)
                     .padding(.top, 300)
                     .padding(.trailing, 500)

@@ -20,7 +20,9 @@ struct YouWinView: View {
             Text("YOU SURVIVED")
                 .font(CustomFontBlock.title)
                 .foregroundColor(.white)
+                .shadow(color: .white, radius: 1.5)
                 .padding(.bottom, 175)
+            
             
             NavigationLink {
                 MenuView()

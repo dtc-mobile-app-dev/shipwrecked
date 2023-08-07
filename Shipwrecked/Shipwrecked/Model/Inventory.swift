@@ -9,7 +9,8 @@ import Foundation
 
 struct Inventory {
     let inventorySlots: Int
-    let availableInventorySlots: Int
+    var availableInventorySlots: Int
+    var usedInventorySlots: Int
     var canUse: Bool
 }
 

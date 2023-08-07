@@ -8,7 +8,6 @@
 import SwiftUI
 import SpriteKit
 
-
 struct GameView: View {
     
     @StateObject var scene = SKScene(fileNamed: "VolcanoScene.sks") as! GameScene

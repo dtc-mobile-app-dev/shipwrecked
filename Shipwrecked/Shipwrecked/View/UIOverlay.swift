@@ -9,25 +9,33 @@ import SwiftUI
 
 struct UIOverlay: View {
     var body: some View {
-        VStack{
-            HStack {
-                Image("HealthBar6MAX")
-                Spacer()
-                Image("BorderWithRedBackground")
+        HStack(spacing: 500) {
+            Image("HealthBar6MAX")
+                .resizable()
+                .scaledToFit()
+                .shadow(color: .white, radius: 25)
+            
+            NavigationLink {
+                
+                /// Will go to Inventory View like sheet or a popup
+                
+            } label: {
+                Image("OrangeBox")
                     .resizable()
-                    .frame(width: 70, height: 70)
-                    .overlay{ Image("Gun")
+                    .scaledToFit()
+                    .frame(width: 75, height: 75)
+                    .shadow(color: .white, radius: 25)
+                    .overlay {
+                        Image("InventoryIcon")
                             .resizable()
                             .frame(width: 50, height: 50)
-                            .padding(5)
+                            .shadow(color: .white, radius: 5)
+
+                            .padding(.bottom, 5)
                     }
-                Image("InventoryIconNew")
-                    .resizable()
-                    .frame(width: 70, height: 70)
             }
-            .padding(.top)
-            Spacer()
         }
+        .padding(.bottom, 275)
     }
 }
 

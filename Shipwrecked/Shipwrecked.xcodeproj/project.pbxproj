@@ -32,6 +32,7 @@
 		B3497A3F2A70771A005D645D /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3497A3E2A70771A005D645D /* NPC.swift */; };
 		B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4A2A799DD0005D645D /* IslandScene.sks */; };
 		B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4C2A799DE9005D645D /* AllTileSets.sks */; };
+		FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = FA64A5CA2A81A77F003F069F /* CaveScene.sks */; };
 		FA725EFD2A79C3B200D09378 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA725EFC2A79C3B200D09378 /* GameView.swift */; };
 		FA72F9112A7B07B600D8D25D /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */; };
 		FAF2166D2A79A810002D4CCC /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF2166C2A79A810002D4CCC /* GameScene.swift */; };
@@ -87,6 +88,7 @@
 		B3497A3E2A70771A005D645D /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
 		B3497A4A2A799DD0005D645D /* IslandScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IslandScene.sks; sourceTree = "<group>"; };
 		B3497A4C2A799DE9005D645D /* AllTileSets.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AllTileSets.sks; sourceTree = "<group>"; };
+		FA64A5CA2A81A77F003F069F /* CaveScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CaveScene.sks; sourceTree = "<group>"; };
 		FA725EFC2A79C3B200D09378 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
 		FAF2166C2A79A810002D4CCC /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		B34979B62A7059C8005D645D = {
 			isa = PBXGroup;
 			children = (
+				FA64A5CA2A81A77F003F069F /* CaveScene.sks */,
 				B3497A4C2A799DE9005D645D /* AllTileSets.sks */,
 				988D907F2A7C5BAC0050F79A /* JungleScene.sks */,
 				988D907D2A7C5B940050F79A /* VolcanoScene.sks */,
@@ -344,6 +347,7 @@
 				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
 				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
 				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
+				FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
 				988D907E2A7C5B940050F79A /* VolcanoScene.sks in Resources */,
 			);

@@ -13,7 +13,6 @@ struct UIOverlay: View {
             Image("HealthBar6MAX")
                 .resizable()
                 .scaledToFit()
-//                .frame(width: 200, height: 200)
                 .shadow(color: .white, radius: 25)
             
             NavigationLink {

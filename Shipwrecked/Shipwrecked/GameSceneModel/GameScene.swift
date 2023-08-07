@@ -65,17 +65,22 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let blank: UInt32 = 0x10000
     let blank2: UInt32 = 0x100000
     
+    let pathCategory: UInt32 = 0x10000000
+    
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
         // MARK: - TileMapNodes
+//
+//                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+//        //
+//                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+//        //
+//                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         
-                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //
-                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //
-                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: blank, scene: self)
         
         // MARK: - SignNodes
         
@@ -86,7 +91,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - Enemies
         
-        createEnemy()
+//        createEnemy()
         
         
         camera()
@@ -101,7 +106,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         captainNode = self.childNode(withName: "Captain") as! SKSpriteNode
         
         captainNode.zPosition = 10
-        captainNode.setScale(0.8)
+        captainNode.setScale(0.4)
         captainNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: captainNode.size.width / 2, height: captainNode.size.height / 2))
         captainNode.physicsBody?.categoryBitMask = playerCategory
         captainNode.physicsBody?.collisionBitMask = wallCategory
@@ -194,7 +199,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         cam = SKCameraNode()
         cam.zPosition = 10
         cam.position = CGPoint(x: 0, y: 0)
-        cam.setScale(4)
+        cam.setScale(1.2)
         
         addChild(cam)
         camera = cam

@@ -13,6 +13,8 @@ struct UIOverlay: View {
             
             signBeach1
             
+            
+            
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")
                     .resizable()
@@ -52,14 +54,25 @@ struct UIOverlay_Previews: PreviewProvider {
 
 
 extension UIOverlay {
-
+    
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 400)
+                .frame(width: 500, height: 300)
                 .scaledToFit()
-                .padding(.top, 200)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH")
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signBeach2: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable()
+            
         }
     }
 }

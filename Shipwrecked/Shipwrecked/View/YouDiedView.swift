@@ -20,7 +20,7 @@ struct YouDiedView: View {
             Text("YOU DIED")
                 .font(CustomFont8Bit.title)
                 .foregroundColor(.red)
-                .shadow(color: .red, radius: 1.5)
+                .shadow(color: .red, radius: 2.5)
             
             NavigationLink {
                 MenuView()

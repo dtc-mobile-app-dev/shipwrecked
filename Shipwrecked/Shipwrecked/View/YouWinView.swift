@@ -23,7 +23,6 @@ struct YouWinView: View {
                 .shadow(color: .white, radius: 1.5)
                 .padding(.bottom, 175)
             
-            
             NavigationLink {
                 MenuView()
                     .navigationBarBackButtonHidden(true)

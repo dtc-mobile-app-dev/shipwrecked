@@ -10,36 +10,36 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     var body: some View {
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text("select a character to continue")
+                    .font(CustomFont8Bit.medium)
+                    .foregroundColor(.white)
+                    .padding(25)
                 
-                VStack {
-                    Text("select a character to continue")
-                        .font(CustomFont8Bit.medium)
-                        .foregroundColor(.white)
-                        .padding(25)
-                    
-                    ZStack {
-                        NavigationLink {
-                            StoryView()
-                                .navigationBarBackButtonHidden(true)
-                        } label: {
-                            HStack {
-                                Image("GunnerProfilePic")
-                                    .resizable()
-                                    .scaledToFill()
-                                
-                                Image("WelderProfilePic")
-                                    .resizable()
-                                    .scaledToFill()
-                                
-                                Image("KevinProfilePic")
-                                    .resizable()
-                                    .scaledToFill()
-                            }
+                ZStack {
+                    NavigationLink {
+                        StoryView()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        HStack {
+                            Image("GunnerProfilePic")
+                                .resizable()
+                                .scaledToFill()
+                            
+                            Image("WelderProfilePic")
+                                .resizable()
+                                .scaledToFill()
+                            
+                            Image("KevinProfilePic")
+                                .resizable()
+                                .scaledToFill()
                         }
-                        .padding()
-                        .shadow(color: .white.opacity(0.25), radius: 2.5)
+                    }
+                    .padding()
+                    .shadow(color: .white.opacity(0.25), radius: 2.5)
                 }
             }
         }

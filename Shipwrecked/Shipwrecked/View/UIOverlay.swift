@@ -9,32 +9,37 @@ import SwiftUI
 
 struct UIOverlay: View {
     var body: some View {
-        HStack(spacing: 500) {
-            Image("HealthBar6MAX")
-                .resizable()
-                .scaledToFit()
-                .shadow(color: .white, radius: 25)
+        ZStack {
             
-            NavigationLink {
-                
-                /// Will go to Inventory View like sheet or a popup
-                
-            } label: {
-                Image("ORANGEBOX")
+            signBeach1
+            
+            HStack(spacing: 500) {
+                Image("HealthBar6MAX")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 75, height: 75)
                     .shadow(color: .white, radius: 25)
-                    .overlay {
-                        Image("InventoryIcon")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .shadow(color: .white, radius: 5)
-                            .padding(.bottom, 5)
-                    }
+                
+                NavigationLink {
+                    
+                    /// Will go to Inventory View like sheet or a popup
+                    
+                } label: {
+                    Image("ORANGEBOX")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 75)
+                        .shadow(color: .white, radius: 25)
+                        .overlay {
+                            Image("InventoryIcon")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .shadow(color: .white, radius: 5)
+                                .padding(.bottom, 5)
+                        }
+                }
             }
+            .padding(.bottom, 275)
         }
-        .padding(.bottom, 275)
     }
 }
 
@@ -47,10 +52,14 @@ struct UIOverlay_Previews: PreviewProvider {
 
 
 extension UIOverlay {
-    
+
     var signBeach1: some View {
-        VStack {
-            
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 400)
+                .scaledToFit()
+                .padding(.top, 200)
         }
     }
 }

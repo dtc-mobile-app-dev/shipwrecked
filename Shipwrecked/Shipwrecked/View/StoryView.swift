@@ -24,7 +24,6 @@ struct StoryView: View {
                     .font(CustomFont8Bit.body)
                     .foregroundColor(.white)
                     .padding()
-                
             }
         }
     }

@@ -20,7 +20,7 @@ struct UIOverlay: View {
                 /// Will go to Inventory View like sheet or a popup
                 
             } label: {
-                Image("OrangeBox")
+                Image("ORANGEBOX")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 75, height: 75)
@@ -30,7 +30,6 @@ struct UIOverlay: View {
                             .resizable()
                             .frame(width: 50, height: 50)
                             .shadow(color: .white, radius: 5)
-
                             .padding(.bottom, 5)
                     }
             }

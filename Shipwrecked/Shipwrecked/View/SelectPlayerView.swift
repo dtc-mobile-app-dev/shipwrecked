@@ -15,8 +15,14 @@ struct SelectPlayerView: View {
     @ObservedObject var scene:GameScene
     
     var body: some View {
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text("select a character to continue")
+                    .font(CustomFont8Bit.medium)
+                    .foregroundColor(.white)
+                    .padding(25)
                 
                 VStack {
                     
@@ -59,9 +65,11 @@ struct SelectPlayerView: View {
                                         .scaledToFill()
                                 }
                             }
+
                         }
-                        .padding()
-                        .shadow(color: .white.opacity(0.25), radius: 2.5)
+                    }
+                    .padding()
+                    .shadow(color: .white.opacity(0.25), radius: 2.5)
                 }
             }
         }

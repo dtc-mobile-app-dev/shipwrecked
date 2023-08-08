@@ -9,6 +9,11 @@
 import SwiftUI
 
 struct SelectPlayerView: View {
+    
+//    @EnvironmentObject var scene: GameScene
+    
+    @ObservedObject var scene:GameScene
+    
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
@@ -19,23 +24,48 @@ struct SelectPlayerView: View {
                     .foregroundColor(.white)
                     .padding(25)
                 
-                ZStack {
-                    NavigationLink {
-                        StoryView()
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        HStack {
-                            Image("GunnerProfilePic")
-                                .resizable()
-                                .scaledToFill()
-                            
-                            Image("WelderProfilePic")
-                                .resizable()
-                                .scaledToFill()
-                            
-                            Image("KevinProfilePic")
-                                .resizable()
-                                .scaledToFill()
+                VStack {
+                    
+                    Text("select a character to continue")
+                        .font(CustomFont8Bit.medium)
+                        .foregroundColor(.white)
+                        .padding(25)
+                    
+                    ZStack {
+                        NavigationLink {
+                            StoryView(scene: scene)
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            HStack {
+                                
+                                Image("Bullet")
+                                    .frame(width: 50, height: 50)
+                                
+                                Button {
+                                    scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+                                } label: {
+                                    Image("GunnerProfilePic")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                
+                                Button {
+                                    scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
+                                } label: {
+                                    Image("WelderProfilePic")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                
+                                Button {
+                                    scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
+                                } label: {
+                                    Image("KevinProfilePic")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                            }
+
                         }
                     }
                     .padding()
@@ -43,11 +73,5 @@ struct SelectPlayerView: View {
                 }
             }
         }
-    }
-}
-
-struct SelectPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectPlayerView().previewInterfaceOrientation(.landscapeRight)
     }
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LoadingView: View {
+    
+    @ObservedObject var scene:GameScene
+    
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
@@ -17,7 +20,7 @@ struct LoadingView: View {
                 .padding(.top, 200)
             
             NavigationLink {
-                GameView()
+                GameView(scene: scene)
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
@@ -31,8 +34,8 @@ struct LoadingView: View {
     }
 }
 
-struct LoadingView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoadingView().previewInterfaceOrientation(.landscapeRight)
-    }
-}
+//struct LoadingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoadingView().previewInterfaceOrientation(.landscapeRight)
+//    }
+//}

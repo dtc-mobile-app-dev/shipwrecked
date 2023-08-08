@@ -15,34 +15,61 @@ import SwiftUI
 final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     @Published var currentHealth = 0
+    @MainActor var joyconAngle = 0
+    @Published var currentPlayer: Player?
+    @Published var currentWeapon: Weapon?
+    
+    // MARK: Instances
     
     var animation = AnimationManager.instance
     var node = SpriteNodeManager.instance
     var tileMap = TileMapManager.instance
     
+    // MARK: - PlayerNodes
+    
+    var currentPlayerNode = SKSpriteNode()
+    
     var captainNode = SKSpriteNode()
+    var captainPosx: CGFloat = 0
+    var captainPosy: CGFloat = 0
+    
+    // MARK: - EnemyNodes
+    
     var enemyNode = SKSpriteNode()
+    //TEMP
+    
+    var enemyNode1 = SKSpriteNode()
+    var enemyNode2 = SKSpriteNode()
+    var enemyNode3 = SKSpriteNode()
+    var enemyNode4 = SKSpriteNode()
+    
+    // MARK: - Combat
+    
+    let pi = Double.pi
+    
+    var bulletNode = SKSpriteNode()
+    var swordNode = SKSpriteNode()
+    
+    var isShootin = false
+    var isFiring = false
+    var shootTimer = Timer()
+    
+    var isStrikin = false
+    var isSwingin = false
+    var swingTimer = Timer()
+    
     var signNode = SKSpriteNode()
     
-    // Leo Stuff
-    var currentWeapon: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6, isGun: false)
     let wSentientStick: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6, isGun: false)
     let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11, isGun: true)
     let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13, isGun: false)
     
-    
-    var captainPosx: CGFloat = 0
-    var captainPosy: CGFloat = 0
-    
-    var direction: Direction = .right
+    // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
     var virtualController: GCVirtualController?
     
-    let wallCategory: UInt32 = 0x1
-    let playerCategory: UInt32 = 0x10
-    let signCategory: UInt32 = 0x100
-    let enemyCategory: UInt32 = 0x1000
+    // MARK: - PlayerAnimationBools
     
     var isAnimatingLeftPlayer = false
     var isAnimatingRightPlayer = false
@@ -53,6 +80,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var isAnimatingDownRightDiagonalPlayer = false
     var isAnimatingDownLeftDiagonalPlayer = false
     
+    // MARK: - EnemyAnimationBools
+    
     var isAnimatingLeftEnemy = false
     var isAnimatingRightEnemy = false
     var isAnimatingUpEnemy = false
@@ -62,79 +91,182 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var isAnimatingDownRightDiagonalEnemy = false
     var isAnimatingDownLeftDiagonalEnemy = false
     
+    // MARK: - PHYSICS CATEGORIES
+    
+    let wallCategory: UInt32 = 0x1
+    let pathCategory: UInt32 = 0x10
+    
+    let playerCategory: UInt32 = 0x100
+    let enemyCategory: UInt32 = 0x1000
+    
+    let bulletCategory: UInt32 = 0x2
+    
+    let signCategory: UInt32 = 0x10000
+    
     let blank: UInt32 = 0x10000
     let blank2: UInt32 = 0x100000
     
-    let pathCategory: UInt32 = 0x10000000
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
         // MARK: - TileMapNodes
-
-                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //
-                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //
-                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
         
-//        tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-//        tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: blank, scene: self)
-//
+        //                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //        //
+        //                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //        //
+        //                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        
+        //        tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        //        tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: blank, scene: self)
+        
+        //
+        tileMap.createTileMapNode(tileMapSceneName: "CaveWall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
+        tileMap.createTileMapNode(tileMapSceneName: "CavePath", selfCategory: pathCategory, collisionCategory: blank, scene: self)
+        
         // MARK: - SignNodes
         
         
         // MARK: - Characters
         
-        createCaptain()
+        createPlayer()
+        
+        //        createCaptain()
         
         // MARK: - Enemies
         
-        createEnemy()
         
+        
+        
+        // MARK: - Camera/Controller
         
         camera()
         connectVirtualController()
     }
-    
     // MARK: - CHARACTERS
     
-    // MARK: - CAPTAIN
-    
-    func createCaptain() {
-        captainNode = self.childNode(withName: "Captain") as! SKSpriteNode
+    func createPlayer() {
         
-        captainNode.zPosition = 10
-        captainNode.setScale(0.4)
-        captainNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: captainNode.size.width / 2, height: captainNode.size.height / 2))
-        captainNode.physicsBody?.categoryBitMask = playerCategory
-        captainNode.physicsBody?.collisionBitMask = wallCategory
-        captainNode.physicsBody?.contactTestBitMask = wallCategory
-        captainNode.physicsBody?.allowsRotation = false
+        currentPlayerNode = .init(imageNamed: currentPlayer?.character ?? "nil")
+        
+        currentPlayerNode.position = CGPoint(x: 100, y: 100)
+        currentPlayerNode.zPosition = 9
+        currentPlayerNode.setScale(0.5)
+        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: currentPlayerNode.size)
+        currentPlayerNode.physicsBody?.categoryBitMask = playerCategory
+        currentPlayerNode.physicsBody?.collisionBitMask = wallCategory
+        currentPlayerNode.physicsBody?.contactTestBitMask = wallCategory
+        currentPlayerNode.physicsBody?.allowsRotation = false
+        
+        self.addChild(currentPlayerNode)
     }
     
-    // MARK: - ENEMIES
+    // MARK: - Enemies
     
-    func createEnemy() {
-        enemyNode = self.childNode(withName: "Enemy") as! SKSpriteNode
+    func createEnemy(withName: String, withNode: SKSpriteNode) {
         
-        enemyNode.zPosition = 10
-        enemyNode.setScale(0.8)
-        enemyNode.physicsBody = SKPhysicsBody(rectangleOf: enemyNode.size)
-        enemyNode.physicsBody?.categoryBitMask = enemyCategory
-        enemyNode.physicsBody?.collisionBitMask = playerCategory
-        enemyNode.physicsBody?.contactTestBitMask = playerCategory
-        enemyNode.physicsBody?.allowsRotation = false
+        var nodeEnemy = withNode
+        
+        nodeEnemy = self.childNode(withName: withName) as! SKSpriteNode
+        
+        nodeEnemy.name = withName
+        nodeEnemy.zPosition = 110
+        nodeEnemy.setScale(0.5)
+        nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: nodeEnemy.size)
+        nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
+        nodeEnemy.physicsBody?.collisionBitMask = bulletCategory
+        nodeEnemy.physicsBody?.contactTestBitMask = bulletCategory
+        nodeEnemy.physicsBody?.allowsRotation = false
+    }
+    
+    // MARK: - COMBAT
+    
+    @objc func gunFire() {
+        bulletNode = .init(imageNamed: "Bullet")
+        
+        bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
+        bulletNode.zPosition = 10
+        bulletNode.setScale(0.1)
+        bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
+        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        bulletNode.physicsBody?.affectedByGravity = false
+        bulletNode.physicsBody?.categoryBitMask = bulletCategory
+        bulletNode.physicsBody?.contactTestBitMask = enemyCategory
+        bulletNode.physicsBody?.collisionBitMask = enemyCategory
+        bulletNode.physicsBody?.isDynamic = false
+        bulletNode.physicsBody?.usesPreciseCollisionDetection = true
+//        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
+        
+        
+        let shoot = SKAction.move(to: CGPoint(
+            x: 2000 * cos(bulletNode.zRotation) + bulletNode.position.x,
+            y: 2000 * sin(bulletNode.zRotation) + bulletNode.position.y)
+                                  ,duration: 3.0)
+        let deleteBullet = SKAction.removeFromParent()
+        
+        let bulletSeq = SKAction.sequence([shoot, deleteBullet])
+        if isShootin {
+            self.addChild(bulletNode)
+            bulletNode.run(bulletSeq)
+        }
+    }
+    
+    func startShooting() {
+        shootTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
+        isFiring = true
+    }
+    
+    @objc func swing() {
+        swordNode = .init(imageNamed: "Cutlass")
+        
+        swordNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y - 10 )
+        swordNode.setScale(0.4)
+        swordNode.zPosition = 10
+        swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
+        swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
+        swordNode.physicsBody?.affectedByGravity = false
+        swordNode.physicsBody?.categoryBitMask = bulletCategory
+        swordNode.physicsBody?.contactTestBitMask = enemyCategory
+        swordNode.physicsBody?.collisionBitMask = enemyCategory
+        swordNode.physicsBody?.isDynamic = false
+        swordNode.physicsBody?.usesPreciseCollisionDetection = true
+        swordNode.anchorPoint = CGPoint(x:0,y: -0.2)
+        
+        var rotation = swordNode.zRotation
+        rotation += pi / 4 * 8.3
+        swordNode.zRotation = rotation
+        
+        
+        let swing = SKAction.rotate(byAngle: -pi * 2 / 3, duration: 0.7)
+        let deleteSword = SKAction.removeFromParent()
+        
+        let swingSeq = SKAction.sequence([swing, deleteSword])
+        if isSwingin {
+            self.addChild(swordNode)
+            swordNode.run(swingSeq)
+        }
+    }
+    
+    func startSwinging() {
+        swingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
+        isStrikin = true
+    }
+    
+    func updateAngle(degrees: Int, isAttacking: Bool) {
+        joyconAngle = degrees
+        self.isShootin = isAttacking
+        self.isSwingin = isAttacking
     }
     
     // MARK: - ENEMY CHASING
     
-    func enemyMove() {
-        let differenceX = enemyNode.position.x - captainNode.position.x
-        let differenceY = enemyNode.position.y - captainNode.position.y
+    func enemyMove(node: SKSpriteNode, enemyName: String) {
+        let differenceX = node.position.x - currentPlayerNode.position.x
+        let differenceY = node.position.y - currentPlayerNode.position.y
         let angle = atan2(differenceY, differenceX)
-        let chaseSpeed: CGFloat = -5
+        let chaseSpeed: CGFloat = -3
         let vx = chaseSpeed * cos(angle)
         let vy = chaseSpeed * sin(angle)
         
@@ -148,48 +280,48 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if angle2 < pi/4 { // UPRIGHT
             if !isAnimatingUpRightDiagonalEnemy {
-                animation.animate(character: "gunner", direction: .upRight, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .upRight, characterNode: node)
                 setAnimateBoolsEnemy(direction: .upRight)
             }
         } else if angle2 < pi/2 { // UP
             if !isAnimatingUpEnemy {
-                animation.animate(character: "gunner", direction: .up, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .up, characterNode: node)
                 setAnimateBoolsEnemy(direction: .up)
             }
         } else if angle2 < 3 * pi/4 { // UPLEFT
             if !isAnimatingUpLeftDiagonalEnemy {
-                animation.animate(character: "gunner", direction: .upLeft, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .upLeft, characterNode: node)
                 setAnimateBoolsEnemy(direction: .upLeft)
             }
         } else if angle2 < pi { // LEFT
             if !isAnimatingLeftEnemy {
-                animation.animate(character: "gunner", direction: .left, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .left, characterNode: node)
                 setAnimateBoolsEnemy(direction: .left)
             }
         } else if angle2 < 5 * pi/4 { // DOWNLEFT
             if !isAnimatingDownLeftDiagonalEnemy {
-                animation.animate(character: "gunner", direction: .downLeft, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .downLeft, characterNode: node)
                 setAnimateBoolsEnemy(direction: .downLeft)
             }
         } else if angle2 < 3 * pi/2 { // DOWN
             if !isAnimatingDownEnemy {
-                animation.animate(character: "gunner", direction: .down, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .down, characterNode: node)
                 setAnimateBoolsEnemy(direction: .down)
             }
         } else if angle2 < 7 * pi/4 { // DOWNRIGHT
             if !isAnimatingDownRightDiagonalEnemy {
-                animation.animate(character: "gunner", direction: .downRight, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .downRight, characterNode: node)
                 setAnimateBoolsEnemy(direction: .downRight)
             }
         } else { // RIGHT
             if !isAnimatingRightEnemy {
-                animation.animate(character: "gunner", direction: .right, characterNode: enemyNode)
+                animation.animate(character: enemyName, direction: .right, characterNode: node)
                 setAnimateBoolsEnemy(direction: .right)
             }
         }
         
-        enemyNode.position.x += vx
-        enemyNode.position.y += vy
+        node.position.x += vx
+        node.position.y += vy
     }
     
     // MARK: - CAMERA
@@ -208,15 +340,13 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - PHYSICS INTERACTION
     
     func didBegin(_ contact: SKPhysicsContact) {
-        let bodyA = contact.bodyA.node?.name
-        let bodyB = contact.bodyB.node?.name
+        let bodyA = contact.bodyA.node?.physicsBody?.categoryBitMask
+        let bodyB = contact.bodyB.node?.physicsBody?.categoryBitMask
         
-        print("ContactA = \(bodyA), ContactB \(bodyB)")
+        print("ContactA = \(bodyA), ContactB = \(bodyB)")
         
-        if((bodyA == "Captain") && (bodyB == "Sign")) {
-            
-        } else {
-            
+        if bodyA == enemyCategory && bodyB == bulletCategory {
+            contact.bodyA.node?.removeFromParent()
         }
     }
     
@@ -232,7 +362,18 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         virtualController = controller
     }
     
+    // MARK: - UPDATES
+    
     override func update(_ currentTime: TimeInterval) {
+        // MARK: -Combat
+        
+//        if !isFiring {
+//            startShooting()
+//        }
+        
+                if !isStrikin {
+                    startSwinging()
+                }
         
         // MARK: - Created controller
         
@@ -246,76 +387,76 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - Joystick Movement
         
         if captainPosy <= -0.5 && captainPosx <= -0.5 { // GOING DOWN LEFT
-            captainNode.position.y += -2.5
-            captainNode.position.x += -2.5
+            currentPlayerNode.position.y += -2.5
+            currentPlayerNode.position.x += -2.5
             
             if !isAnimatingDownLeftDiagonalPlayer {
-                animation.animate(character: "captain", direction: .downLeft, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .downLeft)
             }
         } else if captainPosy <= -0.5 && captainPosx >= 0.5 { // GOING DOWN RIGHT
-            captainNode.position.y += -2.5
-            captainNode.position.x += 2.5
+            currentPlayerNode.position.y += -2.5
+            currentPlayerNode.position.x += 2.5
             
             if !isAnimatingDownRightDiagonalPlayer {
-                animation.animate(character: "captain", direction: .downRight, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .downRight)
             }
         } else if captainPosy >= 0.5 && captainPosx <= -0.5 { // GOING UP Left
-            captainNode.position.y += 2.5
-            captainNode.position.x += -2.5
+            currentPlayerNode.position.y += 2.5
+            currentPlayerNode.position.x += -2.5
             
             if !isAnimatingUpLeftDiagonalPlayer {
-                animation.animate(character: "captain", direction: .upLeft, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .upLeft)
             }
         } else if captainPosy >= 0.5 && captainPosx >= 0.5 { // GOING UP RIGHT
-            captainNode.position.y += 2.5
-            captainNode.position.x += 2.5
+            currentPlayerNode.position.y += 2.5
+            currentPlayerNode.position.x += 2.5
             
             if !isAnimatingUpRightDiagonalPlayer {
-                animation.animate(character: "captain", direction: .upRight, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .upRight)
             }
         } else if captainPosx >= 0.5 { // GOING RIGHT
-            captainNode.position.x += 5
+            currentPlayerNode.position.x += 5
             if !isAnimatingRightPlayer {
-                animation.animate(character: "captain", direction: .right, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .right)
             }
             
         } else if captainPosx <= -0.5 { // GOING LEFT
-            captainNode.position.x -= 10
+            currentPlayerNode.position.x -= 5
             if !isAnimatingLeftPlayer {
-                animation.animate(character: "captain", direction: .left, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .left)
             }
         } else if captainPosy >= 0.5 { // GOING UP
-            captainNode.position.y += 5
+            currentPlayerNode.position.y += 5
             
             if !isAnimatingUpPlayer {
-                animation.animate(character: "captain", direction: .up, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .up)
             }
             
         } else if captainPosy <= -0.5 { // GOING DOWN
             
-            captainNode.position.y -= 5
+            currentPlayerNode.position.y -= 5
             
             if !isAnimatingDownPlayer {
-                animation.animate(character: "captain", direction: .down, characterNode: captainNode)
+                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .down)
             }
         } else {
-            captainNode.removeAllActions()
+            currentPlayerNode.removeAllActions()
             
             isAnimatingLeftPlayer = false
             isAnimatingRightPlayer = false
@@ -328,13 +469,16 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         // MARK: - Cam with Player
         
-        cam.position.x = captainNode.position.x
-        cam.position.y = captainNode.position.y
+        cam.position.x = currentPlayerNode.position.x
+        cam.position.y = currentPlayerNode.position.y
         
         // MARK: - ENEMY CHASE
         
-        enemyMove()
+        print("\(joyconAngle)")
+        
     }
+    
+    // MARK: - RESET ANIMATION PLAYER
     
     func setAnimateBoolsPlayer(direction: Direction) {
         
@@ -494,11 +638,8 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 }
 
 
-extension GameScene {
-    
-    private struct Constants {
-        
-    }
-    
+extension Int {
+    var degreesToRadians: Double { return Double(self) * .pi / 180 }
+    var radiansToDegrees: Double { return Double(self) * 180 / .pi }
 }
 

@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct MenuView: View {
+    
+    @StateObject var scene = SKScene(fileNamed: "CaveScene.sks") as! GameScene
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -20,7 +24,8 @@ struct MenuView: View {
                     .padding(.top, 25)
                 
                 NavigationLink {
-                    SelectPlayerView()
+                    SelectPlayerView(scene: scene)
+//                        .environmentObject(scene)
                         .navigationBarBackButtonHidden(true)
                     
                 } label: {

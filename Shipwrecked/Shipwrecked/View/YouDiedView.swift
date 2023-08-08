@@ -15,12 +15,14 @@ struct YouDiedView: View {
             Image("Skull")
                 .resizable()
                 .scaledToFit()
-                .scaleEffect(1.25)
+                .scaleEffect(1.15)
+                .shadow(color: .red, radius: 50)
             
             Text("YOU DIED")
                 .font(CustomFont8Bit.title)
+                .kerning(5)
                 .foregroundColor(.red)
-                .shadow(color: .red, radius: 2.5)
+                .shadow(color: .black, radius: 5)
             
             NavigationLink {
                 MenuView()

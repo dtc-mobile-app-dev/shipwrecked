@@ -22,7 +22,7 @@ struct YouWinView: View {
                 .font(CustomFontBlock.title)
                 .foregroundColor(.white)
                 .shadow(color: .pink.opacity(0.5), radius: 5)
-                .padding(.bottom, 170)
+                .padding(.bottom, 150)
             
             NavigationLink {
                 MenuView()

@@ -16,19 +16,19 @@ struct YouDiedView: View {
                 .resizable()
                 .scaledToFit()
                 .scaleEffect(1.15)
-                .shadow(color: .red, radius: 7.5)
+                .shadow(color: .red, radius: 50)
             
             Text("YOU DIED")
                 .font(CustomFont8Bit.title)
                 .kerning(4.5)
                 .foregroundColor(.red)
-                .shadow(color: .red, radius: 15)
-                .overlay {
-                    Text("YOU DIED")
-                        .font(CustomFont8Bit.title)
-                        .kerning(2.5)
-                        .foregroundColor(.black)
-                }
+                .shadow(color: .black, radius: 10)
+//                .overlay {
+//                    Text("YOU DIED")
+//                        .font(CustomFont8Bit.title)
+//                        .kerning(2.5)
+//                        .foregroundColor(.black)
+//                }
             
             NavigationLink {
                 MenuView()

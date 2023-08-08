@@ -44,3 +44,13 @@ struct UIOverlay_Previews: PreviewProvider {
             .previewInterfaceOrientation(.landscapeRight)
     }
 }
+
+
+extension UIOverlay {
+    
+    var signBeach1: some View {
+        VStack {
+            
+        }
+    }
+}

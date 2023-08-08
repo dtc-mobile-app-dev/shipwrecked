@@ -12,17 +12,25 @@ struct YouDiedView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
+            //            LinearGradient(colors: [.red.opacity(0.25), .black], startPoint: .center, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
+            
             Image("Skull")
                 .resizable()
                 .scaledToFit()
                 .scaleEffect(1.15)
-                .shadow(color: .red, radius: 50)
+                .shadow(color: .red, radius: 7.5)
             
             Text("YOU DIED")
                 .font(CustomFont8Bit.title)
                 .kerning(5)
                 .foregroundColor(.red)
-                .shadow(color: .black, radius: 5)
+                .shadow(color: .red, radius: 15)
+                .overlay {
+                    Text("YOU DIED")
+                        .font(CustomFont8Bit.title)
+                        .kerning(3.5)
+                        .foregroundColor(.black)
+                }
             
             NavigationLink {
                 MenuView()

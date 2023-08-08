@@ -15,13 +15,14 @@ struct YouWinView: View {
             Image("PurpleSun")
                 .resizable()
                 .scaledToFit()
-                .scaleEffect(1.5)
+                .scaleEffect(1.35)
+                .padding(.top)
             
             Text("YOU SURVIVED")
                 .font(CustomFontBlock.title)
                 .foregroundColor(.white)
-                .shadow(color: .white, radius: 1.5)
-                .padding(.bottom, 175)
+                .shadow(color: .pink.opacity(0.5), radius: 5)
+                .padding(.bottom, 170)
             
             NavigationLink {
                 MenuView()

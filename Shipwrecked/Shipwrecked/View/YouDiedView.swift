@@ -22,13 +22,13 @@ struct YouDiedView: View {
             
             Text("YOU DIED")
                 .font(CustomFont8Bit.title)
-                .kerning(5)
+                .kerning(3.5)
                 .foregroundColor(.red)
                 .shadow(color: .red, radius: 15)
                 .overlay {
                     Text("YOU DIED")
                         .font(CustomFont8Bit.title)
-                        .kerning(3.5)
+                        .kerning(2.5)
                         .foregroundColor(.black)
                 }
             

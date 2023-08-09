@@ -32,7 +32,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var playerPosx: CGFloat = 0
     var playerPosy: CGFloat = 0
     
-// MARK: - EnemyNodes
+    // MARK: - EnemyNodes
     
     // MARK: - CaveEnemies
     
@@ -42,15 +42,19 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave1TriggerOn = false
     
     let cave1Enemy1Node = SKSpriteNode()
+    let cave1Enemy1HealthNode = SKSpriteNode()
     var cave1Enemy1Bool = false
     
     let cave1Enemy2 = SKSpriteNode()
+    let cave1Enemy2HealthNode = SKSpriteNode()
     var cave1Enemy2Bool = false
     
     let cave1Enemy3 = SKSpriteNode()
+    let cave1Enemy3HealthNode = SKSpriteNode()
     var cave1Enemy3Bool = false
     
     let cave1Enemy4 = SKSpriteNode()
+    let cave1Enemy4HealthNode = SKSpriteNode()
     var cave1Enemy4Bool = false
     
     // Section 2
@@ -59,9 +63,20 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave2TriggerOn = false
     
     let cave2Enemy1 = SKSpriteNode()
+    let cave2Enemy1HealthNode = SKSpriteNode()
+    var cave2Enemy1Bool = false
+    
     let cave2Enemy2 = SKSpriteNode()
+    let cave2Enemy2HealthNode = SKSpriteNode()
+    var cave2Enemy2Bool = false
+    
     let cave2Enemy3 = SKSpriteNode()
+    let cave2Enemy3HealthNode = SKSpriteNode()
+    var cave2Enemy3Bool = false
+    
     let cave2Enemy4 = SKSpriteNode()
+    let cave2Enemy4HealthNode = SKSpriteNode()
+    var cave2Enemy4Bool = false
     
     // Section 3
     
@@ -69,9 +84,20 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave3TriggerOn = false
     
     let cave3Enemy1 = SKSpriteNode()
+    let cave3Enemy1HealthNode = SKSpriteNode()
+    var cave3Enemy1Bool = false
+    
     let cave3Enemy2 = SKSpriteNode()
+    let cave3Enemy2HealthNode = SKSpriteNode()
+    var cave3Enemy2Bool = false
+    
     let cave3Enemy3 = SKSpriteNode()
+    let cave3Enemy3HealthNode = SKSpriteNode()
+    var cave3Enemy3Bool = false
+    
     let cave3Enemy4 = SKSpriteNode()
+    let cave3Enemy4HealthNode = SKSpriteNode()
+    var cave3Enemy4Bool = false
     
     // Section 4
     
@@ -79,9 +105,20 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave4TriggerOn = false
     
     let cave4Enemy1 = SKSpriteNode()
+    let cave4Enemy1HealthNode = SKSpriteNode()
+    var cave4Enemy1Bool = false
+    
     let cave4Enemy2 = SKSpriteNode()
+    let cave4Enemy2HealthNode = SKSpriteNode()
+    var cave4Enemy2Bool = false
+    
     let cave4Enemy3 = SKSpriteNode()
+    let cave4Enemy3HealthNode = SKSpriteNode()
+    var cave4Enemy3Bool = false
+    
     let cave4Enemy4 = SKSpriteNode()
+    let cave4Enemy4HealthNode = SKSpriteNode()
+    var cave4Enemy4Bool = false
     
     // Section Boss
     
@@ -89,7 +126,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave5TriggerOn = false
     
     let caveBoss = SKSpriteNode()
-   
+    
     
     // MARK: - Combat
     
@@ -189,28 +226,28 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - Cave Enemies
         
         createTrigger(withName: "Cave1Trigger", withNode: cave1Trigger)
-
+        
         createEnemy(withName: "Cave1Enemy1", withNode: cave1Enemy1Node)
         createEnemy(withName: "Cave1Enemy2", withNode: cave1Enemy2)
         createEnemy(withName: "Cave1Enemy3", withNode: cave1Enemy3)
         createEnemy(withName: "Cave1Enemy4", withNode: cave1Enemy4)
         
         createTrigger(withName: "Cave2Trigger", withNode: cave2Trigger)
-
+        
         createEnemy(withName: "Cave2Enemy1", withNode: cave2Enemy1)
         createEnemy(withName: "Cave2Enemy2", withNode: cave2Enemy2)
         createEnemy(withName: "Cave2Enemy3", withNode: cave2Enemy3)
         createEnemy(withName: "Cave2Enemy4", withNode: cave2Enemy4)
         
         createTrigger(withName: "Cave3Trigger", withNode: cave3Trigger)
-
+        
         createEnemy(withName: "Cave3Enemy1", withNode: cave3Enemy1)
         createEnemy(withName: "Cave3Enemy2", withNode: cave3Enemy2)
         createEnemy(withName: "Cave3Enemy3", withNode: cave3Enemy3)
         createEnemy(withName: "Cave3Enemy4", withNode: cave3Enemy4)
         
         createTrigger(withName: "Cave4Trigger", withNode: cave4Trigger)
-
+        
         createEnemy(withName: "Cave4Enemy1", withNode: cave4Enemy1)
         createEnemy(withName: "Cave4Enemy2", withNode: cave4Enemy2)
         createEnemy(withName: "Cave4Enemy3", withNode: cave4Enemy3)
@@ -245,26 +282,26 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - Cave Enemies
         
-        "cave1Enemy1" : (health: 10, strength: 1),
-        "cave1Enemy2" : (health: 10, strength: 1),
-        "cave1Enemy3" : (health: 10, strength: 1),
-        "cave1Enemy4" : (health: 10, strength: 1),
+        "Cave1Enemy1" : (health: 2, strength: 1),
+        "Cave1Enemy2" : (health: 2, strength: 1),
+        "Cave1Enemy3" : (health: 2, strength: 1),
+        "Cave1Enemy4" : (health: 2, strength: 1),
         
-        "cave2Enemy1" : (health: 10, strength: 1),
-        "cave2Enemy2" : (health: 10, strength: 1),
-        "cave2Enemy3" : (health: 10, strength: 1),
-        "cave2Enemy4" : (health: 10, strength: 1),
+        "Cave2Enemy1" : (health: 2, strength: 1),
+        "Cave2Enemy2" : (health: 2, strength: 1),
+        "Cave2Enemy3" : (health: 2, strength: 1),
+        "Cave2Enemy4" : (health: 2, strength: 1),
         
-        "cave3Enemy1" : (health: 10, strength: 1),
-        "cave3Enemy2" : (health: 10, strength: 1),
-        "cave3Enemy3" : (health: 10, strength: 1),
-        "cave3Enemy4" : (health: 10, strength: 1),
+        "Cave3Enemy1" : (health: 2, strength: 1),
+        "Cave3Enemy2" : (health: 2, strength: 1),
+        "Cave3Enemy3" : (health: 2, strength: 1),
+        "Cave3Enemy4" : (health: 2, strength: 1),
         
-        "cave4Enemy1" : (health: 10, strength: 1),
-        "cave4Enemy2" : (health: 10, strength: 1),
-        "cave4Enemy3" : (health: 10, strength: 1),
-        "cave4Enemy4" : (health: 10, strength: 1),
-
+        "Cave4Enemy1" : (health: 2, strength: 1),
+        "Cave4Enemy2" : (health: 2, strength: 1),
+        "Cave4Enemy3" : (health: 2, strength: 1),
+        "Cave4Enemy4" : (health: 2, strength: 1),
+        
     ]
     
     
@@ -321,7 +358,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
         bulletNode.physicsBody?.usesPreciseCollisionDetection = true
-//        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
+        //        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
         
         
         let shoot = SKAction.move(to: CGPoint(
@@ -386,84 +423,93 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     // MARK: - ENEMY CHASING
     
-    func enemyMove(enemyName: String, node: SKSpriteNode, enemySceneName: String, protectBool: Bool) {
+    func enemyMove(enemyName: String, node: SKSpriteNode, enemySceneName: String, healthBarNode: SKSpriteNode) {
+        
         var nodeEnemy = node
+        var healthNode = healthBarNode
         
-        if protectBool {
+        let healthBarArray = ["1HealthBarEnemy","2HealthBarEnemy","3HealthBarEnemy"]
+        
+        if let healthIndex = enemyDictionary[enemySceneName]?.health {
+            
+            healthNode = .init(imageNamed: healthBarArray[healthIndex])
+            self.addChild(healthNode)
             nodeEnemy = self.childNode(withName: enemySceneName) as! SKSpriteNode
+            
+            nodeEnemy.zPosition = 110
+            nodeEnemy.setScale(0.5)
+            nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2, height: nodeEnemy.size.height / 2) )
+            nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
+            nodeEnemy.physicsBody?.collisionBitMask = weaponCategory | wallCategory | playerCategory | enemyCategory
+            nodeEnemy.physicsBody?.contactTestBitMask = weaponCategory | wallCategory | playerCategory | enemyCategory
+            nodeEnemy.physicsBody?.allowsRotation = false
+            
+            healthNode.position = CGPoint(x: nodeEnemy.position.x, y: nodeEnemy.position.y - 10 )
+            healthNode.setScale(1)
+            healthNode.zPosition = 10
+            healthNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
+            
+            
+            let differenceX = nodeEnemy.position.x - currentPlayerNode.position.x
+            let differenceY = nodeEnemy.position.y - currentPlayerNode.position.y
+            let angle = atan2(differenceY, differenceX)
+            let chaseSpeed: CGFloat = -3
+            let vx = chaseSpeed * cos(angle)
+            let vy = chaseSpeed * sin(angle)
+            
+            let pi = Double.pi
+            
+            var angle2 = angle + 7 * pi/8
+            
+            if angle2 < 0 {
+                angle2 = angle2 + 2 * pi
+            }
+            
+            if angle2 < pi/4 { // UPRIGHT
+                if !isAnimatingUpRightDiagonalEnemy {
+                    animation.animate(character: enemyName, direction: .upRight, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .upRight)
+                }
+            } else if angle2 < pi/2 { // UP
+                if !isAnimatingUpEnemy {
+                    animation.animate(character: enemyName, direction: .up, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .up)
+                }
+            } else if angle2 < 3 * pi/4 { // UPLEFT
+                if !isAnimatingUpLeftDiagonalEnemy {
+                    animation.animate(character: enemyName, direction: .upLeft, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .upLeft)
+                }
+            } else if angle2 < pi { // LEFT
+                if !isAnimatingLeftEnemy {
+                    animation.animate(character: enemyName, direction: .left, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .left)
+                }
+            } else if angle2 < 5 * pi/4 { // DOWNLEFT
+                if !isAnimatingDownLeftDiagonalEnemy {
+                    animation.animate(character: enemyName, direction: .downLeft, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .downLeft)
+                }
+            } else if angle2 < 3 * pi/2 { // DOWN
+                if !isAnimatingDownEnemy {
+                    animation.animate(character: enemyName, direction: .down, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .down)
+                }
+            } else if angle2 < 7 * pi/4 { // DOWNRIGHT
+                if !isAnimatingDownRightDiagonalEnemy {
+                    animation.animate(character: enemyName, direction: .downRight, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .downRight)
+                }
+            } else { // RIGHT
+                if !isAnimatingRightEnemy {
+                    animation.animate(character: enemyName, direction: .right, characterNode: nodeEnemy)
+                    setAnimateBoolsEnemy(direction: .right)
+                }
+            }
+            
+            nodeEnemy.position.x += vx
+            nodeEnemy.position.y += vy
         }
-        
-        Enemy(health: 5, strength: 1, nodeName: nodeEnemy)
-        
-        nodeEnemy.zPosition = 110
-        nodeEnemy.setScale(0.5)
-        nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2, height: nodeEnemy.size.height / 2) )
-        nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
-        nodeEnemy.physicsBody?.collisionBitMask = weaponCategory | wallCategory | playerCategory | enemyCategory
-        nodeEnemy.physicsBody?.contactTestBitMask = weaponCategory | wallCategory | playerCategory | enemyCategory
-        nodeEnemy.physicsBody?.allowsRotation = false
-        
-        
-        
-        let differenceX = nodeEnemy.position.x - currentPlayerNode.position.x
-        let differenceY = nodeEnemy.position.y - currentPlayerNode.position.y
-        let angle = atan2(differenceY, differenceX)
-        let chaseSpeed: CGFloat = -3
-        let vx = chaseSpeed * cos(angle)
-        let vy = chaseSpeed * sin(angle)
-        
-        let pi = Double.pi
-        
-        var angle2 = angle + 7 * pi/8
-        
-        if angle2 < 0 {
-            angle2 = angle2 + 2 * pi
-        }
-        
-        if angle2 < pi/4 { // UPRIGHT
-            if !isAnimatingUpRightDiagonalEnemy {
-                animation.animate(character: enemyName, direction: .upRight, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .upRight)
-            }
-        } else if angle2 < pi/2 { // UP
-            if !isAnimatingUpEnemy {
-                animation.animate(character: enemyName, direction: .up, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .up)
-            }
-        } else if angle2 < 3 * pi/4 { // UPLEFT
-            if !isAnimatingUpLeftDiagonalEnemy {
-                animation.animate(character: enemyName, direction: .upLeft, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .upLeft)
-            }
-        } else if angle2 < pi { // LEFT
-            if !isAnimatingLeftEnemy {
-                animation.animate(character: enemyName, direction: .left, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .left)
-            }
-        } else if angle2 < 5 * pi/4 { // DOWNLEFT
-            if !isAnimatingDownLeftDiagonalEnemy {
-                animation.animate(character: enemyName, direction: .downLeft, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .downLeft)
-            }
-        } else if angle2 < 3 * pi/2 { // DOWN
-            if !isAnimatingDownEnemy {
-                animation.animate(character: enemyName, direction: .down, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .down)
-            }
-        } else if angle2 < 7 * pi/4 { // DOWNRIGHT
-            if !isAnimatingDownRightDiagonalEnemy {
-                animation.animate(character: enemyName, direction: .downRight, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .downRight)
-            }
-        } else { // RIGHT
-            if !isAnimatingRightEnemy {
-                animation.animate(character: enemyName, direction: .right, characterNode: nodeEnemy)
-                setAnimateBoolsEnemy(direction: .right)
-            }
-        }
-
-        nodeEnemy.position.x += vx
-        nodeEnemy.position.y += vy
     }
     
     
@@ -493,9 +539,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         print("ContactA = \(bodyA), ContactB = \(bodyB)")
         
-        if bodyA == enemyCategory && bodyB == weaponCategory {
-            contact.bodyA.node?.removeFromParent()
-        }
         
         // MARK: - CAVE TRIGGERS
         
@@ -513,14 +556,16 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - CAVE ENEMIES
         
+        var health = enemyDictionary
+        
         if contactA == ("Cave1Enemy1") && bodyB == weaponCategory {
-            
+            health[contactA!]?.health -= 1
         } else if contactA == ("Cave1Enemy2") && bodyB == weaponCategory {
-            
+            health[contactA!]?.health -= 1
         } else if contactA == ("Cave1Enemy3") && bodyB == weaponCategory {
-            
+            health[contactA!]?.health -= 1
         } else if contactA == ("Cave1Enemy4") && bodyB == weaponCategory {
-            
+            health[contactA!]?.health -= 1
         }
         
         if contactA == ("Cave2Enemy1") && bodyB == weaponCategory {
@@ -571,44 +616,44 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     override func update(_ currentTime: TimeInterval) {
         
-//        print("\(currentHealth)")
+        //        print("\(currentHealth)")
         
         // MARK: -Combat
         
-//        if !isFiring {
-//            startShooting()
-//        }
+        //        if !isFiring {
+        //            startShooting()
+        //        }
         
-                if !isStrikin {
-                    startSwinging()
-                }
+        if !isStrikin {
+            startSwinging()
+        }
         
         // MARK: - CaveEnemyActivate
         
         if cave1TriggerOn {
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy1Node, enemySceneName: "Cave1Enemy1",protectBool: cave1Enemy1Bool)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy2, enemySceneName: "Cave1Enemy2",protectBool: cave1Enemy2Bool)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy3, enemySceneName: "Cave1Enemy3",protectBool: cave1Enemy3Bool)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy4, enemySceneName: "Cave1Enemy4",protectBool: cave1Enemy4Bool)
+            enemyMove(enemyName: "blueWarrior", node: cave1Enemy1Node, enemySceneName: "Cave1Enemy1", healthBarNode: cave1Enemy1HealthNode)
+            enemyMove(enemyName: "blueWarrior", node: cave1Enemy2, enemySceneName: "Cave1Enemy2", healthBarNode: cave1Enemy2HealthNode)
+            enemyMove(enemyName: "blueWarrior", node: cave1Enemy3, enemySceneName: "Cave1Enemy3", healthBarNode: cave1Enemy3HealthNode)
+            enemyMove(enemyName: "blueWarrior", node: cave1Enemy4, enemySceneName: "Cave1Enemy4", healthBarNode: cave1Enemy4HealthNode)
         }
-//        if cave2TriggerOn {
-//            enemyMove(enemyName: "blueWarrior", node: cave2Enemy1, enemySceneName: "Cave2Enemy1")
-//            enemyMove(enemyName: "blueWarrior", node: cave2Enemy2, enemySceneName: "Cave2Enemy2")
-//            enemyMove(enemyName: "blueWarrior", node: cave2Enemy3, enemySceneName: "Cave2Enemy3")
-//            enemyMove(enemyName: "blueWarrior", node: cave2Enemy4, enemySceneName: "Cave2Enemy4")
-//        }
-//        if cave3TriggerOn {
-//            enemyMove(enemyName: "blueWarrior", node: cave3Enemy1, enemySceneName: "Cave3Enemy1")
-//            enemyMove(enemyName: "blueWarrior", node: cave3Enemy2, enemySceneName: "Cave3Enemy2")
-//            enemyMove(enemyName: "blueWarrior", node: cave3Enemy3, enemySceneName: "Cave3Enemy3")
-//            enemyMove(enemyName: "blueWarrior", node: cave3Enemy4, enemySceneName: "Cave3Enemy4")
-//        }
-//        if cave4TriggerOn {
-//            enemyMove(enemyName: "blueWarrior", node: cave4Enemy1, enemySceneName: "Cave4Enemy1")
-//            enemyMove(enemyName: "blueWarrior", node: cave4Enemy2, enemySceneName: "Cave4Enemy2")
-//            enemyMove(enemyName: "blueWarrior", node: cave4Enemy3, enemySceneName: "Cave4Enemy3")
-//            enemyMove(enemyName: "blueWarrior", node: cave4Enemy4, enemySceneName: "Cave4Enemy4")
-//        }
+        //        if cave2TriggerOn {
+        //            enemyMove(enemyName: "blueWarrior", node: cave2Enemy1, enemySceneName: "Cave2Enemy1")
+        //            enemyMove(enemyName: "blueWarrior", node: cave2Enemy2, enemySceneName: "Cave2Enemy2")
+        //            enemyMove(enemyName: "blueWarrior", node: cave2Enemy3, enemySceneName: "Cave2Enemy3")
+        //            enemyMove(enemyName: "blueWarrior", node: cave2Enemy4, enemySceneName: "Cave2Enemy4")
+        //        }
+        //        if cave3TriggerOn {
+        //            enemyMove(enemyName: "blueWarrior", node: cave3Enemy1, enemySceneName: "Cave3Enemy1")
+        //            enemyMove(enemyName: "blueWarrior", node: cave3Enemy2, enemySceneName: "Cave3Enemy2")
+        //            enemyMove(enemyName: "blueWarrior", node: cave3Enemy3, enemySceneName: "Cave3Enemy3")
+        //            enemyMove(enemyName: "blueWarrior", node: cave3Enemy4, enemySceneName: "Cave3Enemy4")
+        //        }
+        //        if cave4TriggerOn {
+        //            enemyMove(enemyName: "blueWarrior", node: cave4Enemy1, enemySceneName: "Cave4Enemy1")
+        //            enemyMove(enemyName: "blueWarrior", node: cave4Enemy2, enemySceneName: "Cave4Enemy2")
+        //            enemyMove(enemyName: "blueWarrior", node: cave4Enemy3, enemySceneName: "Cave4Enemy3")
+        //            enemyMove(enemyName: "blueWarrior", node: cave4Enemy4, enemySceneName: "Cave4Enemy4")
+        //        }
         if cave5TriggerOn { }
         
         // MARK: - Created controller

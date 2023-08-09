@@ -6,12 +6,33 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct UIOverlay: View {
+    
+//    var signMessage: SKLabelNode!
+//    var message: String = "" {
+//        didSet {
+//            signMessage.text = "MESSAGE"
+//        }
+//    }
+    
+    @State var isAHint = false
+    @State var isASign = false {
+        didSet { isAHint.toggle() }
+    }
+    
+    
+    
+    // MARK: - BODY
+    
     var body: some View {
         ZStack {
             
-            signBeach1
+            
+            //            signBeach1
+            
+            signBeach2
             
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")
@@ -40,6 +61,12 @@ struct UIOverlay: View {
             }
             .padding(.bottom, 275)
         }
+        
+//        .alert("", isPresented: $isASign, actions: {
+//            Button("OK") {
+//
+//            }
+//        })
     }
 }
 
@@ -50,16 +77,70 @@ struct UIOverlay_Previews: PreviewProvider {
     }
 }
 
+// MARK: - EXTENSION
 
 extension UIOverlay {
-
+    
+    //    func displaySignMessage(withTitle title: String, message: String) {
+    //        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    //
+    //                let okAction = UIAlertAction(title: "OK", style: .cancel) { _ in }
+    //                alertController.addAction(okAction)
+    //    }
+    
+    
+    
+//    func displayMessage(tite: String, message: String) {
+//        let alertController = UIAlertController(title: "HINT", message: "testing", preferredStyle: .actionSheet)
+//
+//        let cancelAction = UIAlertAction(title: "message", style: .cancel, handler: nil)
+//
+//        alertController.addAction(cancelAction)
+//
+//        alertController.present(alertController, animated: true, completion: nil)
+//    }
+    
+    
+    
+//    func createSignBorderNode(radius: CGFloat) -> SKShapeNode {
+//        let node = SKShapeNode(fileNamed: "SIGN 1")
+//        return node!
+//    }
+    
+    
+    
+    func createSignLabel(text: String) -> SKLabelNode {
+        let node = SKLabelNode(text: text)
+        node.verticalAlignmentMode = .center
+        
+        return node
+    }
+    
+    
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 400)
-                .scaledToFit()
-                .padding(.top, 200)
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH clue #1")
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    
+    
+    var signBeach2: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 25)
+                .overlay {
+                    Text("Text For BEACH clue #2")
+                        .font(CustomFontBlock.small)
+                }
         }
     }
 }

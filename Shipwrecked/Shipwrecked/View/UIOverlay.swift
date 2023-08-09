@@ -30,8 +30,8 @@ struct UIOverlay: View {
         ZStack {
             
 //            signBeach1
-//            signBeach2
-//            signBeach3
+                        signBeach2
+//                        signBeach3
             
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")
@@ -117,12 +117,12 @@ extension UIOverlay {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Text for BEACH clue #1")
+                    Text("Text for BEACH clue #1 For signs")
+                        .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
     }
-    
     
     var signBeach2: some View {
         ZStack {
@@ -132,6 +132,7 @@ extension UIOverlay {
                 .padding(.top, 25)
                 .overlay {
                     Text("Text For BEACH clue #2")
+                        .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
@@ -145,9 +146,9 @@ extension UIOverlay {
                 .padding(.top, 50)
                 .overlay {
                     Text("Text for BEACH clue #3")
+                        .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
     }
-    
 }

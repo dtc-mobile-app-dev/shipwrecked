@@ -8,6 +8,13 @@
 import Foundation
 import SwiftUI
 
+struct InventoryItem: Identifiable {
+    let id = UUID
+    let name: String
+    let imageName: String
+}
+
+// Dont need these
 struct Weapon {
     let name: String
     let image: Image

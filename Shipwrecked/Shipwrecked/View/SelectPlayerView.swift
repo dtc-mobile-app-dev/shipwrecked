@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     
-//    @EnvironmentObject var scene: GameScene
-    
     @ObservedObject var scene:GameScene
     
     var body: some View {

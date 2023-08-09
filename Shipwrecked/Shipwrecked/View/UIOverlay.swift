@@ -29,9 +29,9 @@ struct UIOverlay: View {
     var body: some View {
         ZStack {
             
-            signBeach1
-            //            signBeach2
-            //            signBeach3
+//            signBeach1
+                        signBeach2
+//                        signBeach3
             
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")

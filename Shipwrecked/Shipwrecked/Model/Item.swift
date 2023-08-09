@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct InventoryItem: Identifiable {
-    let id = UUID
+    let id = UUID()
     let name: String
     let imageName: String
 }

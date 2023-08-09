@@ -30,7 +30,7 @@ struct UIOverlay: View {
         ZStack {
             
 //            signBeach1
-                        signBeach2
+//                        signBeach2
 //                        signBeach3
             
             HStack(spacing: 500) {

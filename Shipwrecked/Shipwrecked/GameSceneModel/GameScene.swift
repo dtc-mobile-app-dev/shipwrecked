@@ -304,10 +304,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     ]
     
-    
-    
-    
-    
     func createEnemy(withName: String, withNode: SKSpriteNode) {
         
         var nodeEnemy = withNode
@@ -432,11 +428,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if let healthIndex = enemyDictionary[enemySceneName]?.health {
             
-            healthNode = .init(imageNamed: healthBarArray[healthIndex])
-            self.addChild(healthNode)
+            healthNode = self.childNode(withName: healthBarArray[healthIndex]) as! SKSpriteNode
+//            self.addChild(healthNode)
             nodeEnemy = self.childNode(withName: enemySceneName) as! SKSpriteNode
             
-            nodeEnemy.zPosition = 110
+            nodeEnemy.zPosition = 5
             nodeEnemy.setScale(0.5)
             nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2, height: nodeEnemy.size.height / 2) )
             nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
@@ -444,11 +440,15 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             nodeEnemy.physicsBody?.contactTestBitMask = weaponCategory | wallCategory | playerCategory | enemyCategory
             nodeEnemy.physicsBody?.allowsRotation = false
             
-            healthNode.position = CGPoint(x: nodeEnemy.position.x, y: nodeEnemy.position.y - 10 )
-            healthNode.setScale(1)
+            healthNode.position = CGPoint(x: nodeEnemy.position.x, y: nodeEnemy.position.y + 70 )
+            healthNode.setScale(0.5)
             healthNode.zPosition = 10
             healthNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
-            
+            healthNode.physicsBody?.categoryBitMask = blank2
+            healthNode.physicsBody?.collisionBitMask = blank2
+            healthNode.physicsBody?.contactTestBitMask = blank2
+            healthNode.physicsBody?.isDynamic = false
+            healthNode.physicsBody?.allowsRotation = false
             
             let differenceX = nodeEnemy.position.x - currentPlayerNode.position.x
             let differenceY = nodeEnemy.position.y - currentPlayerNode.position.y
@@ -536,9 +536,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bodyA = contact.bodyA.node?.physicsBody?.categoryBitMask
         let bodyB = contact.bodyB.node?.physicsBody?.categoryBitMask
-        
-        print("ContactA = \(bodyA), ContactB = \(bodyB)")
-        
         
         // MARK: - CAVE TRIGGERS
         

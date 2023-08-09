@@ -10,12 +10,12 @@ import SpriteKit
 
 struct UIOverlay: View {
     
-//    var signMessage: SKLabelNode!
-//    var message: String = "" {
-//        didSet {
-//            signMessage.text = "MESSAGE"
-//        }
-//    }
+    //    var signMessage: SKLabelNode!
+    //    var message: String = "" {
+    //        didSet {
+    //            signMessage.text = "MESSAGE"
+    //        }
+    //    }
     
     @State var isAHint = false
     @State var isASign = false {
@@ -29,10 +29,9 @@ struct UIOverlay: View {
     var body: some View {
         ZStack {
             
-            
-            //            signBeach1
-            
-            signBeach2
+//            signBeach1
+//            signBeach2
+//            signBeach3
             
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")
@@ -61,12 +60,6 @@ struct UIOverlay: View {
             }
             .padding(.bottom, 275)
         }
-        
-//        .alert("", isPresented: $isASign, actions: {
-//            Button("OK") {
-//
-//            }
-//        })
     }
 }
 
@@ -90,22 +83,22 @@ extension UIOverlay {
     
     
     
-//    func displayMessage(tite: String, message: String) {
-//        let alertController = UIAlertController(title: "HINT", message: "testing", preferredStyle: .actionSheet)
-//
-//        let cancelAction = UIAlertAction(title: "message", style: .cancel, handler: nil)
-//
-//        alertController.addAction(cancelAction)
-//
-//        alertController.present(alertController, animated: true, completion: nil)
-//    }
+    //    func displayMessage(tite: String, message: String) {
+    //        let alertController = UIAlertController(title: "HINT", message: "testing", preferredStyle: .actionSheet)
+    //
+    //        let cancelAction = UIAlertAction(title: "message", style: .cancel, handler: nil)
+    //
+    //        alertController.addAction(cancelAction)
+    //
+    //        alertController.present(alertController, animated: true, completion: nil)
+    //    }
     
     
     
-//    func createSignBorderNode(radius: CGFloat) -> SKShapeNode {
-//        let node = SKShapeNode(fileNamed: "SIGN 1")
-//        return node!
-//    }
+    //    func createSignBorderNode(radius: CGFloat) -> SKShapeNode {
+    //        let node = SKShapeNode(fileNamed: "SIGN 1")
+    //        return node!
+    //    }
     
     
     
@@ -143,4 +136,18 @@ extension UIOverlay {
                 }
         }
     }
+    
+    var signBeach3: some View {
+        ZStack {
+            Image("Paper1")
+                .resizable()
+                .frame(width: 600, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH clue #3")
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    
 }

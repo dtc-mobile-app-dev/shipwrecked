@@ -60,32 +60,32 @@ class AnimationManager {
         "redWarrior" : (
                     leftImages: ["RedWarLeft1", "RedWarLeft2", "RedWarLeft3", "RedWarLeft4"],
                     rightImages: ["RedWarRight1", "RedWarRight2", "RedWarRight3", "RedWarRight4"],
-                    downImages: ["RedWarDwn1", "RedWarDwn2", "RedWarDwn3", "RedWarDwn4"],
+                    downImages: ["RedWarDown1", "RedWarDown2", "RedWarDown3", "RedWarDown4"],
                     upImages: ["RedWarUp1", "RedWarUp2", "RedWarUp3", "RedWarUp4"],
-                    upLeftImages: ["RedWarDiagUpLeft1", "RedWarDiagUpLeft2", "RedWarDiagUpLeft3", "RedWarDiagUpLeft4"],
-                    upRightImages: ["RedWarDiagUpRight1", "RedWarDiagUpRight2", "RedWarDiagUpRight3", "RedWarDiagUpRight4"],
-                    downLeftImages: ["RedWarDiagDwnLeft1", "RedWarDiagDwnLeft2", "RedWarDiagDwnLeft3", "RedWarDiagDwnLeft4"],
-                    downRightImages: ["RedWarDiagDwnRight1", "RedWarDiagDwnRight2", "RedWarDiagDwnRight3", "RedWarDiagDwnRight4"]),
+                    upLeftImages: ["RedWarDiagonalUpLeft1", "RedWarDiagonalUpLeft2", "RedWarDiagonalUpLeft3", "RedWarDiagonalUpLeft4"],
+                    upRightImages: ["RedWarDiagonalUpRight1", "RedWarDiagonalUpRight2", "RedWarDiagonalUpRight3", "RedWarDiagonalUpRight4"],
+                    downLeftImages: ["RedWarDiagDownLeft1", "RedWarDiagDownLeft2", "RedWarDiagDownLeft3", "RedWarDiagDownLeft4"],
+                    downRightImages: ["RedWarDiagDownRight1", "RedWarDiagDownRight2", "RedWarDiagDownRight3", "RedWarDiagDownRight4"]),
         
         "blueWarrior" : (
                     leftImages: ["BlueWarLeft1", "BlueWarLeft2", "BlueWarLeft3", "BlueWarLeft4"],
                     rightImages: ["BlueWarRight1", "BlueWarRight2", "BlueWarRight3", "BlueWarRight4"],
-                    downImages: ["BlueWarDwn1", "BlueWarDwn2", "BlueWarDwn3", "BlueWarDwn4"],
+                    downImages: ["BlueWarDown1", "BlueWarDown2", "BlueWarDown3", "BlueWarDown4"],
                     upImages: ["BlueWarUp1", "BlueWarUp2", "BlueWarUp3", "BlueWarUp4"],
-                    upLeftImages: ["BlueWarDiagUpLeft1", "BlueWarDiagUpLeft2", "BlueWarDiagUpLeft3", "BlueWarDiagUpLeft4"],
-                    upRightImages: ["BlueWarDiagUpRight1", "BlueWarDiagUpRight2", "BlueWarDiagUpRight3", "BlueWarDiagUpRight4"],
-                    downLeftImages: ["BlueWarDiagDwnLeft1", "BlueWarDiagDwnLeft2", "BlueWarDiagDwnLeft3", "BlueWarDiagDwnLeft4"],
-                    downRightImages: ["BlueWarDiagDwnRight1", "BlueWarDiagDwnRight2", "BlueWarDiagDwnRight3", "BlueWarDiagDwnRight4"]),
+                    upLeftImages: ["BlueWarDiagonalUpLeft1", "BlueWarDiagonalUpLeft2", "BlueWarDiagonalUpLeft3", "BlueWarDiagonalUpLeft4"],
+                    upRightImages: ["BlueWarDiagonalUpRight1", "BlueWarDiagonalUpRight2", "BlueWarDiagonalUpRight3", "BlueWarDiagonalUpRight4"],
+                    downLeftImages: ["BlueWarDiagonalDownLeft1", "BlueWarDiagonalDownLeft2", "BlueWarDiagonalDownLeft3", "BlueWarDiagonalDownLeft4"],
+                    downRightImages: ["BlueWarDiagonalDownRight1", "BlueWarDiagonalDownRight2", "BlueWarDiagonalDownRight3", "BlueWarDiagonalDownRight4"]),
         
         "pinkWarrior" : (
                     leftImages: ["PinkWarLeft1", "PinkWarLeft2", "PinkWarLeft3", "PinkWarLeft4"],
                     rightImages: ["PinkWarRight1", "PinkWarRight2", "PinkWarRight3", "PinkWarRight4"],
-                    downImages: ["PinkWarDwn1", "PinkWarDwn2", "PinkWarDwn3", "PinkWarDwn4"],
+                    downImages: ["PinkWarDown1", "PinkWarDown2", "PinkWarDown3", "PinkWarDown4"],
                     upImages: ["PinkWarUp1", "PinkWarUp2", "PinkWarUp3", "PinkWarUp4"],
-                    upLeftImages: ["PinkWarDiagUpLeft1", "PinkWarDiagUpLeft2", "PinkWarDiagUpLeft3", "PinkWarDiagUpLeft4"],
-                    upRightImages: ["PinkWarDiagUpRight1", "PinkWarDiagUpRight2", "PinkWarDiagUpRight3", "PinkWarDiagUpRight4"],
-                    downLeftImages: ["PinkWarDiagDwnLeft1", "PinkWarDiagDwnLeft2", "PinkWarDiagDwnLeft3", "PinkWarDiagDwnLeft4"],
-                    downRightImages: ["PinkWarDiagDwnRight1", "PinkWarDiagDwnRight2", "PinkWarDiagDwnRight3", "PinkWarDiagDwnRight4"]),
+                    upLeftImages: ["PinkWarDiagonalUpLeft1", "PinkWarDiagonalUpLeft2", "PinkWarDiagonalUpLeft3", "PinkWarDiagonalUpLeft4"],
+                    upRightImages: ["PinkWarDiagonalUpRight1", "PinkWarDiagonalUpRight2", "PinkWarDiagonalUpRight3", "PinkWarDiagonalUpRight4"],
+                    downLeftImages: ["PinkWarDiagonalDownLeft1", "PinkWarDiagonalDownLeft2", "PinkWarDiagonalDownLeft3", "PinkWarDiagonalDownLeft4"],
+                    downRightImages: ["PinkWarDiagonalDownRight1", "PinkWarDiagonalDownRight2", "PinkWarDiagonalDownRight3", "PinkWarDiagonalDownRight4"]),
     ]
     
     

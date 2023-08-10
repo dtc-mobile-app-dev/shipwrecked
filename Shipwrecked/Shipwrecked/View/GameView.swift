@@ -26,7 +26,6 @@ struct GameView: View {
         ZStack {
 //            if scene.isLoading {
 //                LoadingView()
-//
 //            } else {
                 
                 SpriteView(scene: scene)
@@ -34,10 +33,7 @@ struct GameView: View {
                   
                 rightstick
                     .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
-                
-                    .overlay {
-                        UIOverlay()
-                    }
+                    .overlay { UIOverlay() }
                 VStack {
                     Spacer()
                     Text(angleText)
@@ -49,7 +45,7 @@ struct GameView: View {
                         .cornerRadius(10)
                 }
             }
-//        }
+        
 //        .onAppear {
 //            scene.isLoading = false
 //        }

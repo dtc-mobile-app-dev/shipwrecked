@@ -15,42 +15,66 @@ struct SelectPlayerView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
-            NavigationLink {
-                StoryView()
-            } label: {
+            
+            VStack {
                 Text("select a character to continue")
                     .font(CustomFont8Bit.medium)
                     .foregroundColor(.white)
                     .padding(.bottom, 275)
             }
+                
+                NavigationLink {
+                    StoryView(scene: scene).navigationBarBackButtonHidden(true)
+                    
+                } label: {
+             
             
+                        Button {
+                            scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+                        } label: {
+                            Image("GunnerProfilePic").scaledToFill() }
+//
+//                        Button {
+//                            scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
+//                        } label: {
+//                            Image("WelderProfilePic").scaledToFill() }
+//
+//                        Button {
+//                            scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
+//                        } label: { Image("KevinProfilePic").scaledToFill() }
+             
+                }
             
-            //            VStack {
-            //                Text("select a character to continue")
-            //                    .font(CustomFont8Bit.medium)
-            //                    .foregroundColor(.white)
-            //                    .padding(.bottom, 275)
-            //            }
-            
-            //            NavigationLink(destination: StoryView()) {
-            //                        Button {
-            //                            scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
-            //                           } label: {Image("GunnerProfilePic").scaledToFill()}
-            //
-            //
-            //                        Button {
-            //                            scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
-            //                        } label: {Image("WelderProfilePic").scaledToFill()}
-            //
-            //                        Button {
-            //                            scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
-            //                        } label: {Image("KevinProfilePic").scaledToFill()}
-            //
-            //
-            //            }
         }
     }
 }
+
+
+//            VStack {
+//                Text("select a character to continue")
+//                    .font(CustomFont8Bit.medium)
+//                    .foregroundColor(.white)
+//                    .padding(.bottom, 275)
+//            }
+
+//            NavigationLink(destination: StoryView()) {
+
+//            HStack {
+//                Button("\(Image("GunnerProfilePic"))") {
+//                    scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+//                }
+
+//                Button {
+//                    scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+//                } label: {Image("GunnerProfilePic").scaledToFill()}
+//
+//                Button {
+//                    scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
+//                } label: {Image("WelderProfilePic").scaledToFill()}
+//
+//                Button {
+//                    scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
+//                } label: {Image("KevinProfilePic").scaledToFill()}
 
 
 //                NavigationLink {
@@ -162,7 +186,7 @@ struct SelectPlayerView: View {
 //       .padding()
 //        .shadow(color: .white.opacity(0.25), radius: 2.5)
 
-//    var ImagesOfCharacters: some View {
+
 //        HStack {
 //            Button(action: {
 //                scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
@@ -191,8 +215,10 @@ struct SelectPlayerView: View {
 //    }
 
 
-struct SelectPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectPlayerView().previewInterfaceOrientation(.landscapeRight)
-    }
-}
+
+
+//struct SelectPlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectPlayerView().previewInterfaceOrientation(.landscapeRight)
+//    }
+//}

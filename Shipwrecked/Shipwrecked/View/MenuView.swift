@@ -13,7 +13,7 @@ struct MenuView: View {
     @StateObject var scene = SKScene(fileNamed: "CaveScene.sks") as! GameScene
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 

@@ -24,10 +24,10 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            if scene.isLoading {
-                LoadingView()
-                
-            } else {
+//            if scene.isLoading {
+//                LoadingView()
+//
+//            } else {
                 
                 SpriteView(scene: scene)
                     .ignoresSafeArea()
@@ -49,10 +49,10 @@ struct GameView: View {
                         .cornerRadius(10)
                 }
             }
-        }
-        .onAppear {
-            scene.isLoading = false
-        }
+//        }
+//        .onAppear {
+//            scene.isLoading = false
+//        }
     
     }
 }

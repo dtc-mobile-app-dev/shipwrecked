@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 struct Enemy {
-    var health: Int
+//    var health: Int
     var strength: Int
     var nodeName: SKSpriteNode
 }

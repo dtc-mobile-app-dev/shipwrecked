@@ -10,66 +10,56 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     
-    @ObservedObject var scene:GameScene
-    
+    @EnvironmentObject var scene: GameScene
+    @State var playerIsSelected = false
+    @State var goToNextView = StoryView()
+
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
-            
+
             VStack {
                 Text("select a character to continue")
                     .font(CustomFont8Bit.medium)
                     .foregroundColor(.white)
-                    .padding(25)
-                
-                VStack {
-                    
-                    Text("select a character to continue")
-                        .font(CustomFont8Bit.medium)
-                        .foregroundColor(.white)
-                        .padding(25)
-                    
-                    ZStack {
-                        NavigationLink {
-                            StoryView(scene: scene)
-                                .navigationBarBackButtonHidden(true)
-                        } label: {
-                            HStack {
-                                
-                                Image("Bullet")
-                                    .frame(width: 50, height: 50)
-                                
-                                Button {
-                                    scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
-                                } label: {
-                                    Image("GunnerProfilePic")
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                
-                                Button {
-                                    scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
-                                } label: {
-                                    Image("WelderProfilePic")
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                
-                                Button {
-                                    scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
-                                } label: {
-                                    Image("KevinProfilePic")
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                            }
+                    .padding(.bottom, 315)
+            }
 
-                        }
+                HStack(spacing: -25) {
+                    Button {
+//                        scene.currentPlayerNode = SKSpriteNode(imageNamed: "GunnerRight1")
+                        scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+
+                        self.playerIsSelected.toggle()
+                    } label: {
+                        Image("GunnerProfilePic").scaledToFit()
+                            .padding(.top, 50)
+                            .shadow(color: .white.opacity(0.25), radius: 5)
                     }
-                    .padding()
-                    .shadow(color: .white.opacity(0.25), radius: 2.5)
+Button {
+                        scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
+                        self.playerIsSelected.toggle()
+                    } label: { Image("WelderProfilePic").scaledToFit().padding(.top, 75).shadow(color: .white.opacity(0.25), radius: 5) }
+
+                    Button {
+                        scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
+                        self.playerIsSelected.toggle()
+                    } label: { Image("KevinProfilePic").scaledToFill().padding(.top, 50).shadow(color: .white.opacity(0.25), radius: 5) }
+
                 }
+
+            if playerIsSelected {
+                goToNextView
+
             }
         }
     }
 }
+
+
+//struct SelectPlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectPlayerView(scene: GameScene()).previewInterfaceOrientation(.landscapeRight)
+//    }
+//}
+

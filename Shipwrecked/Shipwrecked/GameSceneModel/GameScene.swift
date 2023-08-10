@@ -511,13 +511,11 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
     }
     
-    // MARK: - FLIP thE IFS TO FIX The INSTANT DEATH ON REMOVING
-    
     func contactedEnemyRanger(enemyNode: SKNode, contactName: String) {
         if !cave1Enemy1Bool {
             enemyDictionary[contactName]?.health -= 1
             cave1Enemy1Bool = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
                 cave1Enemy1Bool = false
             }
         }

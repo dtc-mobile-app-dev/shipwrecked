@@ -10,7 +10,7 @@ import SpriteKit
 
 struct GameView: View {
     
-    @ObservedObject var scene: GameScene
+    @EnvironmentObject var scene: GameScene
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
     
@@ -25,6 +25,7 @@ struct GameView: View {
     var body: some View {
         ZStack {
             SpriteView(scene: scene)
+                .environmentObject(scene)
                 .ignoresSafeArea()
             
             rightstick

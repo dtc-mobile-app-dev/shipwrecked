@@ -13,6 +13,15 @@ import SwiftUI
 
 
 final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+    // Delete later
+    
+    
+    @Published var isLoading = false
+    
+    
+    
+    // Delete later
+    
     
     @Published var currentHealth = 0
     @MainActor var joyconAngle = 0

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoadingView: View {
     
-    @ObservedObject var scene:GameScene
+    @StateObject var scene = GameScene()
     
     var body: some View {
         ZStack {
@@ -19,23 +19,24 @@ struct LoadingView: View {
                 .resizable()
                 .padding(.top, 200)
             
-            NavigationLink {
-                GameView(scene: scene)
-                    .navigationBarBackButtonHidden(true)
-                
-            } label: {
-                Text("LOADING...")
-                    .font(CustomFont8Bit.large)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 125)
-                
-            }
+                    NavigationLink {
+                        GameView(scene: scene)
+                            .navigationBarBackButtonHidden(true)
+                        
+                    } label: {
+                        Text("LOADING...")
+                            .font(CustomFont8Bit.large)
+                            .foregroundColor(.white)
+                            .padding(.bottom, 125)
+                        
+                    }
+               
         }
     }
 }
-
+//
 //struct LoadingView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        LoadingView().previewInterfaceOrientation(.landscapeRight)
+//        LoadingView(scene: GameScene()).previewInterfaceOrientation(.landscapeRight)
 //    }
 //}

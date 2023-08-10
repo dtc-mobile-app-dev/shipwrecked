@@ -16,12 +16,19 @@ struct UIOverlay: View {
     //            signMessage.text = "MESSAGE"
     //        }
     //    }
+    func getTextForSign(message: String) -> any View {
+        let text = gameScene.currentPlayer?.character
+        let image = Image("SIGN 1").resizable().frame(width: 500, height: 300).padding(.top)
+    
+        return image.zIndex(1)
+    }
     
     @State var isAHint = false
     @State var isASign = false {
         didSet { isAHint.toggle() }
     }
     
+    @StateObject var gameScene: GameScene = GameScene()
     
     
     // MARK: - BODY
@@ -29,9 +36,11 @@ struct UIOverlay: View {
     var body: some View {
         ZStack {
             
+            
 //            signBeach1
 //                        signBeach2
 //                        signBeach3
+            
             
             HStack(spacing: 500) {
                 Image("HealthBar6MAX")
@@ -82,7 +91,6 @@ extension UIOverlay {
     //    }
     
     
-    
     //    func displayMessage(tite: String, message: String) {
     //        let alertController = UIAlertController(title: "HINT", message: "testing", preferredStyle: .actionSheet)
     //
@@ -93,21 +101,24 @@ extension UIOverlay {
     //        alertController.present(alertController, animated: true, completion: nil)
     //    }
     
-    
-    
     //    func createSignBorderNode(radius: CGFloat) -> SKShapeNode {
     //        let node = SKShapeNode(fileNamed: "SIGN 1")
     //        return node!
     //    }
     
+//    func createSignLabel(text: String) -> SKLabelNode {
+//        let node = SKLabelNode(text: text)
+//        node.verticalAlignmentMode = .center
+//
+//        return node
+//    }
     
-    
-    func createSignLabel(text: String) -> SKLabelNode {
-        let node = SKLabelNode(text: text)
-        node.verticalAlignmentMode = .center
-        
-        return node
-    }
+//    func getTextForSign(message: String) -> any View {
+//        let text = gameScene.currentPlayer?.character
+//        let image = Image("SIGN 1").resizable().frame(width: 500, height: 300).padding(.top)
+//
+//        return image.zIndex(1)
+//    }
     
     
     var signBeach1: some View {

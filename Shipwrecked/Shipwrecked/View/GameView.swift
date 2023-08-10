@@ -10,7 +10,7 @@ import SpriteKit
 
 struct GameView: View {
     
-    @ObservedObject var scene: GameScene
+    @StateObject var scene = GameScene()
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
     
@@ -24,26 +24,36 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            SpriteView(scene: scene)
-                .ignoresSafeArea()
-            
-            rightstick
-                .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
-
-                .overlay {
-                    UIOverlay()
+            if scene.isLoading {
+                LoadingView()
+                
+            } else {
+                
+                SpriteView(scene: scene)
+                    .ignoresSafeArea()
+                  
+                rightstick
+                    .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
+                
+                    .overlay {
+                        UIOverlay()
+                    }
+                VStack {
+                    Spacer()
+                    Text(angleText)
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding()
+                        .background(Color.black.opacity(0.75))
+                        .cornerRadius(10)
                 }
-            VStack {
-                Spacer()
-                Text(angleText)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .bold()
-                    .padding()
-                    .background(Color.black.opacity(0.75))
-                    .cornerRadius(10)
             }
         }
+        .onAppear {
+            scene.isLoading = false
+        }
+    
     }
 }
 

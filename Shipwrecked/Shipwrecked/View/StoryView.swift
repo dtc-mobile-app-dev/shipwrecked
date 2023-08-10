@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoryView: View {
     
-    @ObservedObject var scene:GameScene
+    @StateObject var scene = GameScene()
     
     var body: some View {
         ZStack {
@@ -17,6 +17,7 @@ struct StoryView: View {
             
             NavigationLink {
                 LoadingView(scene: scene)
+//                GameView(scene: scene)
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
@@ -26,6 +27,9 @@ struct StoryView: View {
                     .padding()
             }
         }
+//        .onDisappear {
+//            scene.isLoading = true
+//        }
     }
 }
 

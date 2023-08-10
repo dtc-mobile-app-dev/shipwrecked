@@ -31,7 +31,7 @@ struct SelectPlayerView: View {
                 HStack(spacing: -25) {
                     Button {
                         scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
-                        playerIsSelected = true
+                        self.playerIsSelected.toggle()
                     } label: {
                         Image("GunnerProfilePic").scaledToFit()
                             .padding(.top, 50)
@@ -40,20 +40,20 @@ struct SelectPlayerView: View {
                     
                     Button {
                         scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
-                        playerIsSelected = true
+                        self.playerIsSelected.toggle()
                     } label: { Image("WelderProfilePic").scaledToFit().padding(.top, 75).shadow(color: .white.opacity(0.25), radius: 5) }
                     
                     Button {
                         scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
-                        playerIsSelected = true
+                        self.playerIsSelected.toggle()
                     } label: { Image("KevinProfilePic").scaledToFill().padding(.top, 50).shadow(color: .white.opacity(0.25), radius: 5) }
                       
                 }
           
             if playerIsSelected {
                 goToNextView
-            }
                 
+            }
         }
     }
 }

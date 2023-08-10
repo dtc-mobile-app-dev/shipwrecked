@@ -17,6 +17,7 @@ struct UIOverlay: View {
     //        }
     //    }
     
+    @State var showInventory = false
     @State var isAHint = false
     @State var isASign = false {
         didSet { isAHint.toggle() }
@@ -39,9 +40,10 @@ struct UIOverlay: View {
                     .scaledToFit()
                     .shadow(color: .white, radius: 25)
                 
-                NavigationLink {
-                    
+                Button {
+                    showInventory.toggle()
                     /// Will go to Inventory View like sheet or a popup
+                    
                     
                 } label: {
                     Image("ORANGEBOX")
@@ -58,6 +60,7 @@ struct UIOverlay: View {
                         }
                 }
             }
+            
             .padding(.bottom, 275)
         }
     }

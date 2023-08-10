@@ -24,7 +24,7 @@ struct MenuView: View {
                     .padding(.top, 25)
                 
                 NavigationLink {
-                    SelectPlayerView(scene: scene)
+                    SelectPlayerView()
                         .navigationBarBackButtonHidden(true)
                     
                 } label: {
@@ -37,6 +37,7 @@ struct MenuView: View {
                 }
             }
         }
+        .environmentObject(scene)
     }
 }
 

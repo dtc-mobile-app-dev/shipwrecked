@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoadingView: View {
     
-    @StateObject var scene = GameScene()
+    @ObservedObject var scene: GameScene
     
     var body: some View {
         ZStack {

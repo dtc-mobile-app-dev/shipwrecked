@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Inventory {
+struct InventoryOld {
     let inventorySlots: Int
     var availableInventorySlots: Int
     var usedInventorySlots: Int

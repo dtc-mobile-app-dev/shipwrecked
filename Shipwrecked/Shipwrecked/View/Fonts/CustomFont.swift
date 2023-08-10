@@ -11,7 +11,7 @@ import SwiftUI
 struct CustomFontBlock {
     static let body = Font.Block(size: 24)
     static let title = Font.Block(size: 64)
-    static let small = Font.Block(size: 16)
+    static let small = Font.Block(size: 14)
     static let medium = Font.Block(size: 28)
     static let large = Font.Block(size: 100)
 }

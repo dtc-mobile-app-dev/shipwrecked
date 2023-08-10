@@ -20,13 +20,14 @@ struct GameView: View {
     @State var score = 0
     @State var angle = 0
     
+
     let bigCircleRadius: CGFloat = 100
     
     var body: some View {
         ZStack {
                 SpriteView(scene: scene)
                     .ignoresSafeArea()
-                  
+            
                 rightstick
                     .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
                     .overlay { UIOverlay() }

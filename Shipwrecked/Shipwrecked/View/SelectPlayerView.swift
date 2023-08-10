@@ -12,10 +12,10 @@ import SpriteKit
 struct SelectPlayerView: View {
     
     @ObservedObject var scene: GameScene
+//    @StateObject var scene = GameScene()
     
     @State var playerIsSelected = false
     @State var goToNextView = StoryView(scene: GameScene())
-    
 
     var body: some View {
         ZStack {
@@ -30,7 +30,9 @@ struct SelectPlayerView: View {
             
                 HStack(spacing: -25) {
                     Button {
+//                        scene.currentPlayerNode = SKSpriteNode(imageNamed: "GunnerRight1")
                         scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+                       
                         self.playerIsSelected.toggle()
                     } label: {
                         Image("GunnerProfilePic").scaledToFit()
@@ -53,6 +55,7 @@ struct SelectPlayerView: View {
             if playerIsSelected {
                 goToNextView
                 
+            
             }
         }
     }

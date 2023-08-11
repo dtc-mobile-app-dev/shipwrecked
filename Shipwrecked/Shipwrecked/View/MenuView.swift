@@ -15,25 +15,25 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
-                
-                Image("Beach")
+//                Image("AlsoKilledTheDinosaurs300")
+//                Image("WaterFire300")
+                Image("BeachForMenu")
                     .resizable()
-                    .scaledToFit()
-                    .scaleEffect(1.25)
-                    .padding(.top, 25)
-                
+//                    .scaledToFill()
+//                    .ignoresSafeArea(.all)
+//                    .frame(width: UIScreen.main.bounds.width).padding(.leading, 225)
+//                    .scaleEffect(1.25)
+//                    .frame(height: UIScreen.main.bounds.height).padding(.top, 150)
+//                    .frame(width: UIScreen.main.bounds.width).padding(.top, 100)
+
                 NavigationLink {
-                    SelectPlayerView()
-                        .navigationBarBackButtonHidden(true)
-                    
+                    SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title)
-                        .kerning(2.5)
-                        .foregroundColor(.white)
-                        .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
-                        .padding(.top, 50)
+                        .kerning(5)
+                        .foregroundColor(.black)
+                        .shadow(color: .white, radius: 1.5)
                 }
             }
         }

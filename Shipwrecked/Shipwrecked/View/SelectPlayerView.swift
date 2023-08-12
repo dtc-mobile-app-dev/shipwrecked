@@ -17,17 +17,22 @@ struct SelectPlayerView: View {
     
     var body: some View {
         ZStack {
-            Image("BoatPiecesOnBeachWithTrees")
+            Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
+            Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
+            
+            Image("BoatPiecesOnBeachWithTreesMenu")
                 .resizable()
                 .ignoresSafeArea(.all)
-                .frame(width: UIScreen.main.bounds.width, height: 375)
+                .scaledToFit()
+                .padding(.top, 50)
             
             VStack {
                 Text("SELECT A CHARACTER TO CONTINUE")
-                    .font(CustomFontBlock.medium)
+                    .font(CustomFontBlock.medium).kerning(1)
                     .foregroundColor(.black)
                     .shadow(color: .white, radius: 2.5)
                     .padding(.bottom, 275)
+                    .frame(width: UIScreen.main.bounds.width)
             }
             
             HStack(spacing: -50) {
@@ -40,19 +45,22 @@ struct SelectPlayerView: View {
                 Button { scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("WelderProfilePic").resizable().frame(width: 200, height: 200)
-                    .padding(.top, 175)
+                        .padding(.top, 175)
                 }
                 
                 Button { scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("KevinProfilePic").resizable()
                         .frame(width: 225, height: 225)
-                    .padding(.top, 125)
+                        .padding(.top, 125)
                     
                 }
             }
             
-            if playerIsSelected { goToNextView }
+            if playerIsSelected {
+                goToNextView
+                self.shadow(color: .white, radius: 10)
+            }
         }
     }
 }

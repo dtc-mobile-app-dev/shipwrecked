@@ -35,7 +35,7 @@ struct SelectPlayerView: View {
                     .frame(width: UIScreen.main.bounds.width)
             }
             
-            HStack(spacing: -50) {
+            HStack(spacing: -503) {
                 Button { scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: {
@@ -47,7 +47,6 @@ struct SelectPlayerView: View {
                 } label: { Image("WelderProfilePic").resizable().frame(width: 200, height: 200)
                         .padding(.top, 175)
                 }
-                
                 Button { scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("KevinProfilePic").resizable()
@@ -57,10 +56,7 @@ struct SelectPlayerView: View {
                 }
             }
             
-            if playerIsSelected {
-                goToNextView
-                self.shadow(color: .white, radius: 10)
-            }
+            if playerIsSelected { goToNextView }
         }
     }
 }

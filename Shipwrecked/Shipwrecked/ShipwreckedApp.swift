@@ -11,7 +11,7 @@ import SwiftUI
 struct ShipwreckedApp: App {
     var body: some Scene {
         WindowGroup {
-            MenuView()
+            MenuView().previewInterfaceOrientation(.landscapeRight)
         }
     }
 }

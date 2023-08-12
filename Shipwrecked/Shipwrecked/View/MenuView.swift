@@ -17,27 +17,15 @@ struct MenuView: View {
             ZStack {
                 Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
                 Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
-//                Image("AlsoKilledTheDinosaurs300")
-//                Image("WaterFire300")
+                
                 Image("BeachForMenu")
-                    .resizable()
-//                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).padding(.top, 50)
-                    .scaledToFill()
-                    .padding(.top).edgesIgnoringSafeArea(.all)
-//                    .frame(width: UIScreen.main.bounds.width).padding(.leading, 225)
-//                    .scaleEffect(1.25)
-//                    .frame(height: UIScreen.main.bounds.height).padding(.top, 150)
-//                    .frame(width: UIScreen.main.bounds.width).padding(.top, 100)
-
+                    .resizable().scaledToFill().edgesIgnoringSafeArea(.all).padding(.top, 25)
+                
                 NavigationLink {
                     SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFontBlock.title)
-                        .kerning(2.5)
-                        .foregroundColor(.black)
-                        .padding(.bottom)
-                        .shadow(color: .white, radius: 1.5)
+                        .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).padding(.bottom).shadow(color: .white, radius: 2.5)
                 }
             }
         }

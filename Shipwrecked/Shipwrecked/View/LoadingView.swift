@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct LoadingView: View {
-    
-    var animate = false
+    @State var startLoading = false
     var body: some View {
         ZStack {
             Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
             Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
             
             Image("LoadingBar")
-                .resizable().scaledToFit().padding(.top, 150)
-                .shadow(color: .white.opacity(0.25), radius: 2.5)
-                .animation(.easeInOut(duration: 2.5).repeatForever(), value: animate)
-            
-            NavigationLink {
-                GameView().navigationBarBackButtonHidden(true)
+                .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5)
+    
+            Button {
+                self.startLoading = true
             } label: {
                 Text("LOADING...")
-                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(1.5)
-                    .animation(.easeInOut(duration: 5).repeatForever(), value: animate)
+                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
             }
+            .background(
+                NavigationLink(destination: GameView().navigationBarBackButtonHidden(true), isActive: $startLoading) { }
+            )
+            .onAppear { self.startLoading = true }
         }
     }
 }

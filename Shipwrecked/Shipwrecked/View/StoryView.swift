@@ -19,7 +19,7 @@ struct StoryView: View {
                 
             } label: {
                 Text("You and your crewmates were sailing across the seven seas. One day, a vicious storm approached the boat with such might and destroyed the ship. You and the crew wash up on an island and are immediatley surrounded by the Native Boku Tribe. You are able to escape while the rest of the crew are captured. You must travel the island to find the rest of the crew and escape unharmed.")
-                    .font(CustomFontBlock.smallMedium).kerning(2.5).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.leading, 75).padding(.trailing, 75)
+                    .font(CustomFontBlock.body).foregroundColor(.black).shadow(color: .white, radius: 5).padding(.leading, 75).padding(.trailing, 75)
             }
         }
     }

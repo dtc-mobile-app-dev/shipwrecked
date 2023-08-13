@@ -34,16 +34,6 @@ struct GameView: View {
                 .overlay {
                     UIOverlay()
                 }
-            VStack {
-                Spacer()
-                Text(angleText)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .bold()
-                    .padding()
-                    .background(Color.black.opacity(0.75))
-                    .cornerRadius(10)
-            }
         }
     }
 }

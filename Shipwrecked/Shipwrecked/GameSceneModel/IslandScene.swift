@@ -12,12 +12,14 @@ import GameplayKit
 import SwiftUI
 
 
-final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
-    @Published var currentHealth = 0
     @MainActor var joyconAngle = 0
+    @Published var currentHealth = 0
     @Published var currentPlayer: Player?
     @Published var currentWeapon: Weapon?
+    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple")]
+    
     
     // MARK: Instances
     
@@ -25,110 +27,17 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var node = SpriteNodeManager.instance
     var tileMap = TileMapManager.instance
     
-    // MARK: - PlayerNodes
+    // MARK: - PlayerNode
     
     var currentPlayerNode = SKSpriteNode()
     
     var playerPosx: CGFloat = 0
     var playerPosy: CGFloat = 0
     
-    // MARK: - EnemyNodes
-    
-    // MARK: - CaveEnemies
-    
-    // Section 1
-    
-    let cave1Trigger = SKSpriteNode()
-    var cave1TriggerOn = false
-    
-    let cave1Enemy1 = SKSpriteNode()
-    let cave1Enemy1HealthNode = SKSpriteNode()
-    var cave1Enemy1Bool = false
-    
-    let cave1Enemy2 = SKSpriteNode()
-    let cave1Enemy2HealthNode = SKSpriteNode()
-    var cave1Enemy2Bool = false
-    
-    let cave1Enemy3 = SKSpriteNode()
-    let cave1Enemy3HealthNode = SKSpriteNode()
-    var cave1Enemy3Bool = false
-    
-    let cave1Enemy4 = SKSpriteNode()
-    let cave1Enemy4HealthNode = SKSpriteNode()
-    var cave1Enemy4Bool = false
-    
-    // Section 2
-    
-    let cave2Trigger = SKSpriteNode()
-    var cave2TriggerOn = false
-    
-    let cave2Enemy1 = SKSpriteNode()
-    let cave2Enemy1HealthNode = SKSpriteNode()
-    var cave2Enemy1Bool = false
-    
-    let cave2Enemy2 = SKSpriteNode()
-    let cave2Enemy2HealthNode = SKSpriteNode()
-    var cave2Enemy2Bool = false
-    
-    let cave2Enemy3 = SKSpriteNode()
-    let cave2Enemy3HealthNode = SKSpriteNode()
-    var cave2Enemy3Bool = false
-    
-    let cave2Enemy4 = SKSpriteNode()
-    let cave2Enemy4HealthNode = SKSpriteNode()
-    var cave2Enemy4Bool = false
-    
-    // Section 3
-    
-    let cave3Trigger = SKSpriteNode()
-    var cave3TriggerOn = false
-    
-    let cave3Enemy1 = SKSpriteNode()
-    let cave3Enemy1HealthNode = SKSpriteNode()
-    var cave3Enemy1Bool = false
-    
-    let cave3Enemy2 = SKSpriteNode()
-    let cave3Enemy2HealthNode = SKSpriteNode()
-    var cave3Enemy2Bool = false
-    
-    let cave3Enemy3 = SKSpriteNode()
-    let cave3Enemy3HealthNode = SKSpriteNode()
-    var cave3Enemy3Bool = false
-    
-    let cave3Enemy4 = SKSpriteNode()
-    let cave3Enemy4HealthNode = SKSpriteNode()
-    var cave3Enemy4Bool = false
-    
-    // Section 4
-    
-    let cave4Trigger = SKSpriteNode()
-    var cave4TriggerOn = false
-    
-    let cave4Enemy1 = SKSpriteNode()
-    let cave4Enemy1HealthNode = SKSpriteNode()
-    var cave4Enemy1Bool = false
-    
-    let cave4Enemy2 = SKSpriteNode()
-    let cave4Enemy2HealthNode = SKSpriteNode()
-    var cave4Enemy2Bool = false
-    
-    let cave4Enemy3 = SKSpriteNode()
-    let cave4Enemy3HealthNode = SKSpriteNode()
-    var cave4Enemy3Bool = false
-    
-    let cave4Enemy4 = SKSpriteNode()
-    let cave4Enemy4HealthNode = SKSpriteNode()
-    var cave4Enemy4Bool = false
-    
-    // Section Boss
-    
-    let cave5Trigger = SKSpriteNode()
-    var cave5TriggerOn = false
-    
-    let caveBoss = SKSpriteNode()
-    
-    
     // MARK: - Combat
+    
+    var meleeCombatBool = false
+    var rangerCombatBool = false
     
     let pi = Double.pi
     
@@ -192,49 +101,70 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let triggerCategory: UInt32 = 0x1000000
     let skullCategory: UInt32 = 0x10000000
     
+    var testNode = SKSpriteNode()
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        // MARK: - TileMapNodes
+        // MARK: - BEACH
         
-        //                tileMap.createTileMapNode(tileMapSceneName: "Mountains", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //        //
-        //                tileMap.createTileMapNode(tileMapSceneName: "Water", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //        //
-        //                tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        
-        //        tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, scene: self)
-        //        tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: blank, scene: self)
-        
-        //
-        tileMap.createTileMapNode(tileMapSceneName: "CaveWater", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "CaveWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "CavePath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        
-        
-        
+        tileMap.createTileMapNode(tileMapSceneName: "MountainsOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+        tileMap.createTileMapNode(tileMapSceneName: "WaterOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+        tileMap.createTileMapNode(tileMapSceneName: "Sand", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 0, scene: self)
+//        tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+
         // MARK: - SignNodes
+        
+        createTrigger(withName: "test", withNode: testNode)
         
         
         // MARK: - Characters
         
         createPlayer()
         
-        // MARK: - Cave Triggers
-        
-        createTrigger(withName: "Cave1Trigger", withNode: cave1Trigger)
-        createTrigger(withName: "Cave2Trigger", withNode: cave2Trigger)
-        createTrigger(withName: "Cave3Trigger", withNode: cave3Trigger)
-        createTrigger(withName: "Cave4Trigger", withNode: cave4Trigger)
-        
         // MARK: - Camera/Controller
         
         camera()
         connectVirtualController()
     }
-    // MARK: - CHARACTERS
+    
+    func updateAngle(isAttacking: Bool, degree: Int) {
+        self.joyconAngle = degree
+        self.isShootin = isAttacking
+        self.isSwingin = isAttacking
+    }
+    
+    // MARK: - TRANSITION FUNCS
+    
+    func transitionToJungleScene() {
+        GameData.shared.currentHealth = self.currentHealth
+        GameData.shared.currentPlayer = self.currentPlayer
+        GameData.shared.currentPlayerPositionX = -1700
+        GameData.shared.currentPlayerPositionY = 700
+        
+        GameData.shared.islandSceneActive = false
+        GameData.shared.caveSceneActive = false
+        GameData.shared.volcanoSceneActive = false
+        
+        GameData.shared.jungleSceneActive = true
+    }
+    
+    func transitionToCaveScene() {
+        GameData.shared.currentHealth = self.currentHealth
+        GameData.shared.currentPlayer = self.currentPlayer
+        GameData.shared.currentPlayerPositionX = 0
+        GameData.shared.currentPlayerPositionY = -2000
+        
+        GameData.shared.jungleSceneActive = false
+        GameData.shared.volcanoSceneActive = false
+        GameData.shared.islandSceneActive = false
+        
+        GameData.shared.caveSceneActive = true
+        
+    }
+    
+    // MARK: - Character
     
     func createPlayer() {
         
@@ -252,50 +182,12 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.addChild(currentPlayerNode)
     }
     
-    // MARK: - Enemies
+    // MARK: - EnemieStorage
     
     var enemyDictionary: [String : (health: Int, strength: Int)] = [
-        
-        // MARK: - Cave Enemies
-        
-        "Cave1Enemy1" : (health: 3, strength: 1),
-        "Cave1Enemy2" : (health: 3, strength: 1),
-        "Cave1Enemy3" : (health: 3, strength: 1),
-        "Cave1Enemy4" : (health: 3, strength: 1),
-        
-        "Cave2Enemy1" : (health: 3, strength: 1),
-        "Cave2Enemy2" : (health: 3, strength: 1),
-        "Cave2Enemy3" : (health: 3, strength: 1),
-        "Cave2Enemy4" : (health: 3, strength: 1),
-        
-        "Cave3Enemy1" : (health: 3, strength: 1),
-        "Cave3Enemy2" : (health: 3, strength: 1),
-        "Cave3Enemy3" : (health: 3, strength: 1),
-        "Cave3Enemy4" : (health: 3, strength: 1),
-        
-        "Cave4Enemy1" : (health: 3, strength: 1),
-        "Cave4Enemy2" : (health: 3, strength: 1),
-        "Cave4Enemy3" : (health: 3, strength: 1),
-        "Cave4Enemy4" : (health: 3, strength: 1),
-        
+        "Test" : (health: 10, strength: 10)
     ]
-    
-    //    func createEnemy(withName: String, withNode: SKSpriteNode) {
-    //
-    //        var nodeEnemy = withNode
-    //
-    //        nodeEnemy = self.childNode(withName: withName) as! SKSpriteNode
-    //
-    //        nodeEnemy.name = withName
-    //        nodeEnemy.zPosition = 110
-    //        nodeEnemy.setScale(0.5)
-    //        nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: nodeEnemy.size)
-    //        nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
-    //        nodeEnemy.physicsBody?.collisionBitMask = rangerCategory
-    //        nodeEnemy.physicsBody?.contactTestBitMask = rangerCategory
-    //        nodeEnemy.physicsBody?.allowsRotation = false
-    //    }
-    
+   
     // MARK: - ENEMY TRIGGER
     
     func createTrigger(withName: String, withNode: SKSpriteNode) {
@@ -305,7 +197,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         nodeTrigger = self.childNode(withName: withName) as! SKSpriteNode
         
         nodeTrigger.name = withName
-        nodeTrigger.zPosition = 0
+        nodeTrigger.zPosition = -1
         nodeTrigger.physicsBody = SKPhysicsBody(rectangleOf: nodeTrigger.size)
         nodeTrigger.physicsBody?.categoryBitMask = triggerCategory
         nodeTrigger.physicsBody?.collisionBitMask = playerCategory
@@ -319,8 +211,9 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @objc func gunFire() {
         bulletNode = .init(imageNamed: "Bullet")
         
+        bulletNode.name = "Bullet"
         bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
-        bulletNode.zPosition = 1
+        bulletNode.zPosition = 5
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         bulletNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
@@ -329,7 +222,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-        bulletNode.physicsBody?.usesPreciseCollisionDetection = true
         //        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
         
         
@@ -356,7 +248,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         swordNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y - 10 )
         swordNode.setScale(0.4)
-        swordNode.zPosition = 10
+        swordNode.zPosition = 5
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
         swordNode.physicsBody?.affectedByGravity = false
@@ -364,7 +256,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         swordNode.physicsBody?.contactTestBitMask = enemyCategory
         swordNode.physicsBody?.collisionBitMask = enemyCategory
         swordNode.physicsBody?.isDynamic = false
-        swordNode.physicsBody?.usesPreciseCollisionDetection = true
         swordNode.anchorPoint = CGPoint(x:0,y: -0.2)
         
         var rotation = swordNode.zRotation
@@ -387,20 +278,14 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         isStrikin = true
     }
     
-    func updateAngle(degrees: Int, isAttacking: Bool) {
-        joyconAngle = degrees
-        self.isShootin = isAttacking
-        self.isSwingin = isAttacking
-    }
-    
-    // MARK: - ENEMY CHASING
+    // MARK: - ENEMY Creation
     
     func enemyMove(enemyName: String, node: SKSpriteNode, enemySceneName: String, healthBarNode: SKSpriteNode) {
         
         var nodeEnemy = node
         var healthNode = healthBarNode
         
-        let healthBarArray = ["Skull","1HealthBarEnemy","2HealthBarEnemy","3HealthBarEnemy"]
+        let healthBarArray = ["Skull3","1HealthBarEnemy","2HealthBarEnemy","3HealthBarEnemy"]
         
         if let healthIndex = enemyDictionary[enemySceneName]?.health {
             if healthIndex >= 0 {
@@ -411,7 +296,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                     
                     nodeEnemy.zPosition = 5
                     nodeEnemy.setScale(0.5)
-                    nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2, height: nodeEnemy.size.height / 2) )
+                    nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2 , height: nodeEnemy.size.height) )
                     nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
                     nodeEnemy.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | enemyCategory
                     nodeEnemy.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | enemyCategory
@@ -425,7 +310,7 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                     healthNode.position = CGPoint(x: nodeEnemy.position.x, y: nodeEnemy.position.y + 70 )
                 }
                 healthNode.setScale(0.5)
-                healthNode.zPosition = 5
+                healthNode.zPosition = 6
                 healthNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: healthNode.size.width / 3 , height: healthNode.size.height * 1.6))
                 healthNode.physicsBody?.categoryBitMask = skullCategory
                 healthNode.physicsBody?.collisionBitMask = playerCategory
@@ -496,27 +381,29 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
     }
     
+    // MARK: - Combat Contacts
+    
     func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
         if enemyDictionary[contactName]!.health < 1 {
             enemyNode.removeAllActions()
             enemyNode.removeFromParent()
             enemyDictionary[contactName]?.health -= 1
         }
-        if !cave1Enemy1Bool {
+        if meleeCombatBool {
             enemyDictionary[contactName]?.health -= 1
-            cave1Enemy1Bool = true
+            meleeCombatBool = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
-                cave1Enemy1Bool = false
+                meleeCombatBool = false
             }
         }
     }
     
     func contactedEnemyRanger(enemyNode: SKNode, contactName: String) {
-        if !cave1Enemy1Bool {
+        if !rangerCombatBool {
             enemyDictionary[contactName]?.health -= 1
-            cave1Enemy1Bool = true
+            rangerCombatBool = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
-                cave1Enemy1Bool = false
+                rangerCombatBool = false
             }
         }
         if enemyDictionary[contactName]!.health < 1 {
@@ -557,60 +444,59 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let bodyA = contact.bodyA.node?.physicsBody?.categoryBitMask
         let bodyB = contact.bodyB.node?.physicsBody?.categoryBitMask
         
-        print("Contact A\(contactB) Contact B \(contactA)")
-//        print("\(bodyB)")
+        print("Contact A\(contactA) Contact B \(bodyB)")
         
-        // MARK: - CAVE TRIGGERS
+        // MARK: - Enemy Health Contact
         
-        if bodyA == playerCategory && contactB == ("Cave1Trigger") {
-            cave1TriggerOn = true
-        } else if bodyA == playerCategory && contactB == ("Cave2Trigger") {
-            cave2TriggerOn = true
-        } else if bodyA == playerCategory && contactB == ("Cave3Trigger") {
-            cave3TriggerOn = true
-        } else if bodyA == playerCategory && contactB == ("Cave4Trigger") {
-            cave4TriggerOn = true
-        } else if bodyA == playerCategory && contactB == ("Cave5Trigger") {
-            cave5TriggerOn = true
-        }
-        
-        // MARK: - CAVE ENEMIES
         if bodyA == enemyCategory && bodyB == meleeCategory {
             contactedEnemyMelee(enemyNode: contact.bodyA.node ?? SKNode(), contactName: contactA ?? "nil")
         }
+        if bodyB == enemyCategory && bodyA == meleeCategory {
+            contactedEnemyMelee(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
+        }
+
         
         if bodyA == enemyCategory && bodyB == rangerCategory {
             contactedEnemyRanger(enemyNode: contact.bodyA.node ?? SKNode(), contactName: contactA ?? "nil")
             contact.bodyB.node?.removeFromParent()
         }
+        if bodyB == enemyCategory && bodyA == rangerCategory {
+            contactedEnemyRanger(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
+            contact.bodyA.node?.removeFromParent()
+        }
         
-        //MARK: - GRAVES SECTION 1
+        // MARK: - Scenes
         
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave1Enemy1HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave1Enemy1") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave1Enemy2HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave1Enemy2") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave1Enemy3HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave1Enemy3") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave1Enemy4HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave1Enemy4") }
         
-        //MARK: - GRAVES SECTION 2
         
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave2Enemy1HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave2Enemy1") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave2Enemy2HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave2Enemy2") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave2Enemy3HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave2Enemy3") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave2Enemy4HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave2Enemy4") }
+        // MARK: - CAVE TRIGGERS
         
-        //MARK: - GRAVES SECTION 3
+        if contactA == ("test") && bodyB == playerCategory {
+            func realTransition() {
+                let caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
+                        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
+                        
+                        self.view?.presentScene(caveScene, transition: transition)
+            }
+
+        }
+        if bodyA == playerCategory && contactB == ("test") {
+            transitionToCaveScene()
+
+        }
+//        if contactA == ("Cave2Trigger") && bodyB == playerCategory {
+//            cave2TriggerOn = true
+//        }
+//        if contactA == ("Cave3Trigger") && bodyB == playerCategory {
+//            cave3TriggerOn = true
+//        }
+//        if contactA == ("Cave4Trigger") && bodyB == playerCategory {
+//            cave4TriggerOn = true
+//        }
+//        if contactA == ("Cave5Trigger") && bodyB == playerCategory {
+//            cave5TriggerOn = true
+//        }
         
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave3Enemy1HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave3Enemy1") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave3Enemy2HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave3Enemy2") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave3Enemy3HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave3Enemy3") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave3Enemy4HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave3Enemy4") }
-        
-        //MARK: - GRAVES SECTION 4
-        
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave4Enemy1HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave4Enemy1") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave4Enemy2HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave4Enemy2") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave4Enemy3HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave4Enemy3") }
-        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Cave4Enemy4HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Cave4Enemy4") }
         
     }
     
@@ -630,11 +516,6 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     override func update(_ currentTime: TimeInterval) {
         
-//                        print("ENEmy 1: \(enemyDictionary["Cave1Enemy1"]!.health)")
-//                        print("Enemy 2: \(enemyDictionary["Cave1Enemy2"]!.health)")
-//                        print("Enemy 3: \(enemyDictionary["Cave1Enemy3"]!.health)")
-//                        print("Enemy 4: \(enemyDictionary["Cave1Enemy4"]!.health)")
-        
         // MARK: -Combat
         
         if !isFiring {
@@ -646,41 +527,18 @@ final class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //        }
         //
         // MARK: - CaveEnemyActivate
-        
-        if cave1TriggerOn {
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy1, enemySceneName: "Cave1Enemy1", healthBarNode: cave1Enemy1HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy2, enemySceneName: "Cave1Enemy2", healthBarNode: cave1Enemy2HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy3, enemySceneName: "Cave1Enemy3", healthBarNode: cave1Enemy3HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave1Enemy4, enemySceneName: "Cave1Enemy4", healthBarNode: cave1Enemy4HealthNode)
-        }
-        if cave2TriggerOn {
-            enemyMove(enemyName: "blueWarrior", node: cave2Enemy1, enemySceneName: "Cave2Enemy1", healthBarNode: cave2Enemy1HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave2Enemy2, enemySceneName: "Cave2Enemy2", healthBarNode: cave2Enemy2HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave2Enemy3, enemySceneName: "Cave2Enemy3", healthBarNode: cave2Enemy3HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave2Enemy4, enemySceneName: "Cave2Enemy4", healthBarNode: cave2Enemy4HealthNode)
-        }
-        if cave3TriggerOn {
-            enemyMove(enemyName: "blueWarrior", node: cave3Enemy1, enemySceneName: "Cave3Enemy1", healthBarNode: cave3Enemy1HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave3Enemy2, enemySceneName: "Cave3Enemy2", healthBarNode: cave3Enemy2HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave3Enemy3, enemySceneName: "Cave3Enemy3", healthBarNode: cave3Enemy3HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave3Enemy4, enemySceneName: "Cave3Enemy4", healthBarNode: cave3Enemy4HealthNode)
-        }
-        if cave4TriggerOn {
-            enemyMove(enemyName: "blueWarrior", node: cave4Enemy1, enemySceneName: "Cave4Enemy1", healthBarNode: cave4Enemy1HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave4Enemy2, enemySceneName: "Cave4Enemy2", healthBarNode: cave4Enemy2HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave4Enemy3, enemySceneName: "Cave4Enemy3", healthBarNode: cave4Enemy3HealthNode)
-            enemyMove(enemyName: "blueWarrior", node: cave4Enemy4, enemySceneName: "Cave4Enemy4", healthBarNode: cave4Enemy4HealthNode)
-        }
-        if cave5TriggerOn { }
-        
+            
+//            if cave1TriggerOn {
+//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy1, enemySceneName: "Cave1Enemy1", healthBarNode: cave1Enemy1HealthNode)
+//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy2, enemySceneName: "Cave1Enemy2", healthBarNode: cave1Enemy2HealthNode)
+//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy3, enemySceneName: "Cave1Enemy3", healthBarNode: cave1Enemy3HealthNode)
+//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy4, enemySceneName: "Cave1Enemy4", healthBarNode: cave1Enemy4HealthNode)
+//            }
+           
         // MARK: - Created controller
         
         playerPosx = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value)!)
         playerPosy = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.yAxis.value)!)
-        
-        // MARK: - ButtonA
-        
-        let buttonA = (virtualController?.controller?.extendedGamepad?.buttonA.isTouched)!
         
         // MARK: - Joystick Movement
         

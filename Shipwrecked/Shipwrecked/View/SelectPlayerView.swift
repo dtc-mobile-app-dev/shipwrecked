@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     
-    @EnvironmentObject var scene: GameScene
+    @EnvironmentObject var scene: VolcanoScene
     @State var playerIsSelected = false
     @State var goToNextView = StoryView()
 
@@ -36,7 +36,7 @@ struct SelectPlayerView: View {
                             .padding(.top, 50)
                             .shadow(color: .white.opacity(0.25), radius: 5)
                     }
-Button {
+                    Button {
                         scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
                         self.playerIsSelected.toggle()
                     } label: { Image("WelderProfilePic").scaledToFit().padding(.top, 75).shadow(color: .white.opacity(0.25), radius: 5) }

@@ -130,6 +130,14 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let cave3Sign = SKSpriteNode()
     let cave4Sign = SKSpriteNode()
     
+    // MARK: - Food
+    
+    let apple1 = SKSpriteNode()
+    let apple2 = SKSpriteNode()
+    let apple3 = SKSpriteNode()
+    let watermelon1 = SKSpriteNode()
+    let watermelon2 = SKSpriteNode()
+    
     // MARK: - Combat
     
     var meleeCombatBool = false
@@ -228,6 +236,16 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         node.createSpriteNode(spriteNode: cave2Sign, sceneNodeName: "Cave2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
         node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
         node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+        
+        
+        // MARK: - FoodPickups
+        
+        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        
         
         // MARK: - Characters
         
@@ -716,6 +734,12 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if bodyB == enemyCategory && bodyA == rangerCategory {
             contactedEnemyRanger(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
             contact.bodyA.node?.removeFromParent()
+        }
+        
+        
+        // Food thingy??
+        if bodyA == playerCategory && bodyB == skullCategory {
+            contact.bodyB.node?.removeFromParent()
         }
         
         // MARK: - Scenes

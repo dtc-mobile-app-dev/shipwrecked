@@ -55,7 +55,7 @@ struct GameView: View {
         didSet { isAHint.toggle() }
     }
     
-    let item: InventoryItem
+//    let item: InventoryItem
     @State var showItem = false
     @State var showButtonText = "Show Item"
     @State var inventoryDescription = "Nothing"
@@ -227,7 +227,7 @@ extension GameView {
                 }
             }
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
-                ForEach(items) { item in
+                ForEach(IslandScene().inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
                         showInventoryDescription.toggle()
@@ -256,7 +256,7 @@ extension GameView {
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                Text(item.itemDescription)
+                Text(items[1].itemDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 HStack{
@@ -264,20 +264,28 @@ extension GameView {
                         // Make this button equip or consume or look at item depending on what the item is
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Use")
+                            if showInventoryDescription {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                Text("Use")
+                                    .foregroundColor(.black)
+                            }
                         }
                     }
                     Button {
                         // Make this button get rid of the item that is selected
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Trash")
+                            if showInventoryDescription {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                                Text("Trash")
+                                    .foregroundColor(.black)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                            }
                         }
                     }
                 }

@@ -59,6 +59,16 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11, isGun: true)
     let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13, isGun: false)
     
+    
+    // MARK: - Food
+    
+    let apple1 = SKSpriteNode()
+    let apple2 = SKSpriteNode()
+    let apple3 = SKSpriteNode()
+    let watermelon1 = SKSpriteNode()
+    let watermelon2 = SKSpriteNode()
+    
+    
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
@@ -98,6 +108,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let meleeCategory: UInt32 = 0x100000
     
     let signCategory: UInt32 = 0x1000000
+    let appleCategory: UInt32 = 0x5000
     
     let triggerCategory: UInt32 = 0x1000000
     let skullCategory: UInt32 = 0x10000000
@@ -119,6 +130,9 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         createTrigger(withName: "test", withNode: testNode)
         
+        // MARK: - FoodPickups
+        
+        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Characters
         
@@ -473,6 +487,16 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if bodyB == enemyCategory && bodyA == rangerCategory {
             contactedEnemyRanger(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
             contact.bodyA.node?.removeFromParent()
+        }
+        
+        // Food thingy?
+        if bodyA == playerCategory && bodyB == appleCategory {
+            contact.bodyB.node?.removeFromParent()
+        }
+        
+        if bodyB == playerCategory && bodyA == appleCategory {
+            contact.bodyA.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
         }
         
         // MARK: - Scenes

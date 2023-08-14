@@ -18,11 +18,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     @MainActor var joyconAngle = 0
     
-    @MainActor var currentHealth = 0
-    @MainActor var currentPlayer: Player?
-    @MainActor var currentWeapon: Weapon?
-    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
-    
     // MARK: Instances
     
     var animation = AnimationManager.instance
@@ -238,7 +233,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         createPlayer()
         
-        bossEnemy(enemyName: "caveBoss", node: caveBoss, enemySceneName: "CaveBoss", healthBarNode: caveBossHealthBar)
+        bossEnemy(enemyName: "caveBoss", node: caveBoss, enemySceneName: "BatBoss", healthBarNode: caveBossHealthBar)
         
         // MARK: - Camera/Controller
         
@@ -248,17 +243,17 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     // MARK: - TRANSITIONS
     
-    func transitionToJungleScene() {
-        GameData.shared.currentHealth = self .currentHealth
-        GameData.shared.currentPlayer = self.currentPlayer
-        GameData.shared.currentPlayerPositionX = -1700
-        GameData.shared.currentPlayerPositionY = 900
-        
-        let jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
-        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
-        
-        self.view?.presentScene(jungleScene, transition: transition)
-    }
+//    func transitionToJungleScene() {
+//        GameData.shared.currentHealth = self .currentHealth
+//        GameData.shared.currentPlayer = self.currentPlayer
+//        GameData.shared.currentPlayerPositionX = -1700
+//        GameData.shared.currentPlayerPositionY = 900
+//
+//        let jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
+//        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
+//
+//        self.view?.presentScene(jungleScene, transition: transition)
+//    }
     
     func updateAngle(isAttacking: Bool, degree: Int) {
         self.joyconAngle = degree
@@ -270,7 +265,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func createPlayer() {
         
-        currentPlayerNode = .init(imageNamed: currentPlayer?.character ?? "nil")
+        currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
         currentPlayerNode.position = CGPoint(x: playerMapPositonX, y: playerMapPositionY)
         currentPlayerNode.zPosition = 5
@@ -358,6 +353,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
+        
         
         let shoot = SKAction.move(to: CGPoint(
             x: 2000 * cos(bulletNode.zRotation) + bulletNode.position.x,
@@ -793,19 +789,19 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func connectVirtualController() {
         
-        let controllerConfic = GCVirtualController.Configuration()
-        controllerConfic.elements = [GCInputLeftThumbstick]
+        let controllerConfigure = GCVirtualController.Configuration()
+        controllerConfigure.elements = [GCInputLeftThumbstick]
         
-        let controller = GCVirtualController(configuration: controllerConfic)
-        controller.connect()
-        virtualController = controller
+        let controller2 = GCVirtualController(configuration: controllerConfigure)
+        controller2.connect()
+        virtualController = controller2
     }
     
     // MARK: - UPDATES
     
     override func update(_ currentTime: TimeInterval) {
         
-//        print("\(joyconAngle)")
+        print("\(joyconAngle)")
         
         
         // MARK: -Combat
@@ -857,9 +853,13 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
         // MARK: - Created controller
-        
-        playerPosx = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value)!)
+        if let value = virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value {
+            playerPosx = CGFloat(value)
+
+        }
         playerPosy = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.yAxis.value)!)
+        print("X AXIS \(playerPosx)")
+        print("Y AXIS \(playerPosy)")
         
         // MARK: - Joystick Movement
         
@@ -868,7 +868,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.x += -2.5
             
             if !isAnimatingDownLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .downLeft)
             }
@@ -877,7 +877,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.x += 2.5
             
             if !isAnimatingDownRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .downRight)
             }
@@ -886,7 +886,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.x += -2.5
             
             if !isAnimatingUpLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .upLeft)
             }
@@ -895,14 +895,14 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.x += 2.5
             
             if !isAnimatingUpRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .upRight)
             }
         } else if playerPosx >= 0.5 { // GOING RIGHT
             currentPlayerNode.position.x += 5
             if !isAnimatingRightPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .right)
             }
@@ -910,7 +910,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         } else if playerPosx <= -0.5 { // GOING LEFT
             currentPlayerNode.position.x -= 5
             if !isAnimatingLeftPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .left)
             }
@@ -918,7 +918,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.y += 5
             
             if !isAnimatingUpPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .up)
             }
@@ -928,7 +928,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.position.y -= 5
             
             if !isAnimatingDownPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
+                animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
                 
                 setAnimateBoolsPlayer(direction: .down)
             }

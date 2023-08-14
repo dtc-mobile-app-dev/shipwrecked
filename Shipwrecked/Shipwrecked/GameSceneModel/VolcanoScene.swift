@@ -307,12 +307,12 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        gunNode = .init(imageNamed: "Gun")
+        gunNode = .init(imageNamed: "FlintLock")
 
-        gunNode.name = "Gun"
+        gunNode.name = "FlintLock"
         gunNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
         gunNode.zPosition = 4
-        gunNode.setScale(1)
+        gunNode.setScale(0.45)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -330,9 +330,9 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let gunSeq = SKAction.sequence([gun, deleteGun])
         
-        bulletNode = .init(imageNamed: "Bullet")
+        bulletNode = .init(imageNamed: "CannonBall")
         
-        bulletNode.name = "Bullet"
+        bulletNode.name = "CannonBall"
         bulletNode.position = CGPoint(x: gunNode.position.x, y: gunNode.position.y )
         bulletNode.zPosition = 6
         bulletNode.setScale(0.1)
@@ -343,7 +343,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-//        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
+        bulletNode.anchorPoint = CGPoint(x:-4.0,y: 0)
         
         
         let shoot = SKAction.move(to: CGPoint(

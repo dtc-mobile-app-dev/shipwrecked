@@ -8,15 +8,25 @@
 import SwiftUI
 import SpriteKit
 
-struct GameView: View {
+enum Level {
+    case jungleScene
+    case scene
+    case caveScene
+    case volcanoScene
     
-    @EnvironmentObject var scene: VolcanoScene
-    //    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
-    //    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-    //    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
+}
+
+struct GameView: View {
+
+    @EnvironmentObject var scene: IslandScene
+    @EnvironmentObject var caveScene: CaveScene
+    @EnvironmentObject var jungleScene: JungleScene
+    @EnvironmentObject var volcanoScene: VolcanoScene
+
     
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
+    
     
     @GestureState var fingerLocation: CGPoint? = nil
     @GestureState var startLocation: CGPoint? = nil
@@ -55,9 +65,22 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            SpriteView(scene: scene)
-                .ignoresSafeArea()
-            
+        
+            switch GameData.shared.currentLevel {
+            case .jungleScene:
+                SpriteView(scene: jungleScene)
+                    .ignoresSafeArea()
+            case .scene:
+                SpriteView(scene: scene)
+                    .ignoresSafeArea()
+            case .caveScene:
+                SpriteView(scene: caveScene)
+                    .ignoresSafeArea()
+            case .volcanoScene:
+                SpriteView(scene: volcanoScene)
+                    .ignoresSafeArea()
+            }
+                   
             rightstick
                 .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
             
@@ -159,9 +182,9 @@ extension GameView {
         }
         
         scene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        caveScene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        jungleScene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        volcanoScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        caveScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        jungleScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        volcanoScene.updateAngle(isAttacking: isAttacking, degree: degrees)
         
         return "\(degrees)°"
     }
@@ -344,22 +367,87 @@ extension GameView {
                 }
         }
     }
-    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES
     var signBeach2: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Entrance to the Depths of the Volcano")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signBeach3: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Entrance to the Green of the Jungle")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES
+    var noteBeach1: some View {
         ZStack {
             Image("BlankPaper")
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 25)
                 .overlay {
-                    Text("Text For BEACH clue #2")
+                    Text("What is Kevin doing here? He does literally nothing! - Gerald the Gunner")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var noteBeach2: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 25)
+                .overlay {
+                    Text("Captain Doug is Kinda Smelly - Lizzie The Welder")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var noteBeach3: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 25)
+                .overlay {
+                    Text("Gerald is giving me a mean look, I don't think he likes me. I might have to throw him overboard. - Kevin")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var noteBeach4: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 25)
+                .overlay {
+                    Text("Lizzie don't like the sea, and if she don't like the sea, me don't like she - Captain Doug")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
     }
     // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
-    var signBeach3: some View {
+    var paperBeach1: some View {
         ZStack {
             Image("Paper1")
                 .resizable()

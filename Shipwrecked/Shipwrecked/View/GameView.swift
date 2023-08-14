@@ -213,7 +213,7 @@ extension GameView {
                 HStack {
                     Image("HealthBar6MAX")
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFill().padding()
                         .frame(width: 250, height: 20)
                         .shadow(color: .white, radius: 15)
                     Spacer()

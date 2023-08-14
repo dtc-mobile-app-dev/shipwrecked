@@ -291,22 +291,16 @@ extension GameView {
                 }
             }
             
-            // MARK: - Signs
-            
+            // MARK: - Signs were here
           
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
-                        .resizable()
-                        .scaledToFill().padding()
-                        .frame(width: 250, height: 20)
-                        .shadow(color: .white, radius: 15)
+                        .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 25)
                     Spacer()
                     
                     Button {
-                        withAnimation {
-                            showInventory.toggle()
-                        }
+                        withAnimation { showInventory.toggle() }
                     } label: {
                         Image("ORANGEBOX")
                             .resizable()

@@ -55,7 +55,7 @@ struct GameView: View {
         didSet { isAHint.toggle() }
     }
     
-    let item: InventoryItem
+//    let item: InventoryItem
     @State var showItem = false
     @State var showButtonText = "Show Item"
     @State var inventoryDescription = "Nothing"
@@ -227,7 +227,7 @@ extension GameView {
                 }
             }
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
-                ForEach(items) { item in
+                ForEach(IslandScene().inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
                         showInventoryDescription.toggle()
@@ -256,7 +256,7 @@ extension GameView {
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                Text(item.itemDescription)
+                Text(items[1].itemDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 HStack{
@@ -264,30 +264,39 @@ extension GameView {
                         // Make this button equip or consume or look at item depending on what the item is
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Use")
+                            if showInventoryDescription && showInventory {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                Text("Use")
+                                    .foregroundColor(.black)
+                            }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
                         // Make this button get rid of the item that is selected
+                        IslandScene().inventory.remove(at: 0)
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Trash")
+                            if showInventoryDescription && showInventory {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                                Text("Trash")
+                                    .foregroundColor(.black)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                            }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                 }
             }
             
             // MARK: - Signs
             
-            //            signBeach1
-            //                        signBeach2
-            //                        signBeach3
+          
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
@@ -321,15 +330,11 @@ extension GameView {
         }
     }
     
-    
-    // MARK: - EXTENSION
-    
-    func createSignLabel(text: String) -> SKLabelNode {
-        let node = SKLabelNode(text: text)
-        node.verticalAlignmentMode = .center
-        
-        return node
-    }
+//    func createSignLabel(text: String) -> SKLabelNode {
+//        let node = SKLabelNode(text: text)
+//        node.verticalAlignmentMode = .center
+//        return node
+//    }
     
     // MARK: - BEACH NOTES
     var beachNote1: some View {
@@ -447,18 +452,18 @@ extension GameView {
         }
     }
     // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
-    var paperBeach1: some View {
-        ZStack {
-            Image("Paper1")
-                .resizable()
-                .frame(width: 600, height: 300)
-                .padding(.top, 50)
-                .overlay {
-                    Text("Text for BEACH clue #3")
-                        .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
-                }
-        }
+//    var paperBeach1: some View {
+//        ZStack {
+//            Image("Paper1")
+//                .resizable()
+//                .frame(width: 600, height: 300)
+//                .padding(.top, 50)
+//                .overlay {
+//                    Text("Text for BEACH clue #3")
+//                        .frame(width: 350, height: 200)
+//                        .font(CustomFontBlock.small)
+//                }
+//        }
     }
     
     // Cave Signs
@@ -646,7 +651,7 @@ extension GameView {
                 }
         }
     }
-}
+
 
 struct InventoryItem: Identifiable {
     let id = UUID()

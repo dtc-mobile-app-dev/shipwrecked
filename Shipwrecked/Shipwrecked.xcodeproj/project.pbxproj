@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */; };
+		6A38683B2A8AD70D00E91EAB /* SoundEffectsForGroup in Resources */ = {isa = PBXBuildFile; fileRef = 6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */; };
 		6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4A2A7C4792005818DA /* YouWinView.swift */; };
 		6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4C2A7C48B9005818DA /* LoadingView.swift */; };
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDiedView.swift; sourceTree = "<group>"; };
+		6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundEffectsForGroup; sourceTree = "<group>"; };
 		6A67FE4A2A7C4792005818DA /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
 		6A67FE4C2A7C48B9005818DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD91E632A8AAC5300753F1D /* SoundManager.swift */,
+				6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */,
 			);
 			path = SoundManager;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				988D90802A7C5BAC0050F79A /* JungleScene.sks in Resources */,
 				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
 				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
+				6A38683B2A8AD70D00E91EAB /* SoundEffectsForGroup in Resources */,
 				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
 				FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,

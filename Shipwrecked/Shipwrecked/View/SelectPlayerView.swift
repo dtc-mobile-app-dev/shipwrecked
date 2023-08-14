@@ -40,7 +40,6 @@ struct SelectPlayerView: View {
                 Button { scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("KevinProfilePic").resizable().frame(width: 225, height: 225).padding(.top, 125) }
-
             }
             if playerIsSelected { goToNextView }
         }

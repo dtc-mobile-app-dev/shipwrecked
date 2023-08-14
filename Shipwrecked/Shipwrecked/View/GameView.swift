@@ -282,7 +282,7 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Text for BEACH clue #1 For signs")
+                    Text("Entrance to the Cave of the Beast")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
@@ -338,7 +338,7 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can produce harm")
+                    Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
@@ -351,7 +351,7 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Feed the Beast weekly,")
+                    Text("Feed the Beast weekly, we don't want to make it upset")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
@@ -365,7 +365,7 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Text for BEACH clue #1 For signs")
+                    Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
@@ -379,7 +379,46 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Text for BEACH clue #1 For signs")
+                    Text("WATCH YOUR STEP!")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signVolcano2: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signVolcano3: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signVolcano4: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("CAUTION: If angered, It will throw lava")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
@@ -393,7 +432,59 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Text for BEACH clue #1 For signs")
+                    Text("The Protector of the Green watches for intruders")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signForest2: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("PROTECT THE GREEN")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signForest3: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("A Sword of Unfathomable Power is within the Green")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signForest4: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("The Protector desires peace. DO NOT PROVOKE")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signSword1: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Only those worthy can hold the Sword of the Green")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }

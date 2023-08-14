@@ -32,9 +32,7 @@ class SoundManager {
             backgroundMusic = try AVAudioPlayer(contentsOf: url)
             backgroundMusic?.play()
             backgroundMusic?.volume = 1.0
-        } catch let error {
-            print("Error playing sound \(error.localizedDescription)")
-        }
+        } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
     // MARK: - Combat

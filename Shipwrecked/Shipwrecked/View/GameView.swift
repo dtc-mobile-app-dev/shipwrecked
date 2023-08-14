@@ -285,9 +285,7 @@ extension GameView {
             
             // MARK: - Signs
             
-            //            signBeach1
-            //                        signBeach2
-            //                        signBeach3
+          
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
@@ -321,15 +319,11 @@ extension GameView {
         }
     }
     
-    
-    // MARK: - EXTENSION
-    
-    func createSignLabel(text: String) -> SKLabelNode {
-        let node = SKLabelNode(text: text)
-        node.verticalAlignmentMode = .center
-        
-        return node
-    }
+//    func createSignLabel(text: String) -> SKLabelNode {
+//        let node = SKLabelNode(text: text)
+//        node.verticalAlignmentMode = .center
+//        return node
+//    }
     
     // MARK: - BEACH NOTES
     var beachNote1: some View {
@@ -447,18 +441,18 @@ extension GameView {
         }
     }
     // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
-    var paperBeach1: some View {
-        ZStack {
-            Image("Paper1")
-                .resizable()
-                .frame(width: 600, height: 300)
-                .padding(.top, 50)
-                .overlay {
-                    Text("Text for BEACH clue #3")
-                        .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
-                }
-        }
+//    var paperBeach1: some View {
+//        ZStack {
+//            Image("Paper1")
+//                .resizable()
+//                .frame(width: 600, height: 300)
+//                .padding(.top, 50)
+//                .overlay {
+//                    Text("Text for BEACH clue #3")
+//                        .frame(width: 350, height: 200)
+//                        .font(CustomFontBlock.small)
+//                }
+//        }
     }
     
     // Cave Signs
@@ -634,7 +628,7 @@ extension GameView {
                 }
         }
     }
-}
+
 
 struct InventoryItem: Identifiable {
     let id = UUID()

@@ -16,7 +16,6 @@ class SoundManager {
     
     var backgroundMusic: AVAudioPlayer?
     
-    
     enum MusicOption: String {
         case islandTheme
         case caveTheme
@@ -45,6 +44,8 @@ class SoundManager {
     
     enum CombatOption: String {
         case gunfire
+        case hit
+        case useSword
     }
     
     func playCombat(sound: CombatOption) {
@@ -84,7 +85,11 @@ class SoundManager {
     var soundEffecets: AVAudioPlayer?
     
     enum SoundEffect: String {
-        case idk
+        case walk
+        case bonk
+        case eat
+        case burp
+        
     }
     
     func playSoundEffect(sound: SoundEffect) {

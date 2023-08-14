@@ -12,7 +12,7 @@ struct YouDiedView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
-            Image("Skull")
+            Image("SkullDetailed")
                 .resizable().scaledToFit().scaleEffect(1.15).shadow(color: .red, radius: 10)
             
             Text("YOU DIED")

@@ -24,7 +24,7 @@ struct YouWinView: View {
             } label: {
                 Text("PLAY AGAIN")
                     .font(CustomFontBlock.small).foregroundColor(.white).padding(.top, 300)
-                    .padding(.trailing, 500).shadow(color: .pink.opacity(0.5), radius: 1.5)
+                    .padding(.trailing, 500).shadow(color: .pink.opacity(0.75), radius: 1.5)
             }
         }
     }

@@ -264,7 +264,7 @@ extension GameView {
                         // Make this button equip or consume or look at item depending on what the item is
                     } label: {
                         ZStack {
-                            if showInventoryDescription {
+                            if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
@@ -272,12 +272,14 @@ extension GameView {
                                     .foregroundColor(.black)
                             }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
                         // Make this button get rid of the item that is selected
+                        IslandScene().inventory.remove(at: 0)
                     } label: {
                         ZStack {
-                            if showInventoryDescription {
+                            if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
@@ -287,6 +289,7 @@ extension GameView {
                                 //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
                             }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                 }
             }
@@ -464,6 +467,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave1SignImage)
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
@@ -477,6 +481,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave2SignImage)
                 .overlay {
                     Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
                         .frame(width: 350, height: 200)
@@ -490,6 +495,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave3SignImage)
                 .overlay {
                     Text("Feed the Beast weekly, we don't want to make it upset")
                         .frame(width: 350, height: 200)
@@ -504,6 +510,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave4SignImage)
                 .overlay {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
@@ -518,6 +525,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano1SignImage)
                 .overlay {
                     Text("WATCH YOUR STEP!")
                         .frame(width: 350, height: 200)
@@ -531,6 +539,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano2SignImage)
                 .overlay {
                     Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
                         .frame(width: 350, height: 200)
@@ -544,6 +553,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano3SignImage)
                 .overlay {
                     Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
                         .frame(width: 350, height: 200)
@@ -557,6 +567,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano4SignImage)
                 .overlay {
                     Text("CAUTION: If angered, It will throw lava")
                         .frame(width: 350, height: 200)
@@ -571,6 +582,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle1SignImage)
                 .overlay {
                     Text("The Protector of the Green watches for intruders")
                         .frame(width: 350, height: 200)
@@ -584,6 +596,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle2SignImage)
                 .overlay {
                     Text("PROTECT THE GREEN")
                         .frame(width: 350, height: 200)
@@ -597,6 +610,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle3SignImage)
                 .overlay {
                     Text("A Sword of Unfathomable Power is within the Green")
                         .frame(width: 350, height: 200)
@@ -610,6 +624,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle4SignImage)
                 .overlay {
                     Text("The Protector desires peace. DO NOT PROVOKE")
                         .frame(width: 350, height: 200)

@@ -21,7 +21,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
     @MainActor var currentWeapon: Weapon?
-    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple")]
+    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", description: "Yum")]
     
     // MARK: Instances
     

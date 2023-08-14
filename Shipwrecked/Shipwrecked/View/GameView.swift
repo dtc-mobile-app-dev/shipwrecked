@@ -27,16 +27,16 @@ struct GameView: View {
     let bigCircleRadius: CGFloat = 100
     
     var items: [InventoryItem] = [
-    InventoryItem(name: "Cutlass", imageName: "Cutlass"),
-    InventoryItem(name: "Clam", imageName: "Clam"),
-    InventoryItem(name: "Chest", imageName: "Chest"),
-    InventoryItem(name: "Boomerang", imageName: "Boomerang"),
-    InventoryItem(name: "Skull 1", imageName: "Skull1"),
-    InventoryItem(name: "Skull 2", imageName: "Skull2"),
-    InventoryItem(name: "Boomerang 2", imageName: "Boomerang2"),
-    InventoryItem(name: "Watermelon", imageName: "Watermelon"),
-    InventoryItem(name: "Note", imageName: "Note"),
-    InventoryItem(name: "WoodPlank", imageName: "WoodPlank")
+    InventoryItem(name: "Cutlass", imageName: "Cutlass", description: "Bendy sword"),
+    InventoryItem(name: "Clam", imageName: "Clam", description: "Nothin special"),
+    InventoryItem(name: "Chest", imageName: "Chest", description: "MAN would this be cool if we coded something for it"),
+    InventoryItem(name: "Boomerang", imageName: "Boomerang", description: "Whoosh"),
+    InventoryItem(name: "Skull 1", imageName: "Skull1", description: "From the islands previous visitors"),
+    InventoryItem(name: "Skull 2", imageName: "Skull2", description: "From the islands previous visitors"),
+    InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", description: "Shoosh"),
+    InventoryItem(name: "Watermelon", imageName: "Watermelon", description: "Speed Boost maybe, or just some heals"),
+    InventoryItem(name: "Note", imageName: "Note", description: "Read Me"),
+    InventoryItem(name: "WoodPlank", imageName: "WoodPlank", description: "For the boat maybe")
     ]
     
     @State var showInventory = true
@@ -301,29 +301,38 @@ let id = UUID()
 let slotImage = "InventorySlot"
 let name: String
 let imageName: String
+let description: String
 }
 
 struct InventoryItemView: View {
     let item: InventoryItem
     @State var showItem = false
     @State var showButtonText = "Show Item"
+    @State var showInventoryDescription = false
     
     var body: some View {
-        VStack {
-            ZStack {
-                Image(item.slotImage)
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                Image(item.imageName)
-                    .resizable()
-                    .frame(width: 46, height: 46)
-                Text(item.name)
-                    .font(CustomFontBlock.small)
-                    .foregroundColor(.black)
-                    .frame(width: 120, height: 20)
-                    .padding(EdgeInsets(top: 80, leading: 0, bottom: 0, trailing: 0))
+        ZStack {
+            Button {
+                showInventoryDescription.toggle()
+            } label: {
+                ZStack {
+                    Image(item.slotImage)
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                    Image(item.imageName)
+                        .resizable()
+                        .frame(width: 46, height: 46)
+                    Text(item.name)
+                        .font(CustomFontBlock.small)
+                        .foregroundColor(.black)
+                        .frame(width: 120, height: 20)
+                        .padding(EdgeInsets(top: 80, leading: 0, bottom: 0, trailing: 0))
+                }
             }
-            
+            Image("InventoryDescription")
+                .resizable()
+                .frame(width: showInventoryDescription ? 400 : 0, height: showInventoryDescription ? 400 : 0)
+            // Text() this needs to get the discription for the clicked item
         }
     }
 }

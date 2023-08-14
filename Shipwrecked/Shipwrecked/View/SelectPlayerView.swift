@@ -10,8 +10,8 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     
-    @EnvironmentObject var scene: GameScene
-    
+    @EnvironmentObject var scene: VolcanoScene
+
     @State var playerIsSelected = false
     @State var goToNextView = StoryView()
     
@@ -28,6 +28,7 @@ struct SelectPlayerView: View {
                     .font(CustomFontBlock.medium).foregroundColor(.black)
                     .shadow(color: .white, radius: 2.5).padding(.bottom, 275).frame(width: UIScreen.main.bounds.width)
             }
+
             
             HStack(spacing: -50) {
                 Button { scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
@@ -39,6 +40,7 @@ struct SelectPlayerView: View {
                 Button { scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("KevinProfilePic").resizable().frame(width: 225, height: 225).padding(.top, 125) }
+
             }
             if playerIsSelected { goToNextView }
         }

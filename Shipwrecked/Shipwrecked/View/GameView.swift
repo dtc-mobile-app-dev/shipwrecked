@@ -10,7 +10,11 @@ import SpriteKit
 
 struct GameView: View {
     
-    @EnvironmentObject var scene: GameScene
+    @EnvironmentObject var scene: VolcanoScene
+//    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
+//    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
+//    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
+    
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
     
@@ -22,18 +26,19 @@ struct GameView: View {
     
     let bigCircleRadius: CGFloat = 100
     
+    
     var body: some View {
         ZStack {
             SpriteView(scene: scene)
-                .environmentObject(scene)
-                .ignoresSafeArea()
-            
+                    .ignoresSafeArea()
+                   
             rightstick
                 .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
 
                 .overlay {
                     UIOverlay()
                 }
+
         }
     }
 }
@@ -125,7 +130,10 @@ extension GameView {
             isAttacking = true
         }
         
-        scene.updateAngle(degrees: degrees, isAttacking: isAttacking)
+        scene.updateAngle(isAttacking: isAttacking, degree: degrees)
+//        caveScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+//        jungleScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+//        volcanoScene.updateAngle(isAttacking: isAttacking, degree: degrees)
         
         return "\(degrees)°"
     }

@@ -10,8 +10,8 @@ import SpriteKit
 
 struct MenuView: View {
     
-    @StateObject var scene = SKScene(fileNamed: "CaveScene.sks") as! GameScene
-    
+    @StateObject var scene = SKScene(fileNamed: "VolcanoScene.sks")! as! VolcanoScene
+        
     var body: some View {
         NavigationStack {
             ZStack {

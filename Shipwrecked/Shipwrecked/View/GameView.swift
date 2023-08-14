@@ -214,8 +214,8 @@ extension GameView {
                     Image("HealthBar6MAX")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 250, height: 30)
-                        .shadow(color: .white, radius: 25)
+                        .frame(width: 250, height: 20)
+                        .shadow(color: .white, radius: 15)
                     Spacer()
                     
                     Button {
@@ -227,7 +227,7 @@ extension GameView {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 75, height: 75)
-                            .shadow(color: .white, radius: 25)
+                            .shadow(color: .white, radius: 15)
                             .overlay {
                                 Image("InventoryIcon")
                                     .resizable()
@@ -273,8 +273,8 @@ extension GameView {
                     }
             }
         }
+    // MARK: - BEACH NOTES/SIGNS
 
-    // Beach Signs
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
@@ -288,7 +288,7 @@ extension GameView {
                 }
         }
     }
-    
+    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES
     var signBeach2: some View {
         ZStack {
             Image("BlankPaper")
@@ -302,7 +302,7 @@ extension GameView {
                 }
         }
     }
-    
+    // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
     var signBeach3: some View {
         ZStack {
             Image("Paper1")

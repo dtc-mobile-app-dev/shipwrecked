@@ -757,7 +757,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     func connectVirtualController() {
         
         let controllerConfic = GCVirtualController.Configuration()
-        controllerConfic.elements = [GCInputLeftThumbstick, GCInputButtonA]
+        controllerConfic.elements = [GCInputLeftThumbstick]
         
         let controller = GCVirtualController(configuration: controllerConfic)
         controller.connect()

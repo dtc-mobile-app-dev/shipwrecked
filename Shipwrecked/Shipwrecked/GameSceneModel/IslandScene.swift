@@ -481,24 +481,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
 
         }
-        if bodyA == playerCategory && contactB == ("test") {
-            transitionToCaveScene()
-
-        }
-//        if contactA == ("Cave2Trigger") && bodyB == playerCategory {
-//            cave2TriggerOn = true
-//        }
-//        if contactA == ("Cave3Trigger") && bodyB == playerCategory {
-//            cave3TriggerOn = true
-//        }
-//        if contactA == ("Cave4Trigger") && bodyB == playerCategory {
-//            cave4TriggerOn = true
-//        }
-//        if contactA == ("Cave5Trigger") && bodyB == playerCategory {
-//            cave5TriggerOn = true
-//        }
-        
-        
     }
     
     // MARK: - CONTROLLER
@@ -506,7 +488,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     func connectVirtualController() {
         
         let controllerConfic = GCVirtualController.Configuration()
-        controllerConfic.elements = [GCInputLeftThumbstick, GCInputButtonA]
+        controllerConfic.elements = [GCInputLeftThumbstick]
         
         let controller = GCVirtualController(configuration: controllerConfic)
         controller.connect()
@@ -523,18 +505,10 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             startShooting()
         }
         
-        //        if !isStrikin {
-        //            startSwinging()
-        //        }
-        //
-        // MARK: - CaveEnemyActivate
-            
-//            if cave1TriggerOn {
-//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy1, enemySceneName: "Cave1Enemy1", healthBarNode: cave1Enemy1HealthNode)
-//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy2, enemySceneName: "Cave1Enemy2", healthBarNode: cave1Enemy2HealthNode)
-//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy3, enemySceneName: "Cave1Enemy3", healthBarNode: cave1Enemy3HealthNode)
-//                enemyMove(enemyName: "blueWarrior", node: cave1Enemy4, enemySceneName: "Cave1Enemy4", healthBarNode: cave1Enemy4HealthNode)
-//            }
+        if !isStrikin {
+            startSwinging()
+        }
+        
            
         // MARK: - Created controller
         

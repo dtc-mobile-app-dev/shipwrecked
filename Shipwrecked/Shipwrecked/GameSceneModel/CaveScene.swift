@@ -333,6 +333,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     @objc func gunFire() {
         
+<<<<<<< Updated upstream
         gunNode = .init(imageNamed: "Gun")
         
         gunNode.name = "Gun"
@@ -346,6 +347,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         gunNode.anchorPoint = CGPoint(x:0.5,y: 0)
 
         
+=======
+        
+>>>>>>> Stashed changes
         
         bulletNode = .init(imageNamed: "Bullet")
         

@@ -213,9 +213,9 @@ extension GameView {
                 HStack {
                     Image("HealthBar6MAX")
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 250, height: 30)
-                        .shadow(color: .white, radius: 25)
+                        .scaledToFill().padding()
+                        .frame(width: 250, height: 20)
+                        .shadow(color: .white, radius: 15)
                     Spacer()
                     
                     Button {
@@ -227,7 +227,7 @@ extension GameView {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 75, height: 75)
-                            .shadow(color: .white, radius: 25)
+                            .shadow(color: .white, radius: 15)
                             .overlay {
                                 Image("InventoryIcon")
                                     .resizable()
@@ -252,7 +252,29 @@ extension GameView {
         return node
     }
     
-    // Beach Signs
+    // MARK: - BEACH NOTES
+    var beachNote1: some View {
+            ZStack {
+                Image("BlankPaper")
+                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                    .overlay {
+                        Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
+                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                    }
+            }
+        }
+    var beachNote2: some View {
+            ZStack {
+                Image("BlankPaper")
+                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                    .overlay {
+                        Text("NOTE: Collect things you find along the way and use them to save the crew!")
+                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                    }
+            }
+        }
+    // MARK: - BEACH NOTES/SIGNS
+
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
@@ -266,7 +288,7 @@ extension GameView {
                 }
         }
     }
-    
+    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES
     var signBeach2: some View {
         ZStack {
             Image("BlankPaper")
@@ -280,7 +302,7 @@ extension GameView {
                 }
         }
     }
-    
+    // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
     var signBeach3: some View {
         ZStack {
             Image("Paper1")

@@ -15,7 +15,7 @@ class TileMapManager {
     init() {
     }
     
-    func createTileMapNode(tileMapSceneName: String, selfCategory: UInt32, collisionCategory: UInt32, zPosition: Double, scene: GameScene) {
+    func createTileMapNode(tileMapSceneName: String, selfCategory: UInt32, collisionCategory: UInt32, zPosition: Double, scene: SKScene) {
 
         let tileMap = scene.childNode(withName: tileMapSceneName) as! SKTileMapNode
         setUpSceneWithMap(map: tileMap, selfCategory: selfCategory, collisionCategory: collisionCategory,zPosition: zPosition, scene: scene)
@@ -23,7 +23,7 @@ class TileMapManager {
         tileMap.removeFromParent()
     }
     
-    private func setUpSceneWithMap(map: SKTileMapNode, selfCategory: UInt32, collisionCategory: UInt32, zPosition: Double, scene: GameScene) {
+    private func setUpSceneWithMap(map: SKTileMapNode, selfCategory: UInt32, collisionCategory: UInt32, zPosition: Double, scene: SKScene) {
         
         let tileMap = map
         let startingLocation: CGPoint = tileMap.position

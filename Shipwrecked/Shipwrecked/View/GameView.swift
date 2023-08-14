@@ -252,6 +252,25 @@ extension GameView {
         return node
     }
     
+    
+    var beachNote: some View {
+        
+            ZStack {
+                Image("SIGN 1")
+                Image("BlankPaper")
+                    .resizable()
+                    .frame(width: 500, height: 300)
+                    .padding(.top, 25)
+                    .overlay {
+                        Text("Text for BEACH clue #1 For signs")
+                        Text("NOTE: Your")
+                        /// Note of characters or how your team was taken and you are supposed to rescue them
+                            .frame(width: 350, height: 200)
+                            .font(CustomFontBlock.small)
+                    }
+            }
+        }
+
     // Beach Signs
     var signBeach1: some View {
         ZStack {

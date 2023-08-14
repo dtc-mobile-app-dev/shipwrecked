@@ -168,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				6A904F702A79B6F800025DD9 /* Info.plist */,
+				FA2C00722A8AB78100664990 /* SoundManager */,
 				B34979EE2A705ADD005D645D /* Model */,
 				B34979ED2A705ACC005D645D /* ViewModel */,
 				FAF2166B2A79A7EB002D4CCC /* GameSceneModel */,
@@ -226,6 +227,7 @@
 		FA2C00722A8AB78100664990 /* SoundManager */ = {
 			isa = PBXGroup;
 			children = (
+				FAD91E632A8AAC5300753F1D /* SoundManager.swift */,
 			);
 			path = SoundManager;
 			sourceTree = "<group>";
@@ -233,7 +235,6 @@
 		FAF2166B2A79A7EB002D4CCC /* GameSceneModel */ = {
 			isa = PBXGroup;
 			children = (
-				FA2C00722A8AB78100664990 /* SoundManager */,
 				FAD91E612A87E8C800753F1D /* GameData.swift */,
 				FAF2166C2A79A810002D4CCC /* IslandScene.swift */,
 				FAD91E5B2A87E6D900753F1D /* CaveScene.swift */,
@@ -251,7 +252,6 @@
 				FAF216712A79A870002D4CCC /* TileMapManager.swift */,
 				FAF216732A79A880002D4CCC /* SpriteNodeManager.swift */,
 				FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */,
-				FAD91E632A8AAC5300753F1D /* SoundManager.swift */,
 			);
 			path = ManagersForGameScene;
 			sourceTree = "<group>";

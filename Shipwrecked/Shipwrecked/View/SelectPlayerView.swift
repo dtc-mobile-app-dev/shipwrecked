@@ -10,7 +10,10 @@ import SwiftUI
 
 struct SelectPlayerView: View {
     
-    @EnvironmentObject var scene: VolcanoScene
+    @EnvironmentObject var scene: IslandScene
+    @EnvironmentObject var caveScene: CaveScene
+    @EnvironmentObject var jungleScene: JungleScene
+    @EnvironmentObject var volcanoScene: VolcanoScene
 
     @State var playerIsSelected = false
     @State var goToNextView = StoryView()

@@ -10,7 +10,10 @@ import SpriteKit
 
 struct MenuView: View {
     
-    @StateObject var scene = SKScene(fileNamed: "VolcanoScene.sks")! as! VolcanoScene
+    @StateObject var scene = SKScene(fileNamed: "IslandScene.sks")! as! IslandScene
+    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
+    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
+    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
         
     var body: some View {
         NavigationStack {
@@ -30,6 +33,10 @@ struct MenuView: View {
             }
         }
         .environmentObject(scene)
+        .environmentObject(jungleScene)
+        .environmentObject(caveScene)
+        .environmentObject(volcanoScene)
+        
     }
 }
 

@@ -20,6 +20,8 @@ class GameData: ObservableObject {
     var currentWeapon: Weapon?
     var inventory: [InventoryItem]?
     
+    @Published var currentLevel: Level = .scene
+    
     @Published var islandSceneActive = true
     @Published var caveSceneActive = false
     @Published var jungleSceneActive = false

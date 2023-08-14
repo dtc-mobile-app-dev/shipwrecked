@@ -63,10 +63,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Food
     
     let apple1 = SKSpriteNode()
-    let apple2 = SKSpriteNode()
-    let apple3 = SKSpriteNode()
     let watermelon1 = SKSpriteNode()
-    let watermelon2 = SKSpriteNode()
     
     
     // MARK: - Camera/Controller
@@ -132,7 +129,8 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - FoodPickups
         
-        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Characters
         
@@ -489,14 +487,29 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
-        // Food thingy?
+        // MARK: - Fix this crap
         if bodyA == playerCategory && bodyB == appleCategory {
             contact.bodyB.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+            print(inventory.count)
         }
         
         if bodyB == playerCategory && bodyA == appleCategory {
             contact.bodyA.node?.removeFromParent()
             inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+            print(inventory.count)
+        }
+        
+        if bodyA == playerCategory && contactA == ("Watermelon1") {
+            contact.bodyB.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+            print(inventory.count)
+        }
+        
+        if bodyB == playerCategory && contactB == ("Watermelon1") {
+            contact.bodyA.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+            print(inventory.count)
         }
         
         // MARK: - Scenes

@@ -223,9 +223,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		FA2C00722A8AB78100664990 /* SoundManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SoundManager;
+			sourceTree = "<group>";
+		};
 		FAF2166B2A79A7EB002D4CCC /* GameSceneModel */ = {
 			isa = PBXGroup;
 			children = (
+				FA2C00722A8AB78100664990 /* SoundManager */,
 				FAD91E612A87E8C800753F1D /* GameData.swift */,
 				FAF2166C2A79A810002D4CCC /* IslandScene.swift */,
 				FAD91E5B2A87E6D900753F1D /* CaveScene.swift */,

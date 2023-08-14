@@ -142,6 +142,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     let pi = Double.pi
     
+    var gunNode = SKSpriteNode()
     var bulletNode = SKSpriteNode()
     var swordNode = SKSpriteNode()
     
@@ -331,10 +332,23 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
+        
+        gunNode = .init(imageNamed: "Gun")
+        
+        gunNode.name = "Gun"
+        gunNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
+        gunNode.zPosition = 5
+        gunNode.setScale(0.1)
+        gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
+        gunNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        gunNode.physicsBody?.affectedByGravity = false
+        gunNode.physicsBody?.isDynamic = false
+        gunNode.anchorPoint = CGPoint(x:0.5,y: 0)
+
         bulletNode = .init(imageNamed: "Bullet")
         
         bulletNode.name = "Bullet"
-        bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
+        bulletNode.position = CGPoint(x: gunNode.position.x, y: gunNode.position.y )
         bulletNode.zPosition = 5
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
@@ -344,8 +358,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-        //        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
-        
         
         let shoot = SKAction.move(to: CGPoint(
             x: 2000 * cos(bulletNode.zRotation) + bulletNode.position.x,

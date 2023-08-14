@@ -252,7 +252,7 @@ extension GameView {
         return node
     }
     
-    
+    // Beach Signs
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
@@ -289,6 +289,89 @@ extension GameView {
                 .padding(.top, 50)
                 .overlay {
                     Text("Text for BEACH clue #3")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    
+    // Cave Signs
+    var signCave1: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("CAUTION: Many enter, but NONE have returned!")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signCave2: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can produce harm")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    var signCave3: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Feed the Beast weekly,")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    
+    var signCave4: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH clue #1 For signs")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    // Volcano Signs
+    var signVolcano1: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH clue #1 For signs")
+                        .frame(width: 350, height: 200)
+                        .font(CustomFontBlock.small)
+                }
+        }
+    }
+    // Forest Signs
+    var signForrest1: some View {
+        ZStack {
+            Image("SIGN 1")
+                .resizable()
+                .frame(width: 500, height: 300)
+                .padding(.top, 50)
+                .overlay {
+                    Text("Text for BEACH clue #1 For signs")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }

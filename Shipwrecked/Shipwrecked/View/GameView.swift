@@ -58,6 +58,8 @@ struct GameView: View {
                 .overlay {
                     uiOverlay
                 }
+            Text(angleText)
+                .offset(y: -1000)
 
         }
     }

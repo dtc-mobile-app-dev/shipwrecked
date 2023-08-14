@@ -41,6 +41,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     let pi = Double.pi
     
+    var gunNode = SKSpriteNode()
     var bulletNode = SKSpriteNode()
     var swordNode = SKSpriteNode()
     

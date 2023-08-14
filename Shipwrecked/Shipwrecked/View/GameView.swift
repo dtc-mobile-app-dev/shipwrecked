@@ -264,7 +264,7 @@ extension GameView {
                         // Make this button equip or consume or look at item depending on what the item is
                     } label: {
                         ZStack {
-                            if showInventoryDescription {
+                            if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
@@ -272,12 +272,14 @@ extension GameView {
                                     .foregroundColor(.black)
                             }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
                         // Make this button get rid of the item that is selected
+                        IslandScene().inventory.remove(at: 0)
                     } label: {
                         ZStack {
-                            if showInventoryDescription {
+                            if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
@@ -287,6 +289,7 @@ extension GameView {
                                 //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
                             }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                 }
             }

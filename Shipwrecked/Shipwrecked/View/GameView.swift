@@ -8,15 +8,24 @@
 import SwiftUI
 import SpriteKit
 
+enum Level {
+    case jungleScene
+    case scene
+    case caveScene
+    case volcanoScene
+    
+}
+
 struct GameView: View {
     
-    @EnvironmentObject var scene: VolcanoScene
-//    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
-//    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-//    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
+    @EnvironmentObject var scene: IslandScene
+    @EnvironmentObject var caveScene: CaveScene
+    @EnvironmentObject var jungleScene: JungleScene
+    @EnvironmentObject var volcanoScene: VolcanoScene
     
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
+    
     
     @GestureState var fingerLocation: CGPoint? = nil
     @GestureState var startLocation: CGPoint? = nil
@@ -49,8 +58,21 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            SpriteView(scene: scene)
+        
+            switch GameData.shared.currentLevel {
+            case .jungleScene:
+                SpriteView(scene: jungleScene)
                     .ignoresSafeArea()
+            case .scene:
+                SpriteView(scene: scene)
+                    .ignoresSafeArea()
+            case .caveScene:
+                SpriteView(scene: caveScene)
+                    .ignoresSafeArea()
+            case .volcanoScene:
+                SpriteView(scene: volcanoScene)
+                    .ignoresSafeArea()
+            }
                    
             rightstick
                 .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
@@ -153,9 +175,9 @@ extension GameView {
         }
         
         scene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        caveScene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        jungleScene.updateAngle(isAttacking: isAttacking, degree: degrees)
-        //        volcanoScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        caveScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        jungleScene.updateAngle(isAttacking: isAttacking, degree: degrees)
+        volcanoScene.updateAngle(isAttacking: isAttacking, degree: degrees)
         
         return "\(degrees)°"
     }

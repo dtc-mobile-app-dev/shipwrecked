@@ -434,6 +434,15 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         addChild(cam)
         camera = cam
     }
+    func realTransition() {
+        GameData.shared.currentPlayer = self.currentPlayer
+        GameData.shared.currentLevel = .caveScene
+        
+        let caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
+                let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
+                
+                self.view?.presentScene(caveScene, transition: transition)
+    }
     
     // MARK: - PHYSICS INTERACTION
     
@@ -473,12 +482,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - CAVE TRIGGERS
         
         if contactA == ("test") && bodyB == playerCategory {
-            func realTransition() {
-                let caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-                        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
-                        
-                        self.view?.presentScene(caveScene, transition: transition)
-            }
+            realTransition()
 
         }
     }

@@ -11,9 +11,9 @@ import SpriteKit
 struct GameView: View {
     
     @EnvironmentObject var scene: VolcanoScene
-//    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
-//    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-//    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
+    //    @StateObject var jungleScene = SKScene(fileNamed: "JungleScene.sks") as! JungleScene
+    //    @StateObject var caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
+    //    @StateObject var volcanoScene = SKScene(fileNamed: "VolcanoScene.sks") as! VolcanoScene
     
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
@@ -26,41 +26,47 @@ struct GameView: View {
     
     let bigCircleRadius: CGFloat = 100
     
-    var items: [InventoryItem] = [
-    InventoryItem(name: "Cutlass", imageName: "Cutlass", description: "Bendy sword"),
-    InventoryItem(name: "Clam", imageName: "Clam", description: "Nothin special"),
-    InventoryItem(name: "Chest", imageName: "Chest", description: "MAN would this be cool if we coded something for it"),
-    InventoryItem(name: "Boomerang", imageName: "Boomerang", description: "Whoosh"),
-    InventoryItem(name: "Skull 1", imageName: "Skull1", description: "From the islands previous visitors"),
-    InventoryItem(name: "Skull 2", imageName: "Skull2", description: "From the islands previous visitors"),
-    InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", description: "Shoosh"),
-    InventoryItem(name: "Watermelon", imageName: "Watermelon", description: "Speed Boost maybe, or just some heals"),
-    InventoryItem(name: "Note", imageName: "Note", description: "Read Me"),
-    InventoryItem(name: "WoodPlank", imageName: "WoodPlank", description: "For the boat maybe")
+    @State var items = [
+        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword"),
+        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special"),
+        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it"),
+        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh"),
+        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors"),
+        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors"),
+        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh"),
+        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals"),
+        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me"),
+        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe")
     ]
     
-    @State var showInventory = true
+    @State var showInventory = false
     @State var isAHint = false
     @State var isASign = false {
         didSet { isAHint.toggle() }
     }
+    
+    let item: InventoryItem
+    @State var showItem = false
+    @State var showButtonText = "Show Item"
+    @State var inventoryDescription = "Nothing"
+    @State var showInventoryDescription = false
     
     
     
     var body: some View {
         ZStack {
             SpriteView(scene: scene)
-                    .ignoresSafeArea()
-                   
+                .ignoresSafeArea()
+            
             rightstick
                 .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
-
+            
                 .overlay {
                     uiOverlay
                 }
             Text(angleText)
                 .offset(y: -1000)
-
+            
         }
     }
 }
@@ -199,12 +205,60 @@ extension GameView {
             }
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
                 ForEach(items) { item in
-                    InventoryItemView(item: item)
+                    Button {
+                        inventoryDescription = item.itemDescription
+                        showInventoryDescription.toggle()
+                    } label: {
+                        ZStack {
+                            Image(item.slotImage)
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                            Image(item.imageName)
+                                .resizable()
+                                .frame(width: 46, height: 46)
+                            Text(item.name)
+                                .font(CustomFontBlock.small)
+                                .foregroundColor(.black)
+                                .frame(width: 120, height: 20)
+                                .padding(EdgeInsets(top: 80, leading: 0, bottom: 0, trailing: 0))
+                        }
+                    }
                 }
             }
             .opacity(showInventory ? 1 : 0)
             .animation(.linear(duration: showInventory ? 0.3 : 0.1), value: showInventory)
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+            ZStack {
+                Image("InventoryDescription")
+                    .resizable()
+                    .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
+                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
+                Text(item.itemDescription)
+                    .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
+                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
+                HStack{
+                    Button {
+                        // Make this button equip or consume or look at item depending on what the item is
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(.brown)
+                                .frame(width: 200, height: 100)
+                            Text("Use")
+                        }
+                    }
+                    Button {
+                        // Make this button get rid of the item that is selected
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(.brown)
+                                .frame(width: 200, height: 100)
+                            Text("Trash")
+                        }
+                    }
+                }
+            }
             
             // MARK: - Signs
             
@@ -256,27 +310,27 @@ extension GameView {
     
     // MARK: - BEACH NOTES
     var beachNote1: some View {
-            ZStack {
-                Image("BlankPaper")
-                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
-                    .overlay {
-                        Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
-                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
-                    }
-            }
+        ZStack {
+            Image("BlankPaper")
+                .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                .overlay {
+                    Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
+                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                }
         }
+    }
     var beachNote2: some View {
-            ZStack {
-                Image("BlankPaper")
-                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
-                    .overlay {
-                        Text("NOTE: Collect things you find along the way and use them to save the crew!")
-                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
-                    }
-            }
+        ZStack {
+            Image("BlankPaper")
+                .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                .overlay {
+                    Text("NOTE: Collect things you find along the way and use them to save the crew!")
+                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                }
         }
+    }
     // MARK: - BEACH NOTES/SIGNS
-
+    
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
@@ -495,43 +549,14 @@ extension GameView {
 }
 
 struct InventoryItem: Identifiable {
-let id = UUID()
-let slotImage = "InventorySlot"
-let name: String
-let imageName: String
-let description: String
+    let id = UUID()
+    let slotImage = "InventorySlot"
+    let name: String
+    let imageName: String
+    let itemDescription: String
 }
 
-struct InventoryItemView: View {
-    let item: InventoryItem
-    @State var showItem = false
-    @State var showButtonText = "Show Item"
-    @State var showInventoryDescription = false
-    
-    var body: some View {
-        ZStack {
-            Button {
-                showInventoryDescription.toggle()
-            } label: {
-                ZStack {
-                    Image(item.slotImage)
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                    Image(item.imageName)
-                        .resizable()
-                        .frame(width: 46, height: 46)
-                    Text(item.name)
-                        .font(CustomFontBlock.small)
-                        .foregroundColor(.black)
-                        .frame(width: 120, height: 20)
-                        .padding(EdgeInsets(top: 80, leading: 0, bottom: 0, trailing: 0))
-                }
-            }
-            Image("InventoryDescription")
-                .resizable()
-                .frame(width: showInventoryDescription ? 400 : 0, height: showInventoryDescription ? 400 : 0)
-            // Text() this needs to get the discription for the clicked item
-        }
-    }
-}
+
+
+
 

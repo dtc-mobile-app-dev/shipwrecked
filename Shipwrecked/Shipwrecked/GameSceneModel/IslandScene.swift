@@ -18,7 +18,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @Published var currentHealth = 0
     @Published var currentPlayer: Player?
     @Published var currentWeapon: Weapon?
-    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", description: "Yum")]
+    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
     
     
     // MARK: Instances

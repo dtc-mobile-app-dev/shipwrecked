@@ -39,3 +39,4 @@ struct ContentView_Previews: PreviewProvider {
         MenuView().previewInterfaceOrientation(.landscapeRight)
     }
 }
+

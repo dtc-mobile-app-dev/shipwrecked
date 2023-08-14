@@ -13,26 +13,18 @@ struct YouWinView: View {
             Color.black.edgesIgnoringSafeArea(.all)
             
             Image("PurpleSun")
-                .resizable()
-                .scaledToFit()
-                .scaleEffect(1.35)
-                .padding(.top)
+                .resizable().scaledToFit().scaleEffect(1.35).padding(.top)
             
             Text("YOU SURVIVED")
-                .font(CustomFontBlock.title)
-                .foregroundColor(.white)
-                .shadow(color: .pink.opacity(0.5), radius: 5)
-                .padding(.bottom, 150)
+                .font(CustomFontBlock.title).foregroundColor(.white)
+                .shadow(color: .pink, radius: 2.5).padding(.bottom, 150)
             
             NavigationLink {
-                MenuView()
-                    .navigationBarBackButtonHidden(true)
+                MenuView().navigationBarBackButtonHidden(true)
             } label: {
                 Text("PLAY AGAIN")
-                    .font(CustomFontBlock.small)
-                    .foregroundColor(.white)
-                    .padding(.top, 300)
-                    .padding(.trailing, 500)
+                    .font(CustomFontBlock.small).foregroundColor(.white).padding(.top, 300)
+                    .padding(.trailing, 500).shadow(color: .pink.opacity(0.5), radius: 1.5)
             }
         }
     }

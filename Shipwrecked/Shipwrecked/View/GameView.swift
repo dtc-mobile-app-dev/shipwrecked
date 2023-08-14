@@ -38,13 +38,7 @@ struct GameView: View {
                 .overlay {
                     UIOverlay()
                 }
-            VStack {
-                Spacer()
-                Text(angleText)
-                    .foregroundColor(.white)
-                    .offset(y: 100)
-                    
-            }
+
         }
     }
 }

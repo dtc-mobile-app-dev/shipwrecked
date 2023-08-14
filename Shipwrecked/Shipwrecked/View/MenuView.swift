@@ -15,25 +15,17 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
+                Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
+                Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
                 
-                Image("Beach")
-                    .resizable()
-                    .scaledToFit()
-                    .scaleEffect(1.25)
-                    .padding(.top, 25)
+                Image("BeachForMenu")
+                    .resizable().scaledToFill().edgesIgnoringSafeArea(.all).padding(.top, 25)
                 
                 NavigationLink {
-                    SelectPlayerView()
-                        .navigationBarBackButtonHidden(true)
-                    
+                    SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFontBlock.title)
-                        .kerning(2.5)
-                        .foregroundColor(.white)
-                        .frame(width: UIScreen.main.bounds.width, alignment: .bottom)
-                        .padding(.top, 50)
+                        .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).padding(.bottom).shadow(color: .white, radius: 2.5)
                 }
             }
         }
@@ -47,3 +39,4 @@ struct ContentView_Previews: PreviewProvider {
         MenuView().previewInterfaceOrientation(.landscapeRight)
     }
 }
+

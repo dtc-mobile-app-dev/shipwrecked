@@ -13,6 +13,7 @@ struct CustomFontBlock {
     static let title = Font.Block(size: 64)
     static let small = Font.Block(size: 14)
     static let medium = Font.Block(size: 28)
+    static let mediumLarge = Font.Block(size: 86)
     static let large = Font.Block(size: 100)
 }
 

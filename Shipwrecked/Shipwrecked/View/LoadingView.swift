@@ -9,31 +9,32 @@ import SwiftUI
 
 struct LoadingView: View {
     
+    @State var startLoading = false
+    
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
-            
+            Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
+            Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
+          
             Image("LoadingBar")
-                .resizable()
-                .padding(.top, 200)
-            
-            NavigationLink {
-                GameView()
-                    .navigationBarBackButtonHidden(true)
-                
+                .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5).padding(.leading, 75)
+    
+            Button {
+                self.startLoading.toggle()
             } label: {
                 Text("LOADING...")
-                    .font(CustomFont8Bit.large)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 125)
-                
+                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
             }
+            .background(
+                NavigationLink(destination: GameView().navigationBarBackButtonHidden(true), isActive: $startLoading) { }
+            )
+            .onAppear { self.startLoading.toggle() }
         }
     }
 }
 
-//struct LoadingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoadingView().previewInterfaceOrientation(.landscapeRight)
-//    }
-//}
+struct LoadingView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoadingView().previewInterfaceOrientation(.landscapeRight)
+    }
+}

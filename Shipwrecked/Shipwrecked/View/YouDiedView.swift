@@ -13,32 +13,17 @@ struct YouDiedView: View {
             Color.black.edgesIgnoringSafeArea(.all)
             
             Image("Skull")
-                .resizable()
-                .scaledToFit()
-                .scaleEffect(1.15)
-                .shadow(color: .red, radius: 50)
+                .resizable().scaledToFit().scaleEffect(1.15).shadow(color: .red, radius: 10)
             
             Text("YOU DIED")
-                .font(CustomFont8Bit.title)
-                .kerning(4.5)
-                .foregroundColor(.red)
-                .shadow(color: .black, radius: 10)
-//                .overlay {
-//                    Text("YOU DIED")
-//                        .font(CustomFont8Bit.title)
-//                        .kerning(2.5)
-//                        .foregroundColor(.black)
-//                }
+                .font(CustomFontBlock.mediumLarge).kerning(10).foregroundColor(.red).shadow(color: .black, radius: 2.5)
             
             NavigationLink {
-                MenuView()
-                    .navigationBarBackButtonHidden(true)
+                MenuView().navigationBarBackButtonHidden(true)
             } label: {
                 Text("RESTART")
-                    .font(CustomFont8Bit.body)
-                    .foregroundColor(.white)
-                    .padding(.top, 325)
-                    .padding(.leading, 525)
+                    .font(CustomFontBlock.small).foregroundColor(.white)
+                    .padding(.top, 325).padding(.leading, 525).shadow(color: .red, radius: 1.5).kerning(1.5)
             }
         }
     }

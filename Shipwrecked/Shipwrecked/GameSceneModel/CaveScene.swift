@@ -130,6 +130,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let cave3Sign = SKSpriteNode()
     let cave4Sign = SKSpriteNode()
     
+    var cave1SignImage: Double = 0
+    var cave2SignImage: Double = 0
+    var cave3SignImage: Double = 0
+    var cave4SignImage: Double = 0
+
     // MARK: - Food
     
     let apple1 = SKSpriteNode()
@@ -767,16 +772,16 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - CAVE SIGNS
         
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave1Sign") {
-            
+            cave1SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave2Sign") {
-            
+            cave2SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave3Sign") {
-            
+            cave3SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave4Sign") {
-            
+            cave4SignImage = 1
         }
         
         //MARK: - CAVE GRAVES SECTION 1

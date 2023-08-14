@@ -473,6 +473,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave1SignImage)
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
@@ -486,6 +487,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave2SignImage)
                 .overlay {
                     Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
                         .frame(width: 350, height: 200)
@@ -499,6 +501,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave3SignImage)
                 .overlay {
                     Text("Feed the Beast weekly, we don't want to make it upset")
                         .frame(width: 350, height: 200)
@@ -513,6 +516,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave4SignImage)
                 .overlay {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
@@ -527,6 +531,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano1SignImage)
                 .overlay {
                     Text("WATCH YOUR STEP!")
                         .frame(width: 350, height: 200)
@@ -540,6 +545,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano2SignImage)
                 .overlay {
                     Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
                         .frame(width: 350, height: 200)
@@ -553,6 +559,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano3SignImage)
                 .overlay {
                     Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
                         .frame(width: 350, height: 200)
@@ -566,6 +573,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano4SignImage)
                 .overlay {
                     Text("CAUTION: If angered, It will throw lava")
                         .frame(width: 350, height: 200)
@@ -580,6 +588,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle1SignImage)
                 .overlay {
                     Text("The Protector of the Green watches for intruders")
                         .frame(width: 350, height: 200)
@@ -593,6 +602,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle2SignImage)
                 .overlay {
                     Text("PROTECT THE GREEN")
                         .frame(width: 350, height: 200)
@@ -606,6 +616,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle3SignImage)
                 .overlay {
                     Text("A Sword of Unfathomable Power is within the Green")
                         .frame(width: 350, height: 200)
@@ -619,6 +630,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle4SignImage)
                 .overlay {
                     Text("The Protector desires peace. DO NOT PROVOKE")
                         .frame(width: 350, height: 200)

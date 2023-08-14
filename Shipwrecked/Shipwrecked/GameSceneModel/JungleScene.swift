@@ -21,7 +21,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
     @MainActor var currentWeapon: Weapon?
-    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", description: "Yum")]
+    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
     
     var animation = AnimationManager.instance
     var node = SpriteNodeManager.instance

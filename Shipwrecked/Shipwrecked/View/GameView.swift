@@ -252,21 +252,24 @@ extension GameView {
         return node
     }
     
-    
-    var beachNote: some View {
-        
+    // MARK: - BEACH NOTES
+    var beachNote1: some View {
             ZStack {
-                Image("SIGN 1")
                 Image("BlankPaper")
-                    .resizable()
-                    .frame(width: 500, height: 300)
-                    .padding(.top, 25)
+                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
                     .overlay {
-                        Text("Text for BEACH clue #1 For signs")
-                        Text("NOTE: Your")
-                        /// Note of characters or how your team was taken and you are supposed to rescue them
-                            .frame(width: 350, height: 200)
-                            .font(CustomFontBlock.small)
+                        Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
+                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                    }
+            }
+        }
+    var beachNote2: some View {
+            ZStack {
+                Image("BlankPaper")
+                    .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                    .overlay {
+                        Text("NOTE: Collect things you find along the way and use them to save the crew!")
+                            .frame(width: 350, height: 200).font(CustomFontBlock.small)
                     }
             }
         }

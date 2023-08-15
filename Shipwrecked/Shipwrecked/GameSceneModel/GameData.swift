@@ -15,6 +15,7 @@ class GameData: ObservableObject {
     @Published var currentHealth = 0
     var currentPlayer: Player?
     
+
     var currentPlayerPositionX: Double?
     var currentPlayerPositionY: Double?
     @Published var currentWeapon: Weapon?
@@ -26,11 +27,6 @@ class GameData: ObservableObject {
         ]
     
     @Published var currentLevel: Level = .scene
-    
-    @Published var islandSceneActive = true
-    @Published var caveSceneActive = false
-    @Published var jungleSceneActive = false
-    @Published var volcanoSceneActive = false
     
     init() {}
 }

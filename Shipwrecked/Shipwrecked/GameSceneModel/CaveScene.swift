@@ -41,6 +41,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - CaveEnemies
     
     var caveSceneActive = false
+    var bossTextures: [SKTexture] = []
     
     // Section 1
     
@@ -115,7 +116,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let cave5Trigger = SKSpriteNode()
     var cave5TriggerOn = false
     
-    let caveBoss = SKSpriteNode()
+    var caveBoss = SKSpriteNode()
     let caveBossHealthBar = SKSpriteNode()
     var caveBoss1Projectile = SKSpriteNode()
     var caveBoss2Projectile = SKSpriteNode()
@@ -256,7 +257,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             // MARK: - Bosss
                         
-            bossEnemy(enemyName: "caveBoss", node: caveBoss, enemySceneName: "BatBoss", healthBarNode: caveBossHealthBar)
             
             // MARK: - Camera/Controller
             
@@ -277,7 +277,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         // MARK: - Characters
-        
+        bossEnemy()
         createPlayer()
     }
     
@@ -462,7 +462,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat1() {
-        caveBoss1Projectile = .init(imageNamed: "Bullet")
+        caveBoss1Projectile = .init(imageNamed: "ScreechProjectile")
         
         caveBoss1Projectile.position = CGPoint(x: caveBoss.position.x, y: caveBoss.position.y + 100 )
         caveBoss1Projectile.setScale(0.15)
@@ -495,7 +495,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat2() {
-        caveBoss2Projectile = .init(imageNamed: "Bullet")
+        caveBoss2Projectile = .init(imageNamed: "ScreechProjectile")
         
         caveBoss2Projectile.position = CGPoint(x: caveBoss.position.x, y: caveBoss.position.y + 100 )
         caveBoss2Projectile.setScale(0.15)
@@ -528,7 +528,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat3() {
-        caveBoss3Projectile = .init(imageNamed: "Bullet")
+        caveBoss3Projectile = .init(imageNamed: "ScreechProjectile2")
         
         caveBoss3Projectile.position = CGPoint(x: caveBoss.position.x, y: caveBoss.position.y + 100 )
         caveBoss3Projectile.setScale(0.7)
@@ -562,32 +562,28 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     // MARK: - ENEMY Creation
     
-    func bossEnemy(enemyName: String, node: SKSpriteNode, enemySceneName: String, healthBarNode: SKSpriteNode) {
+    func bossEnemy() {
         
-        var bossNode = node
-        var healthNode = healthBarNode
-        
-        let healthBarArray = [""]
+
         
 //        if let healthIndex = enemyDictionary[enemySceneName]?.health {
 //            if healthIndex >= 1 {
                 
-                bossNode = self.childNode(withName: enemySceneName) as! SKSpriteNode
+        caveBoss = self.childNode(withName: "BatBoss") as! SKSpriteNode
                 
-                bossNode.zPosition = 5
-                bossNode.setScale(1)
-                bossNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bossNode.size.width / 2 , height: bossNode.size.height) )
-                bossNode.physicsBody?.categoryBitMask = bossCategory
-                bossNode.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
-                bossNode.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | playerCategory
-                bossNode.physicsBody?.allowsRotation = false
-                bossNode.physicsBody?.isDynamic = false
+        caveBoss.zPosition = 5
+        caveBoss.setScale(0.4)
+        caveBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: caveBoss.size.width / 2 , height: caveBoss.size.height) )
+        caveBoss.physicsBody?.categoryBitMask = bossCategory
+        caveBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
+        caveBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | playerCategory
+        caveBoss.physicsBody?.allowsRotation = false
+        caveBoss.physicsBody?.isDynamic = false
 //            }
 //        }
     }
     
     func bossAnimate() {
-        var bossTextures: [SKTexture] = []
         
         bossTextures.append(SKTexture(imageNamed: "BatBoss1"))
         bossTextures.append(SKTexture(imageNamed: "BatBoss2"))
@@ -603,7 +599,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bossTextures.append(SKTexture(imageNamed: "BatBoss12"))
         bossTextures.append(SKTexture(imageNamed: "BatBoss13"))
         
-        let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.2)
+        let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.1)
         let animateRepeat = SKAction.repeatForever(animation)
         
         caveBoss.run(animateRepeat)

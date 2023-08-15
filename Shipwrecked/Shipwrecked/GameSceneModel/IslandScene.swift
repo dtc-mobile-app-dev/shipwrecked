@@ -182,7 +182,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         GameData.shared.currentHealth = self.currentHealth
         GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = 0
-        GameData.shared.currentPlayerPositionY = -1800
+        GameData.shared.currentPlayerPositionY = 0
     }
     func transitionToVolcanoScene() {
         GameData.shared.currentLevel = .volcanoScene

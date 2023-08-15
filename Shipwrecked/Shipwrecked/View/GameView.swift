@@ -85,7 +85,7 @@ struct GameView: View {
                 .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
             
                 .overlay {
-                    uiOverlay
+                    UIOverlay
                 }
             Text(angleText)
                 .offset(y: -1000)
@@ -189,7 +189,7 @@ extension GameView {
         return "\(degrees)°"
     }
     
-    var uiOverlay: some View {
+    var UIOverlay: some View {
         ZStack {
             // MARK: - Inventory
             
@@ -322,7 +322,7 @@ extension GameView {
                 Spacer()
             }
         }
-    }
+    
     
 //    func createSignLabel(text: String) -> SKLabelNode {
 //        let node = SKLabelNode(text: text)
@@ -645,6 +645,7 @@ extension GameView {
                 }
         }
     }
+}
 
 
 struct InventoryItem: Identifiable {

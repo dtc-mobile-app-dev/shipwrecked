@@ -134,6 +134,8 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var bossShootAngle1: Double = 1
     var bossShootAngle2: Double = 3
     var bossShootAngle3: Double = 5
+    var bossTextures: [SKTexture] = []
+    var ifBossAnimating = false
     
     // MARK: - Combat
     
@@ -412,10 +414,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat1() {
-        volcanoBoss1Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss1Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss1Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss1Projectile.setScale(0.15)
+        volcanoBoss1Projectile.setScale(0.25)
         volcanoBoss1Projectile.zPosition = 15
         volcanoBoss1Projectile.zRotation = CGFloat(bossShootAngle1)
         volcanoBoss1Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss1Projectile.size.width , height: volcanoBoss1Projectile.size.height ))
@@ -445,10 +447,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat2() {
-        volcanoBoss2Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss2Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss2Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss2Projectile.setScale(0.15)
+        volcanoBoss2Projectile.setScale(0.25)
         volcanoBoss2Projectile.zPosition = 15
         volcanoBoss2Projectile.zRotation = CGFloat(bossShootAngle2)
         volcanoBoss2Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss2Projectile.size.width , height: volcanoBoss2Projectile.size.height ))
@@ -478,10 +480,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat3() {
-        volcanoBoss3Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss3Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss3Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss3Projectile.setScale(0.7)
+        volcanoBoss3Projectile.setScale(0.8)
         volcanoBoss3Projectile.zPosition = 15
         volcanoBoss3Projectile.zRotation = CGFloat(bossShootAngle3)
         volcanoBoss3Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss3Projectile.size.width , height: volcanoBoss3Projectile.size.height ))
@@ -532,6 +534,27 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         volcanoBoss.physicsBody?.isDynamic = false
 //            }
 //        }
+    }
+    
+    func bossAnimate() {
+        
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster1"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster2"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster3"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster4"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster5"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster6"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster7"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster8"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster9"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster10"))
+        
+       
+        
+        let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.1)
+        let animateRepeat = SKAction.repeatForever(animation)
+        
+        volcanoBoss.run(animateRepeat)
     }
     
     // MARK: - ENEMY Creation
@@ -837,6 +860,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 isBossShooting = true
                 
                 if !bossFightActive {
+                    if !ifBossAnimating {
+                        bossAnimate()
+                        ifBossAnimating = true
+                    }
                     volcanoBossFightActivate1()
                     volcanoBossFightActivate2()
                     volcanoBossFightActivate3()

@@ -408,7 +408,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat1() {
-        jungleBoss1Projectile = .init(imageNamed: "Bullet")
+        jungleBoss1Projectile = .init(imageNamed: "Vomit")
         
         jungleBoss1Projectile.position = CGPoint(x: jungleBoss.position.x, y: jungleBoss.position.y)
         jungleBoss1Projectile.setScale(0.15)
@@ -441,7 +441,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat2() {
-        jungleBoss2Projectile = .init(imageNamed: "Bullet")
+        jungleBoss2Projectile = .init(imageNamed: "Vomit")
         
         jungleBoss2Projectile.position = CGPoint(x: jungleBoss.position.x, y: jungleBoss.position.y)
         jungleBoss2Projectile.setScale(0.15)
@@ -474,7 +474,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat3() {
-        jungleBoss3Projectile = .init(imageNamed: "Bullet")
+        jungleBoss3Projectile = .init(imageNamed: "Vomit")
         
         jungleBoss3Projectile.position = CGPoint(x: jungleBoss.position.x, y: jungleBoss.position.y)
         jungleBoss3Projectile.setScale(0.7)

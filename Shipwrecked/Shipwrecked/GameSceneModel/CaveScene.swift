@@ -146,11 +146,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 
     // MARK: - Food
     
-    let apple1 = SKSpriteNode()
-    let apple2 = SKSpriteNode()
-    let apple3 = SKSpriteNode()
-    let watermelon1 = SKSpriteNode()
-    let watermelon2 = SKSpriteNode()
+//    let apple1 = SKSpriteNode()
+//    let apple2 = SKSpriteNode()
+//    let apple3 = SKSpriteNode()
+//    let watermelon1 = SKSpriteNode()
+//    let watermelon2 = SKSpriteNode()
     
     // MARK: - Combat
     

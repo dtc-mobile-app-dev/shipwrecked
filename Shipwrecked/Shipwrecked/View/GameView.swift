@@ -683,6 +683,7 @@ extension GameView {
 
                         .font(CustomFontBlock.small)
 
+
                 }
         }
         .opacity(caveScene.cave4SignImage)

@@ -42,8 +42,11 @@ class SoundManager {
     enum CombatOption: String {
         case gunfire = "gun"
         case hit = "bonk1"
-        case useSword = "swoosh"
-        case swoosh = "swoosh1"
+        case swoosh = "swoosh"
+        case swoosh1 = "swoosh1"
+        case swoosh2 = "swoosh2"
+        case swordThud = "swordThud"
+        case multipleSwords = "multipleSwords"
         case chop = "chop"
         case knife = "knife"
         case slice = "slice"
@@ -76,6 +79,7 @@ class SoundManager {
     
     enum TikiOption: String {
         case tikiHit = "bonk"
+        case tikiBonk = "bonk2"
     }
     
     func playTikiSoundmp3(sound: TikiOption) {
@@ -105,12 +109,16 @@ class SoundManager {
     enum SoundEffect: String {
         case bonk = "multipleBonks"
         case eat = "eat"
+        case eat1 = "eating1"
         case eating = "eating"
         case burp = "burp"
         case lose = "fail"
-        case win
+        case human = "human"
+        case insane = "insane"
         case zap = "zap"
         case collectItem = "collectItem"
+        case clank = "clang"
+        case horse = "horse"
     }
     
     func playSoundEffectmp3(sound: SoundEffect) {

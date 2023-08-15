@@ -15,12 +15,15 @@ import SwiftUI
 class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     @MainActor var joyconAngle = 0
+    @MainActor var leftJoyconAngle: Double = 0
+    
     @Published var currentHealth = 0
     @Published var currentPlayer: Player?
     @Published var currentWeapon: Weapon?
     @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
     
-    
+    var isMoving = false
+    static var hasLoaded = false
     // MARK: Instances
     
     var animation = AnimationManager.instance
@@ -69,7 +72,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
-    var virtualController: GCVirtualController?
     
     // MARK: - PlayerAnimationBools
     
@@ -93,6 +95,12 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var isAnimatingDownRightDiagonalEnemy = false
     var isAnimatingDownLeftDiagonalEnemy = false
     
+    // MARK: - Transition Nodes
+    
+    var caveEntrance = SKSpriteNode()
+    var jungleEntrance = SKSpriteNode()
+    var volcanoEntrance = SKSpriteNode()
+    
     // MARK: - PHYSICS CATEGORIES
     
     let wallCategory: UInt32 = 0x1
@@ -110,7 +118,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let triggerCategory: UInt32 = 0x1000000
     let skullCategory: UInt32 = 0x10000000
     
-    var testNode = SKSpriteNode()
+    
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
@@ -118,29 +126,36 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - BEACH
         
-        tileMap.createTileMapNode(tileMapSceneName: "MountainsOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "WaterOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "Sand", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 0, scene: self)
-//        tileMap.createTileMapNode(tileMapSceneName: "Palms", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-
+        if !IslandScene.hasLoaded {
+            tileMap.createTileMapNode(tileMapSceneName: "MountainsOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "WaterOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "Sand", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 0, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "Assets", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            
+        
         // MARK: - SignNodes
         
-        createTrigger(withName: "test", withNode: testNode)
+
+        createTrigger(withName: "CaveEntrance", withNode: caveEntrance)
+        createTrigger(withName: "JungleEntrance", withNode: jungleEntrance)
+        createTrigger(withName: "VolcanoEntrance", withNode: volcanoEntrance)
         
         // MARK: - FoodPickups
         
         node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
         node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
         
-        // MARK: - Characters
-        
-        createPlayer()
-        
         // MARK: - Camera/Controller
         
         camera()
-        connectVirtualController()
+            IslandScene.hasLoaded = true
+        }
+        
+        // MARK: - Characters
+        
+        createPlayer()
     }
+        
     
     func updateAngle(isAttacking: Bool, degree: Int) {
         self.joyconAngle = degree
@@ -148,33 +163,33 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.isSwingin = isAttacking
     }
     
+    func updateMovement(degree: Int, isMoving: Bool) {
+        self.leftJoyconAngle = Double(degree)
+        self.isMoving = isMoving
+    }
+    
     // MARK: - TRANSITION FUNCS
     
     func transitionToJungleScene() {
+        GameData.shared.currentLevel = .jungleScene
         GameData.shared.currentHealth = self.currentHealth
         GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = -1700
         GameData.shared.currentPlayerPositionY = 700
-        
-        GameData.shared.islandSceneActive = false
-        GameData.shared.caveSceneActive = false
-        GameData.shared.volcanoSceneActive = false
-        
-        GameData.shared.jungleSceneActive = true
     }
-    
     func transitionToCaveScene() {
+        GameData.shared.currentLevel = .caveScene
         GameData.shared.currentHealth = self.currentHealth
         GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = 0
-        GameData.shared.currentPlayerPositionY = -2000
-        
-        GameData.shared.jungleSceneActive = false
-        GameData.shared.volcanoSceneActive = false
-        GameData.shared.islandSceneActive = false
-        
-        GameData.shared.caveSceneActive = true
-        
+        GameData.shared.currentPlayerPositionY = -1800
+    }
+    func transitionToVolcanoScene() {
+        GameData.shared.currentLevel = .volcanoScene
+        GameData.shared.currentHealth = self.currentHealth
+        GameData.shared.currentPlayer = self.currentPlayer
+        GameData.shared.currentPlayerPositionX = -1700
+        GameData.shared.currentPlayerPositionY = 900
     }
     
     // MARK: - Character
@@ -183,7 +198,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         currentPlayerNode = .init(imageNamed: currentPlayer?.character ?? "nil")
         
-        currentPlayerNode.position = CGPoint(x: 0, y: -2000)
+        currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
         currentPlayerNode.zPosition = 5
         currentPlayerNode.setScale(0.5)
         currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / 2, height: currentPlayerNode.size.height / 10))
@@ -200,7 +215,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var enemyDictionary: [String : (health: Int, strength: Int)] = [
         "Test" : (health: 10, strength: 10)
     ]
-   
+    
     // MARK: - ENEMY TRIGGER
     
     func createTrigger(withName: String, withNode: SKSpriteNode) {
@@ -451,9 +466,9 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         GameData.shared.currentLevel = .caveScene
         
         let caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-                let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
-                
-                self.view?.presentScene(caveScene, transition: transition)
+        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
+        
+        self.view?.presentScene(caveScene, transition: transition)
     }
     
     // MARK: - PHYSICS INTERACTION
@@ -476,7 +491,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if bodyB == enemyCategory && bodyA == meleeCategory {
             contactedEnemyMelee(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
         }
-
+        
         
         if bodyA == enemyCategory && bodyB == rangerCategory {
             contactedEnemyRanger(enemyNode: contact.bodyA.node ?? SKNode(), contactName: contactA ?? "nil")
@@ -487,6 +502,22 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
+
+        // MARK: - Scenes Transitions
+    
+        if contactA == ("CaveEntrance") && bodyB == playerCategory {
+            transitionToCaveScene()
+            currentPlayerNode.removeFromParent()
+        }
+        if contactA == ("JungleEntrance") && bodyB == playerCategory {
+            transitionToJungleScene()
+            currentPlayerNode.removeFromParent()
+        }
+        if contactA == ("VolcanoEntrance") && bodyB == playerCategory {
+            transitionToVolcanoScene()
+            currentPlayerNode.removeFromParent()
+        }
+
         // MARK: - Fix this crap
         if bodyA == playerCategory && bodyB == appleCategory {
             contact.bodyB.node?.removeFromParent()
@@ -512,33 +543,13 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             print(inventory.count)
         }
         
-        // MARK: - Scenes
-        
-        
-        
-        // MARK: - CAVE TRIGGERS
-        
-        if contactA == ("test") && bodyB == playerCategory {
-            realTransition()
-
-        }
-    }
-    
-    // MARK: - CONTROLLER
-    
-    func connectVirtualController() {
-        
-        let controllerConfic = GCVirtualController.Configuration()
-        controllerConfic.elements = [GCInputLeftThumbstick]
-        
-        let controller = GCVirtualController(configuration: controllerConfic)
-        controller.connect()
-        virtualController = controller
     }
     
     // MARK: - UPDATES
     
     override func update(_ currentTime: TimeInterval) {
+        
+        print("\(leftJoyconAngle)")
         
         // MARK: -Combat
         
@@ -550,86 +561,68 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             startSwinging()
         }
         
-           
-        // MARK: - Created controller
-        
-        playerPosx = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value)!)
-        playerPosy = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.yAxis.value)!)
-        
-        // MARK: - Joystick Movement
-        
-        if playerPosy <= -0.5 && playerPosx <= -0.5 { // GOING DOWN LEFT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += -2.5
-            
-            if !isAnimatingDownLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+        if isMoving {
+            if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT
+                currentPlayerNode.position.y += 2.5
+                currentPlayerNode.position.x += 2.5
                 
-                setAnimateBoolsPlayer(direction: .downLeft)
-            }
-        } else if playerPosy <= -0.5 && playerPosx >= 0.5 { // GOING DOWN RIGHT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += 2.5
-            
-            if !isAnimatingDownRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                if !isAnimatingUpRightDiagonalPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .upRight)
+                }
+            } else if leftJoyconAngle >= 67.5 && leftJoyconAngle <= 112.5 { // UP
+                currentPlayerNode.position.y += 5
                 
-                setAnimateBoolsPlayer(direction: .downRight)
-            }
-        } else if playerPosy >= 0.5 && playerPosx <= -0.5 { // GOING UP Left
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += -2.5
-            
-            if !isAnimatingUpLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                if !isAnimatingUpPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .up)
+                }
+            } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
+                currentPlayerNode.position.y += 2.5
+                currentPlayerNode.position.x += -2.5
                 
-                setAnimateBoolsPlayer(direction: .upLeft)
-            }
-        } else if playerPosy >= 0.5 && playerPosx >= 0.5 { // GOING UP RIGHT
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += 2.5
-            
-            if !isAnimatingUpRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                if !isAnimatingUpLeftDiagonalPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .upLeft)
+                }
+            } else if leftJoyconAngle >= 157.5 && leftJoyconAngle <= 202.5 { // LEFT
+                currentPlayerNode.position.x -= 5
+                if !isAnimatingLeftPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .left)
+                }
+            } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
+                currentPlayerNode.position.y += -2.5
+                currentPlayerNode.position.x += -2.5
                 
-                setAnimateBoolsPlayer(direction: .upRight)
-            }
-        } else if playerPosx >= 0.5 { // GOING RIGHT
-            currentPlayerNode.position.x += 5
-            if !isAnimatingRightPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                if !isAnimatingDownLeftDiagonalPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .downLeft)
+                }
+            } else if leftJoyconAngle >= 247.5 && leftJoyconAngle <= 292.5 { // DOWN
+                currentPlayerNode.position.y -= 5
                 
-                setAnimateBoolsPlayer(direction: .right)
-            }
-            
-        } else if playerPosx <= -0.5 { // GOING LEFT
-            currentPlayerNode.position.x -= 5
-            if !isAnimatingLeftPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                if !isAnimatingDownPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .down)
+                }
+            } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
+                currentPlayerNode.position.y += -2.5
+                currentPlayerNode.position.x += 2.5
                 
-                setAnimateBoolsPlayer(direction: .left)
-            }
-        } else if playerPosy >= 0.5 { // GOING UP
-            currentPlayerNode.position.y += 5
-            
-            if !isAnimatingUpPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
-                
-                setAnimateBoolsPlayer(direction: .up)
-            }
-            
-        } else if playerPosy <= -0.5 { // GOING DOWN
-            
-            currentPlayerNode.position.y -= 5
-            
-            if !isAnimatingDownPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
-                
-                setAnimateBoolsPlayer(direction: .down)
+                if !isAnimatingDownRightDiagonalPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .downRight)
+                }
+            } else if leftJoyconAngle >= 337.5 || leftJoyconAngle <= 22.5  { // RIGHT
+                currentPlayerNode.position.x += 5
+                if !isAnimatingRightPlayer {
+                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .right)
+                }
             }
         } else {
             currentPlayerNode.removeAllActions()
-            
             isAnimatingLeftPlayer = false
             isAnimatingRightPlayer = false
             isAnimatingUpPlayer = false
@@ -639,6 +632,9 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             isAnimatingDownRightDiagonalPlayer = false
             isAnimatingDownLeftDiagonalPlayer = false
         }
+        
+        
+       
         // MARK: - Cam with Player
         
         cam.position.x = currentPlayerNode.position.x

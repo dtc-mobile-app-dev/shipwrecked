@@ -43,6 +43,11 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let volcano3Sign = SKSpriteNode()
     let volcano4Sign = SKSpriteNode()
     
+    var volcano1SignImage: Double = 0
+    var volcano2SignImage: Double = 0
+    var volcano3SignImage: Double = 0
+    var volcano4SignImage: Double = 0
+    
     // MARK: - JungleScene
     
     // Section 1
@@ -741,16 +746,16 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - VOLCANO SIGNS
         
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Volcano1Sign") {
-            
+            volcano1SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Volcano2Sign") {
-            
+            volcano2SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Volcano3Sign") {
-            
+            volcano3SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Volcano4Sign") {
-            
+            volcano4SignImage = 1
         }
         
         //MARK: - VOLCANO GRAVES SECTION 1

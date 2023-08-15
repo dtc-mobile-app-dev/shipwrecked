@@ -45,6 +45,11 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     let jungleSword = SKSpriteNode()
     
+    var jungle1SignImage: Double = 0
+    var jungle2SignImage: Double = 0
+    var jungle3SignImage: Double = 0
+    var jungle4SignImage: Double = 0
+    
     // MARK: - JungleScene
     
     // Section 1
@@ -730,16 +735,16 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - JUNGLE SIGNS
         
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle1Sign") {
-            
+            jungle1SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle2Sign") {
-            
+            jungle2SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle3Sign") {
-            
+            jungle3SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle4Sign") {
-            
+            jungle4SignImage = 1
         }
         
         // MARK: - Transitions

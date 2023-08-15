@@ -28,7 +28,7 @@ struct MenuView: View {
                     SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).padding(.bottom).shadow(color: .white, radius: 2.5)
+                        .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).shadow(color: .white, radius: 2.5)
                 }
             }
         }
@@ -36,7 +36,6 @@ struct MenuView: View {
         .environmentObject(jungleScene)
         .environmentObject(caveScene)
         .environmentObject(volcanoScene)
-        
     }
 }
 

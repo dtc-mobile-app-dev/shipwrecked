@@ -62,6 +62,13 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11, isGun: true)
     let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13, isGun: false)
     
+    
+    // MARK: - Food
+    
+    let apple1 = SKSpriteNode()
+    let watermelon1 = SKSpriteNode()
+    
+    
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
@@ -106,6 +113,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let meleeCategory: UInt32 = 0x100000
     
     let signCategory: UInt32 = 0x1000000
+    let appleCategory: UInt32 = 0x5000
     
     let triggerCategory: UInt32 = 0x1000000
     let skullCategory: UInt32 = 0x10000000
@@ -127,9 +135,15 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - SignNodes
         
+
         createTrigger(withName: "CaveEntrance", withNode: caveEntrance)
         createTrigger(withName: "JungleEntrance", withNode: jungleEntrance)
         createTrigger(withName: "VolcanoEntrance", withNode: volcanoEntrance)
+        
+        // MARK: - FoodPickups
+        
+        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
         
         // MARK: - Camera/Controller
         
@@ -488,6 +502,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
+
         // MARK: - Scenes Transitions
     
         if contactA == ("CaveEntrance") && bodyB == playerCategory {
@@ -501,6 +516,31 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if contactA == ("VolcanoEntrance") && bodyB == playerCategory {
             transitionToVolcanoScene()
             currentPlayerNode.removeFromParent()
+        }
+
+        // MARK: - Fix this crap
+        if bodyA == playerCategory && bodyB == appleCategory {
+            contact.bodyB.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+            print(inventory.count)
+        }
+        
+        if bodyB == playerCategory && bodyA == appleCategory {
+            contact.bodyA.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+            print(inventory.count)
+        }
+        
+        if bodyA == playerCategory && contactA == ("Watermelon1") {
+            contact.bodyB.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+            print(inventory.count)
+        }
+        
+        if bodyB == playerCategory && contactB == ("Watermelon1") {
+            contact.bodyA.node?.removeFromParent()
+            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+            print(inventory.count)
         }
         
     }

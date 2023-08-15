@@ -342,7 +342,7 @@ extension GameView {
                 }
             }
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
-                ForEach(items) { item in
+                ForEach(IslandScene().inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
                         showInventoryDescription.toggle()
@@ -379,43 +379,46 @@ extension GameView {
                         // Make this button equip or consume or look at item depending on what the item is
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Use")
+                            if showInventoryDescription && showInventory {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                Text("Use")
+                                    .foregroundColor(.black)
+                            }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
                         // Make this button get rid of the item that is selected
+                        IslandScene().inventory.remove(at: 0)
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(.brown)
-                                .frame(width: 200, height: 100)
-                            Text("Trash")
+                            if showInventoryDescription && showInventory {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                                Text("Trash")
+                                    .foregroundColor(.black)
+                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
+                            }
                         }
+                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                 }
             }
             
-            // MARK: - Signs
-            
-            //            signBeach1
-            //                        signBeach2
-            //                        signBeach3
+            // MARK: - Signs were here
+          
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
-                        .resizable()
-                        .scaledToFill().padding()
-                        .frame(width: 250, height: 20)
-                        .shadow(color: .white, radius: 15)
+                        .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 25)
                     Spacer()
                     
                     Button {
-                        withAnimation {
-                            showInventory.toggle()
-                        }
+                        withAnimation { showInventory.toggle() }
                     } label: {
                         Image("ORANGEBOX")
                             .resizable()
@@ -436,15 +439,11 @@ extension GameView {
         }
     }
     
-    
-    // MARK: - EXTENSION
-    
-    func createSignLabel(text: String) -> SKLabelNode {
-        let node = SKLabelNode(text: text)
-        node.verticalAlignmentMode = .center
-        
-        return node
-    }
+//    func createSignLabel(text: String) -> SKLabelNode {
+//        let node = SKLabelNode(text: text)
+//        node.verticalAlignmentMode = .center
+//        return node
+//    }
     
     // MARK: - BEACH NOTES
     var beachNote1: some View {
@@ -562,19 +561,19 @@ extension GameView {
         }
     }
     // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
-    var paperBeach1: some View {
-        ZStack {
-            Image("Paper1")
-                .resizable()
-                .frame(width: 600, height: 300)
-                .padding(.top, 50)
-                .overlay {
-                    Text("Text for BEACH clue #3")
-                        .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
-                }
-        }
-    }
+//    var paperBeach1: some View {
+//        ZStack {
+//            Image("Paper1")
+//                .resizable()
+//                .frame(width: 600, height: 300)
+//                .padding(.top, 50)
+//                .overlay {
+//                    Text("Text for BEACH clue #3")
+//                        .frame(width: 350, height: 200)
+//                        .font(CustomFontBlock.small)
+//                }
+//        }
+//    }
     
     // Cave Signs
     var signCave1: some View {
@@ -583,6 +582,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave1SignImage)
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
@@ -596,6 +596,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave2SignImage)
                 .overlay {
                     Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
                         .frame(width: 350, height: 200)
@@ -609,6 +610,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave3SignImage)
                 .overlay {
                     Text("Feed the Beast weekly, we don't want to make it upset")
                         .frame(width: 350, height: 200)
@@ -623,6 +625,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(caveScene.cave4SignImage)
                 .overlay {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
@@ -637,6 +640,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano1SignImage)
                 .overlay {
                     Text("WATCH YOUR STEP!")
                         .frame(width: 350, height: 200)
@@ -650,6 +654,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano2SignImage)
                 .overlay {
                     Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
                         .frame(width: 350, height: 200)
@@ -663,6 +668,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano3SignImage)
                 .overlay {
                     Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
                         .frame(width: 350, height: 200)
@@ -676,6 +682,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(volcanoScene.volcano4SignImage)
                 .overlay {
                     Text("CAUTION: If angered, It will throw lava")
                         .frame(width: 350, height: 200)
@@ -690,6 +697,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle1SignImage)
                 .overlay {
                     Text("The Protector of the Green watches for intruders")
                         .frame(width: 350, height: 200)
@@ -703,6 +711,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle2SignImage)
                 .overlay {
                     Text("PROTECT THE GREEN")
                         .frame(width: 350, height: 200)
@@ -716,6 +725,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle3SignImage)
                 .overlay {
                     Text("A Sword of Unfathomable Power is within the Green")
                         .frame(width: 350, height: 200)
@@ -729,6 +739,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
+                .opacity(jungleScene.jungle4SignImage)
                 .overlay {
                     Text("The Protector desires peace. DO NOT PROVOKE")
                         .frame(width: 350, height: 200)
@@ -750,6 +761,7 @@ extension GameView {
         }
     }
 }
+
 
 struct InventoryItem: Identifiable {
     let id = UUID()

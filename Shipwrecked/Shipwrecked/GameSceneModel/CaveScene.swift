@@ -138,6 +138,19 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Transitions
     
     var islandEntrance = SKSpriteNode()
+
+    var cave1SignImage: Double = 0
+    var cave2SignImage: Double = 0
+    var cave3SignImage: Double = 0
+    var cave4SignImage: Double = 0
+
+    // MARK: - Food
+    
+    let apple1 = SKSpriteNode()
+    let apple2 = SKSpriteNode()
+    let apple3 = SKSpriteNode()
+    let watermelon1 = SKSpriteNode()
+    let watermelon2 = SKSpriteNode()
     
     // MARK: - Combat
     
@@ -250,8 +263,23 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             // MARK: - Camera/Controller
             
             camera()
+            
+
+        
+        // MARK: - FoodPickups
+        
+        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+        node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
             CaveScene.hasLoaded = true
         }
+        
+        
+        // MARK: - Characters
+        
         createPlayer()
     }
     
@@ -768,6 +796,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
+
         // MARK: - Scene Transition
         
         if contactA == ("IslandEntrance") && bodyB == playerCategory {
@@ -775,6 +804,13 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.removeFromParent()
         }
         
+        // Food thingy??
+        if bodyA == playerCategory && bodyB == skullCategory {
+            contact.bodyB.node?.removeFromParent()
+        }
+        
+        // MARK: - Scenes
+
         
         
         
@@ -799,16 +835,16 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - CAVE SIGNS
         
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave1Sign") {
-            
+            cave1SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave2Sign") {
-            
+            cave2SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave3Sign") {
-            
+            cave3SignImage = 1
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Cave4Sign") {
-            
+            cave4SignImage = 1
         }
         
         //MARK: - CAVE GRAVES SECTION 1

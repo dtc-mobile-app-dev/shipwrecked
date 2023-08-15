@@ -20,7 +20,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @Published var currentHealth = 0
     @Published var currentPlayer: Player?
     @Published var currentWeapon: Weapon?
-    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
+    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true)]
     
     var isMoving = false
     static var hasLoaded = false
@@ -519,29 +519,29 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
 
         // MARK: - Fix this crap
-        if bodyA == playerCategory && bodyB == appleCategory {
-            contact.bodyB.node?.removeFromParent()
-            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
-            print(inventory.count)
-        }
-        
-        if bodyB == playerCategory && bodyA == appleCategory {
-            contact.bodyA.node?.removeFromParent()
-            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
-            print(inventory.count)
-        }
-        
-        if bodyA == playerCategory && contactA == ("Watermelon1") {
-            contact.bodyB.node?.removeFromParent()
-            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
-            print(inventory.count)
-        }
-        
-        if bodyB == playerCategory && contactB == ("Watermelon1") {
-            contact.bodyA.node?.removeFromParent()
-            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
-            print(inventory.count)
-        }
+//        if bodyA == playerCategory && bodyB == appleCategory {
+//            contact.bodyB.node?.removeFromParent()
+//            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+//            print(inventory.count)
+//        }
+//        
+//        if bodyB == playerCategory && bodyA == appleCategory {
+//            contact.bodyA.node?.removeFromParent()
+//            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
+//            print(inventory.count)
+//        }
+//        
+//        if bodyA == playerCategory && contactA == ("Watermelon1") {
+//            contact.bodyB.node?.removeFromParent()
+//            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+//            print(inventory.count)
+//        }
+//        
+//        if bodyB == playerCategory && contactB == ("Watermelon1") {
+//            contact.bodyA.node?.removeFromParent()
+//            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
+//            print(inventory.count)
+//        }
         
     }
     

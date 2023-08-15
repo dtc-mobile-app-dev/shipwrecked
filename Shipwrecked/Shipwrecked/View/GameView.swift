@@ -49,16 +49,17 @@ struct GameView: View {
     let bigCircleRadiusLeft: CGFloat = 100
     
     @State var items = [
-        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword"),
-        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special"),
-        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it"),
-        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh"),
-        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors"),
-        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors"),
-        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh"),
-        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals"),
-        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me"),
-        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe")
+        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false),
+        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false),
+        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false),
+        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false),
+        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
+        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
+        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false),
+        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true),
+        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false),
+        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true),
+        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe", isWeapon: false, isFood: false)
     ]
     
     @State var showInventory = false
@@ -495,7 +496,7 @@ extension GameView {
                 .overlay {
                     Text("Entrance to the Cave of the Beast")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -508,7 +509,7 @@ extension GameView {
                 .overlay {
                     Text("Entrance to the Depths of the Volcano")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -521,7 +522,7 @@ extension GameView {
                 .overlay {
                     Text("Entrance to the Green of the Jungle")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -556,7 +557,7 @@ extension GameView {
                 .overlay {
                     Text("What is Kevin doing here? He does literally nothing! - Gerald the Gunner")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -569,7 +570,7 @@ extension GameView {
                 .overlay {
                     Text("Captain Doug is Kinda Smelly - Lizzie The Welder")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -580,9 +581,9 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 25)
                 .overlay {
-                    Text("Gerald is giving me a mean look, I don't think he likes me. I might have to throw him overboard. - Kevin")
+                    Text("Gerald is giving me a mean look, I don't like that - Kevin")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -595,7 +596,7 @@ extension GameView {
                 .overlay {
                     Text("Lizzie don't like the sea, and if she don't like the sea, me don't like she - Captain Doug")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -625,7 +626,8 @@ extension GameView {
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .padding(.bottom)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(caveScene.cave1SignImage)
@@ -640,9 +642,10 @@ extension GameView {
                 .padding(.top, 50)
                 
                 .overlay {
-                    Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
+                    Text("BEWARE!: The creature produces lethal Sonic Sound Waves")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .padding(.bottom)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(caveScene.cave2SignImage)
@@ -656,7 +659,8 @@ extension GameView {
                 .overlay {
                     Text("Feed the Beast weekly, we don't want to make it upset")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .padding(.bottom)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(caveScene.cave3SignImage)
@@ -673,6 +677,13 @@ extension GameView {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
+
+                        .padding(.bottom)
+                        .font(CustomFontBlock.small2)
+
+                        .font(CustomFontBlock.small)
+
+
                 }
         }
         .opacity(caveScene.cave4SignImage)
@@ -688,7 +699,7 @@ extension GameView {
                 .overlay {
                     Text("WATCH YOUR STEP!")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(volcanoScene.volcano1SignImage)
@@ -701,9 +712,9 @@ extension GameView {
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
                 .overlay {
-                    Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
+                    Text("Perform Sacrificial Rituals to prevent the Lava God from being angry")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(volcanoScene.volcano2SignImage)
@@ -718,7 +729,7 @@ extension GameView {
                 .overlay {
                     Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(volcanoScene.volcano3SignImage)
@@ -733,7 +744,7 @@ extension GameView {
                 .overlay {
                     Text("CAUTION: If angered, It will throw lava")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(volcanoScene.volcano4SignImage)
@@ -749,7 +760,7 @@ extension GameView {
                 .overlay {
                     Text("The Protector of the Green watches for intruders")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(jungleScene.jungle1SignImage)
@@ -764,7 +775,7 @@ extension GameView {
                 .overlay {
                     Text("PROTECT THE GREEN")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(jungleScene.jungle2SignImage)
@@ -779,7 +790,7 @@ extension GameView {
                 .overlay {
                     Text("A Sword of Unfathomable Power is within the Green")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(jungleScene.jungle3SignImage)
@@ -794,7 +805,7 @@ extension GameView {
                 .overlay {
                     Text("The Protector desires peace. DO NOT PROVOKE")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
         .opacity(jungleScene.jungle4SignImage)
@@ -809,7 +820,7 @@ extension GameView {
                 .overlay {
                     Text("Only those worthy can hold the Sword of the Green")
                         .frame(width: 350, height: 200)
-                        .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small2)
                 }
         }
     }
@@ -823,6 +834,8 @@ struct InventoryItem: Identifiable, Equatable {
     let name: String
     let imageName: String
     let itemDescription: String
+    let isWeapon: Bool
+    let isFood: Bool
 }
 
 

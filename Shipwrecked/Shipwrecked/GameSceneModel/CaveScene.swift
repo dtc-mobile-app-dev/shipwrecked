@@ -146,11 +146,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 
     // MARK: - Food
     
-    let apple1 = SKSpriteNode()
-    let apple2 = SKSpriteNode()
-    let apple3 = SKSpriteNode()
-    let watermelon1 = SKSpriteNode()
-    let watermelon2 = SKSpriteNode()
+//    let apple1 = SKSpriteNode()
+//    let apple2 = SKSpriteNode()
+//    let apple3 = SKSpriteNode()
+//    let watermelon1 = SKSpriteNode()
+//    let watermelon2 = SKSpriteNode()
     
     // MARK: - Combat
     
@@ -268,11 +268,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - FoodPickups
         
-        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+//        node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
             
             CaveScene.hasLoaded = true
         }

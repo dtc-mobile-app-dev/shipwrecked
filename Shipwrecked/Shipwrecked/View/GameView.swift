@@ -100,7 +100,7 @@ struct GameView: View {
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
-//                    uiOverlay
+                    uiOverlay
                 }
             Text(angleText)
                 .offset(y: -1000)
@@ -344,7 +344,8 @@ extension GameView {
                 ForEach(GameData.shared.inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
-                        showInventoryDescription.toggle()
+                        showInventoryDescription = true
+//                        showInventoryDescription.toggle()
                         
                     } label: {
                         ZStack {
@@ -377,18 +378,17 @@ extension GameView {
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
-                        GameData().inventory.remove(at: 0)
-                        inventoryDescriptionIndex += 1
+                        if inventoryDescriptionIndex < GameData.shared.inventory.count {
+                            GameData.shared.inventory.remove(at: inventoryDescriptionIndex)
+                        }
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
-
                                 Text("Use")
                                     .foregroundColor(.black)
-
                             }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)

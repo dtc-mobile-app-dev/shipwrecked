@@ -17,6 +17,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: Instances
     
     @MainActor var joyconAngle = 0
+    @MainActor var leftJoyconAngle: Double = 0
+    var isMoving = false
     
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
@@ -158,8 +160,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
-    var virtualController: GCVirtualController?
-    
+
     // MARK: - PlayerAnimationBools
     
     var isAnimatingLeftPlayer = false
@@ -237,7 +238,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - Camera/Controller
         
         camera()
-        connectVirtualController()
+        
     }
     
     func updateAngle(isAttacking: Bool, degree: Int) {
@@ -245,11 +246,15 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.isShootin = isAttacking
         self.isSwingin = isAttacking
     }
+    func updateMovement(degree: Int, isMoving: Bool) {
+        self.leftJoyconAngle = Double(degree)
+        self.isMoving = isMoving
+    }
     // MARK: - Character
     
     func createPlayer() {
         
-        currentPlayerNode = .init(imageNamed: currentPlayer?.character ?? "nil")
+        currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
         currentPlayerNode.position = CGPoint(x: -1700 , y: 700)
         currentPlayerNode.zPosition = 5
@@ -752,18 +757,6 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Jungle4Enemy4HealthBar") { contactedRip(graveNode: contact.bodyB.node ?? SKNode(), enemyKey: "Jungle4Enemy4") }
     }
     
-    // MARK: - CONTROLLER
-    
-    func connectVirtualController() {
-        
-        let controllerConfic = GCVirtualController.Configuration()
-        controllerConfic.elements = [GCInputLeftThumbstick]
-        
-        let controller = GCVirtualController(configuration: controllerConfic)
-        controller.connect()
-        virtualController = controller
-    }
-    
     // MARK: - UPDATES
     
     override func update(_ currentTime: TimeInterval) {
@@ -818,85 +811,68 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
         
-        // MARK: - Created controller
-        
-        playerPosx = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value)!)
-        playerPosy = CGFloat((virtualController?.controller?.extendedGamepad?.leftThumbstick.yAxis.value)!)
-        
-        // MARK: - Joystick Movement
-        
-        if playerPosy <= -0.5 && playerPosx <= -0.5 { // GOING DOWN LEFT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += -2.5
-            
-            if !isAnimatingDownLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+        if isMoving {
+            if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT
+                currentPlayerNode.position.y += 2.5
+                currentPlayerNode.position.x += 2.5
                 
-                setAnimateBoolsPlayer(direction: .downLeft)
-            }
-        } else if playerPosy <= -0.5 && playerPosx >= 0.5 { // GOING DOWN RIGHT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += 2.5
-            
-            if !isAnimatingDownRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                if !isAnimatingUpRightDiagonalPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .upRight)
+                }
+            } else if leftJoyconAngle >= 67.5 && leftJoyconAngle <= 112.5 { // UP
+                currentPlayerNode.position.y += 5
                 
-                setAnimateBoolsPlayer(direction: .downRight)
-            }
-        } else if playerPosy >= 0.5 && playerPosx <= -0.5 { // GOING UP Left
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += -2.5
-            
-            if !isAnimatingUpLeftDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                if !isAnimatingUpPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .up)
+                }
+            } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
+                currentPlayerNode.position.y += 2.5
+                currentPlayerNode.position.x += -2.5
                 
-                setAnimateBoolsPlayer(direction: .upLeft)
-            }
-        } else if playerPosy >= 0.5 && playerPosx >= 0.5 { // GOING UP RIGHT
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += 2.5
-            
-            if !isAnimatingUpRightDiagonalPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                if !isAnimatingUpLeftDiagonalPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .upLeft)
+                }
+            } else if leftJoyconAngle >= 157.5 && leftJoyconAngle <= 202.5 { // LEFT
+                currentPlayerNode.position.x -= 5
+                if !isAnimatingLeftPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .left)
+                }
+            } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
+                currentPlayerNode.position.y += -2.5
+                currentPlayerNode.position.x += -2.5
                 
-                setAnimateBoolsPlayer(direction: .upRight)
-            }
-        } else if playerPosx >= 0.5 { // GOING RIGHT
-            currentPlayerNode.position.x += 5
-            if !isAnimatingRightPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                if !isAnimatingDownLeftDiagonalPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .downLeft)
+                }
+            } else if leftJoyconAngle >= 247.5 && leftJoyconAngle <= 292.5 { // DOWN
+                currentPlayerNode.position.y -= 5
                 
-                setAnimateBoolsPlayer(direction: .right)
-            }
-            
-        } else if playerPosx <= -0.5 { // GOING LEFT
-            currentPlayerNode.position.x -= 5
-            if !isAnimatingLeftPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                if !isAnimatingDownPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .down)
+                }
+            } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
+                currentPlayerNode.position.y += -2.5
+                currentPlayerNode.position.x += 2.5
                 
-                setAnimateBoolsPlayer(direction: .left)
-            }
-        } else if playerPosy >= 0.5 { // GOING UP
-            currentPlayerNode.position.y += 5
-            
-            if !isAnimatingUpPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
-                
-                setAnimateBoolsPlayer(direction: .up)
-            }
-            
-        } else if playerPosy <= -0.5 { // GOING DOWN
-            
-            currentPlayerNode.position.y -= 5
-            
-            if !isAnimatingDownPlayer {
-                animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
-                
-                setAnimateBoolsPlayer(direction: .down)
+                if !isAnimatingDownRightDiagonalPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .downRight)
+                }
+            } else if leftJoyconAngle >= 337.5 || leftJoyconAngle <= 22.5  { // RIGHT
+                currentPlayerNode.position.x += 5
+                if !isAnimatingRightPlayer {
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                    setAnimateBoolsPlayer(direction: .right)
+                }
             }
         } else {
             currentPlayerNode.removeAllActions()
-            
             isAnimatingLeftPlayer = false
             isAnimatingRightPlayer = false
             isAnimatingUpPlayer = false
@@ -910,11 +886,6 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         cam.position.x = currentPlayerNode.position.x
         cam.position.y = currentPlayerNode.position.y
-        
-        // MARK: - ENEMY CHASE
-        
-        //        print("\(enemyDictionary["Cave1Enemy1"]?.health)")
-        
         
     }
     

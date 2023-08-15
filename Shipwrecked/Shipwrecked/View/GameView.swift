@@ -23,7 +23,7 @@ struct GameView: View {
     @EnvironmentObject var jungleScene: JungleScene
     @EnvironmentObject var volcanoScene: VolcanoScene
 
-    
+    // RIGHT STICK
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
     
@@ -35,6 +35,20 @@ struct GameView: View {
     @State var angle = 0
     
     let bigCircleRadius: CGFloat = 100
+    
+    // LEFT STICK
+    
+    @State var locationLeft: CGPoint = .zero
+    @State var innerCircleLocationLeft: CGPoint = .zero
+    
+    
+    @GestureState var fingerLocationLeft: CGPoint? = nil
+    @GestureState var startLocationLeft: CGPoint? = nil
+    
+    @State var scoreLeft = 0
+    @State var angleLeft = 0
+    
+    let bigCircleRadiusLeft: CGFloat = 100
     
     @State var items = [
         InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword"),
@@ -55,7 +69,7 @@ struct GameView: View {
         didSet { isAHint.toggle() }
     }
     
-    let item: InventoryItem
+//    let item: InventoryItem
     @State var showItem = false
     @State var showButtonText = "Show Item"
     @State var inventoryDescription = "Nothing"
@@ -82,14 +96,18 @@ struct GameView: View {
             }
                    
             rightstick
-                .position(x:Constants.controllerPositionX, y: Constants.controllerPositionY)
+                .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
+            leftStick
+                .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
-                    uiOverlay
+//                    uiOverlay
                 }
             Text(angleText)
                 .offset(y: -1000)
-            
+            Text(angleTextLeft)
+                .offset(y: -1000)
+
         }
     }
 }
@@ -99,11 +117,14 @@ extension GameView {
     // MARK: - CONSTANTS
     
     private struct Constants {
-        static let controllerPositionX: CGFloat = 1000
-        static let controllerPositionY: CGFloat = 350
+        static let rightControllerPositionX: CGFloat = 1000
+        static let rightControllerPositionY: CGFloat = 500
+        
+        static let leftControllerPositionX: CGFloat = 450
+        static let leftControllerPositionY: CGFloat = 500
     }
     
-    // MARK: - CONTROLLER VIEW
+    // MARK: - Right CONTROLLER VIEW
     
     var rightstick: some View {
         ZStack {
@@ -189,6 +210,100 @@ extension GameView {
         return "\(degrees)°"
     }
     
+    // MARK: - LEFTSTICK
+    
+    var leftStick: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(.black.opacity(0.25))
+                .frame(width: bigCircleRadiusLeft * 2, height: bigCircleRadiusLeft * 1.5)
+                .position(locationLeft)
+            
+            Circle()
+                .foregroundColor(.black)
+                .frame(width: 50, height: 50, alignment: .center)
+                .position(innerCircleLocationLeft)
+                .gesture(fingerDragLeft)
+        }
+        .frame(alignment: .center)
+    }
+    
+    var simpleDragLeft: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                var newLocation = startLocation ?? location
+                newLocation.x += value.translation.width
+                newLocation.y += value.translation.height
+                
+                let distance = sqrt(pow(newLocation.x - location.x, 2) + pow(newLocation.y - location.y, 2))
+                
+                if distance > bigCircleRadius {
+                    let angle = atan2(newLocation.y - location.y, newLocation.x - location.x)
+                    newLocation.x = location.x + cos(angle) * bigCircleRadius
+                    newLocation.y = location.y + sin(angle) * bigCircleRadius
+                }
+                
+                self.location = newLocation
+                self.innerCircleLocation = newLocation
+            }
+            .updating($startLocation) { (value, startLocation, transaction) in
+                startLocation = startLocation ?? location
+            }
+    }
+    
+    var fingerDragLeft: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                let distance = sqrt(pow(value.location.x - location.x, 2) + pow(value.location.y - location.y, 2))
+                let angle = atan2(value.location.y - location.y, value.location.x - location.x)
+                let maxDistance = bigCircleRadiusLeft
+                let clampedDistance = min(distance, maxDistance)
+                let newX = location.x + cos(angle) * clampedDistance
+                let newY = location.y + sin(angle) * clampedDistance
+                
+                innerCircleLocationLeft = CGPoint(x: newX, y: newY)
+            }
+            .updating($fingerLocationLeft) { (value, fingerLocation, transaction) in
+                fingerLocation = value.location
+            }
+            .onEnded { value in
+                let center = location
+                innerCircleLocationLeft = center
+            }
+    }
+    
+    var angleTextLeft: String {
+        let angle = atan2(innerCircleLocationLeft.y - locationLeft.y, innerCircleLocationLeft.x - locationLeft.x)
+        var degrees = Int(-angle * 180 / .pi)
+        
+        if degrees < 0 {
+            degrees += 360
+        }
+        
+        var isAttacking = false
+        
+        if fingerLocationLeft == nil {
+            isAttacking = false
+        } else {
+            isAttacking = true
+        }
+        
+        scene.updateMovement(degree: degrees, isMoving: isAttacking)
+        caveScene.updateMovement(degree: degrees, isMoving: isAttacking)
+        jungleScene.updateMovement(degree: degrees, isMoving: isAttacking)
+        volcanoScene.updateMovement(degree: degrees, isMoving: isAttacking)
+       
+        
+        return "\(degrees)°"
+    }
+    
+    //
+    //
+    //
+    //
+    //
+    //
+    
     var uiOverlay: some View {
         ZStack {
             // MARK: - Inventory
@@ -256,7 +371,7 @@ extension GameView {
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                Text(item.itemDescription)
+                Text(items[1].itemDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 HStack{

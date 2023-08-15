@@ -136,6 +136,9 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var bossShootAngle1: Double = 1
     var bossShootAngle2: Double = 3
     var bossShootAngle3: Double = 5
+    var bossTextures: [SKTexture] = []
+    var ifBossAnimating = false
+
     
     // MARK: - Combat
     
@@ -527,6 +530,28 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 //        }
     }
     
+    func bossAnimate() {
+        
+        bossTextures.append(SKTexture(imageNamed: "BatBoss1"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss2"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss3"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss4"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss5"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss6"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss7"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss8"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss9"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss10"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss11"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss12"))
+        bossTextures.append(SKTexture(imageNamed: "BatBoss13"))
+        
+        let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.1)
+        let animateRepeat = SKAction.repeatForever(animation)
+        
+        jungleBoss.run(animateRepeat)
+    }
+    
     // MARK: - ENEMY Creation
     
     func enemyMove(enemyName: String, node: SKSpriteNode, enemySceneName: String, healthBarNode: SKSpriteNode) {
@@ -830,6 +855,10 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             isBossShooting = true
             
             if !bossFightActive {
+                if !ifBossAnimating {
+                    bossAnimate()
+                    ifBossAnimating = true
+                }
                 jungleBossFightActivate1()
                 jungleBossFightActivate2()
                 jungleBossFightActivate3()

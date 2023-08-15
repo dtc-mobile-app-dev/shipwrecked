@@ -16,8 +16,8 @@ class GameData: ObservableObject {
     var currentPlayer: Player?
     
 
-    var currentPlayerPositionX: Double?
-    var currentPlayerPositionY: Double?
+    var currentPlayerPositionX: Double = -1000
+    var currentPlayerPositionY: Double = 0
     @Published var currentWeapon: Weapon?
     @Published var inventory: [InventoryItem] = [
         InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum"),

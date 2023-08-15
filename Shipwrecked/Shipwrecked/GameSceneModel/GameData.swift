@@ -15,10 +15,16 @@ class GameData: ObservableObject {
     @Published var currentHealth = 0
     var currentPlayer: Player?
     
-    var currentPlayerPositionX: Double = 1500
-    var currentPlayerPositionY: Double = 1500
+
+    var currentPlayerPositionX: Double?
+    var currentPlayerPositionY: Double?
     @Published var currentWeapon: Weapon?
-    @Published var inventory: [InventoryItem]?
+    @Published var inventory: [InventoryItem] = [
+        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum"),
+        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Wooooo"),
+        InventoryItem(name: "Boomerang" , imageName: "Boomerang", itemDescription: "WHOOOSH"),
+        InventoryItem(name: "Skull", imageName: "Skull1", itemDescription: "OH NOO")
+        ]
     
     @Published var currentLevel: Level = .scene
     

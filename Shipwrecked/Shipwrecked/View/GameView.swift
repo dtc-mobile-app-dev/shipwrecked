@@ -17,13 +17,12 @@ enum Level {
 }
 
 struct GameView: View {
-
+    
     @EnvironmentObject var scene: IslandScene
     @EnvironmentObject var caveScene: CaveScene
     @EnvironmentObject var jungleScene: JungleScene
     @EnvironmentObject var volcanoScene: VolcanoScene
 
-    // RIGHT STICK
     @State var location: CGPoint = .zero
     @State var innerCircleLocation: CGPoint = .zero
     
@@ -69,17 +68,18 @@ struct GameView: View {
         didSet { isAHint.toggle() }
     }
     
-//    let item: InventoryItem
+    //    let item: InventoryItem
     @State var showItem = false
     @State var showButtonText = "Show Item"
     @State var inventoryDescription = "Nothing"
     @State var showInventoryDescription = false
+    @State var inventoryDescriptionIndex = 0
     
     
     
     var body: some View {
         ZStack {
-        
+            
             switch GameData.shared.currentLevel {
             case .jungleScene:
                 SpriteView(scene: jungleScene)
@@ -94,7 +94,7 @@ struct GameView: View {
                 SpriteView(scene: volcanoScene)
                     .ignoresSafeArea()
             }
-                   
+            
             rightstick
                 .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
             leftStick
@@ -342,10 +342,11 @@ extension GameView {
                 }
             }
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
-                ForEach(IslandScene().inventory) { item in
+                ForEach(GameData.shared.inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
                         showInventoryDescription.toggle()
+                        
                     } label: {
                         ZStack {
                             Image(item.slotImage)
@@ -371,46 +372,52 @@ extension GameView {
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                Text(items[1].itemDescription)
+                Text(inventoryDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
+                        GameData().inventory.remove(at: 0)
+                        inventoryDescriptionIndex += 1
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
+
                                 Text("Use")
                                     .foregroundColor(.black)
+
                             }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
                         // Make this button get rid of the item that is selected
-                        IslandScene().inventory.remove(at: 0)
+                        GameData().inventory.remove(at: inventoryDescriptionIndex)
                     } label: {
                         ZStack {
-                            if showInventoryDescription && showInventory {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundColor(.brown)
-                                    .frame(width: 70, height: 40)
-                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
-                                Text("Trash")
-                                    .foregroundColor(.black)
-                                //.padding(EdgeInsets(top: 200, leading: 400, bottom: 0, trailing: 0))
-                            }
+//                            if showInventoryDescription && showInventory {
+//                                RoundedRectangle(cornerRadius: 5)
+//                                    .foregroundColor(.brown)
+//                                    .position(x: 200, y: 100)
+//                                    .frame(width: 70, height: 40)
+//                                    .background(Color.white)
+//                                Text("Trash")
+//                                    .foregroundColor(.black)
+//                                    .position(x: 200, y: 100)
+//                                    .frame(width: 70, height: 40)
+//                                    .background(Color.white)
+//                            }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                 }
             }
             
-            // MARK: - Signs were here
-          
+
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
@@ -439,11 +446,11 @@ extension GameView {
         }
     }
     
-//    func createSignLabel(text: String) -> SKLabelNode {
-//        let node = SKLabelNode(text: text)
-//        node.verticalAlignmentMode = .center
-//        return node
-//    }
+    //    func createSignLabel(text: String) -> SKLabelNode {
+    //        let node = SKLabelNode(text: text)
+    //        node.verticalAlignmentMode = .center
+    //        return node
+    //    }
     
     // MARK: - BEACH NOTES
     var beachNote1: some View {
@@ -561,19 +568,205 @@ extension GameView {
         }
     }
     // MARK: - IS DIFFERENT PAPER. DONT USE FOR SIGNS BECAUSE TEXT WON'T FIT
-//    var paperBeach1: some View {
+    //    var paperBeach1: some View {
+    //        ZStack {
+    //            Image("Paper1")
+    //                .resizable()
+    //                .frame(width: 600, height: 300)
+    //                .padding(.top, 50)
+    //                .overlay {
+    //                    Text("Text for BEACH clue #3")
+    //                        .frame(width: 350, height: 200)
+    //                        .font(CustomFontBlock.small)
+    //                }
+    //        }
+}
+
+//    // Cave Signs
+//    var signCave1: some View {
 //        ZStack {
-//            Image("Paper1")
+//            Image("SIGN 1")
 //                .resizable()
-//                .frame(width: 600, height: 300)
+//                .frame(width: 500, height: 300)
 //                .padding(.top, 50)
+//                .opacity(caveScene.cave1SignImage)
 //                .overlay {
-//                    Text("Text for BEACH clue #3")
+//                    Text("CAUTION: Many enter, but NONE have returned!")
 //                        .frame(width: 350, height: 200)
 //                        .font(CustomFontBlock.small)
 //                }
 //        }
 //    }
+
+   var signCave2: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(caveScene.cave2SignImage)
+               .overlay {
+                   Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signCave3: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(caveScene.cave3SignImage)
+               .overlay {
+                   Text("Feed the Beast weekly, we don't want to make it upset")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+
+   var signCave4: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(caveScene.cave4SignImage)
+               .overlay {
+                   Text("The beast can attack from a distance")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   // Volcano Signs
+   var signVolcano1: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(volcanoScene.volcano1SignImage)
+               .overlay {
+                   Text("WATCH YOUR STEP!")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signVolcano2: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(volcanoScene.volcano2SignImage)
+               .overlay {
+                   Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signVolcano3: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(volcanoScene.volcano3SignImage)
+               .overlay {
+                   Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signVolcano4: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(volcanoScene.volcano4SignImage)
+               .overlay {
+                   Text("CAUTION: If angered, It will throw lava")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   // Forest Signs
+   var signForrest1: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(jungleScene.jungle1SignImage)
+               .overlay {
+                   Text("The Protector of the Green watches for intruders")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signForest2: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(jungleScene.jungle2SignImage)
+               .overlay {
+                   Text("PROTECT THE GREEN")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signForest3: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(jungleScene.jungle3SignImage)
+               .overlay {
+                   Text("A Sword of Unfathomable Power is within the Green")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+   var signForest4: some View {
+       ZStack {
+           Image("SIGN 1")
+               .resizable()
+               .frame(width: 500, height: 300)
+               .padding(.top, 50)
+               .opacity(jungleScene.jungle4SignImage)
+               .overlay {
+                   Text("The Protector desires peace. DO NOT PROVOKE")
+                       .frame(width: 350, height: 200)
+                       .font(CustomFontBlock.small)
+               }
+       }
+   }
+var signSword1: some View {
+    ZStack {
+        Image("SIGN 1")
+            .resizable()
+            .frame(width: 500, height: 300)
+            .padding(.top, 50)
+            .overlay {
+                Text("Only those worthy can hold the Sword of the Green")
+                    .frame(width: 350, height: 200)
+                    .font(CustomFontBlock.small)
+            }
+=======
     
     // Cave Signs
     var signCave1: some View {

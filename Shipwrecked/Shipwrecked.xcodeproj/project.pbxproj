@@ -32,6 +32,13 @@
 		B3497A3F2A70771A005D645D /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3497A3E2A70771A005D645D /* NPC.swift */; };
 		B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4A2A799DD0005D645D /* IslandScene.sks */; };
 		B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */ = {isa = PBXBuildFile; fileRef = B3497A4C2A799DE9005D645D /* AllTileSets.sks */; };
+		FA2C00752A8B1E9F00664990 /* IslandTheme.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00742A8B1E9F00664990 /* IslandTheme.wav */; };
+		FA2C00772A8B1EA900664990 /* CaveSoundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00762A8B1EA900664990 /* CaveSoundtrack.wav */; };
+		FA2C00792A8B1EB000664990 /* CaveBoss.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00782A8B1EB000664990 /* CaveBoss.wav */; };
+		FA2C007B2A8B1EB800664990 /* JungleBoss.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C007A2A8B1EB800664990 /* JungleBoss.wav */; };
+		FA2C007D2A8B1EBF00664990 /* JungleSoundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */; };
+		FA2C007F2A8B1EC900664990 /* VolcanoBoss.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */; };
+		FA2C00812A8B1ED000664990 /* VolcanoSoundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00802A8B1ED000664990 /* VolcanoSoundtrack.wav */; };
 		FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = FA64A5CA2A81A77F003F069F /* CaveScene.sks */; };
 		FA725EFD2A79C3B200D09378 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA725EFC2A79C3B200D09378 /* GameView.swift */; };
 		FA72F9112A7B07B600D8D25D /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */; };
@@ -93,6 +100,13 @@
 		B3497A3E2A70771A005D645D /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
 		B3497A4A2A799DD0005D645D /* IslandScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IslandScene.sks; sourceTree = "<group>"; };
 		B3497A4C2A799DE9005D645D /* AllTileSets.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AllTileSets.sks; sourceTree = "<group>"; };
+		FA2C00742A8B1E9F00664990 /* IslandTheme.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = IslandTheme.wav; sourceTree = "<group>"; };
+		FA2C00762A8B1EA900664990 /* CaveSoundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CaveSoundtrack.wav; sourceTree = "<group>"; };
+		FA2C00782A8B1EB000664990 /* CaveBoss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CaveBoss.wav; sourceTree = "<group>"; };
+		FA2C007A2A8B1EB800664990 /* JungleBoss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = JungleBoss.wav; sourceTree = "<group>"; };
+		FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = JungleSoundtrack.wav; sourceTree = "<group>"; };
+		FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VolcanoBoss.wav; sourceTree = "<group>"; };
+		FA2C00802A8B1ED000664990 /* VolcanoSoundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VolcanoSoundtrack.wav; sourceTree = "<group>"; };
 		FA64A5CA2A81A77F003F069F /* CaveScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CaveScene.sks; sourceTree = "<group>"; };
 		FA725EFC2A79C3B200D09378 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
@@ -229,10 +243,25 @@
 		FA2C00722A8AB78100664990 /* SoundManager */ = {
 			isa = PBXGroup;
 			children = (
+				FA2C00732A8B1E8700664990 /* Music */,
 				FAD91E632A8AAC5300753F1D /* SoundManager.swift */,
 				6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */,
 			);
 			path = SoundManager;
+			sourceTree = "<group>";
+		};
+		FA2C00732A8B1E8700664990 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				FA2C00782A8B1EB000664990 /* CaveBoss.wav */,
+				FA2C007A2A8B1EB800664990 /* JungleBoss.wav */,
+				FA2C00802A8B1ED000664990 /* VolcanoSoundtrack.wav */,
+				FA2C00762A8B1EA900664990 /* CaveSoundtrack.wav */,
+				FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */,
+				FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */,
+				FA2C00742A8B1E9F00664990 /* IslandTheme.wav */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 		FAF2166B2A79A7EB002D4CCC /* GameSceneModel */ = {
@@ -364,16 +393,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */,
+				FA2C00752A8B1E9F00664990 /* IslandTheme.wav in Resources */,
 				B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */,
+				FA2C007D2A8B1EBF00664990 /* JungleSoundtrack.wav in Resources */,
 				B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */,
 				988D90802A7C5BAC0050F79A /* JungleScene.sks in Resources */,
 				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
 				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
 				6A38683B2A8AD70D00E91EAB /* SoundEffectsForGroup in Resources */,
+				FA2C00812A8B1ED000664990 /* VolcanoSoundtrack.wav in Resources */,
 				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
 				FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */,
+				FA2C00772A8B1EA900664990 /* CaveSoundtrack.wav in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
+				FA2C00792A8B1EB000664990 /* CaveBoss.wav in Resources */,
+				FA2C007F2A8B1EC900664990 /* VolcanoBoss.wav in Resources */,
 				988D907E2A7C5B940050F79A /* VolcanoScene.sks in Resources */,
+				FA2C007B2A8B1EB800664990 /* JungleBoss.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

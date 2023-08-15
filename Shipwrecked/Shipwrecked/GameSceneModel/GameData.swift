@@ -12,20 +12,15 @@ class GameData: ObservableObject {
     
     static let shared = GameData()
     
-    var currentHealth = 0
+    @Published var currentHealth = 0
     var currentPlayer: Player?
     
-    var currentPlayerPositionX: Double?
-    var currentPlayerPositionY: Double?
-    var currentWeapon: Weapon?
-    var inventory: [InventoryItem]?
+    var currentPlayerPositionX: Double = 1500
+    var currentPlayerPositionY: Double = 1500
+    @Published var currentWeapon: Weapon?
+    @Published var inventory: [InventoryItem]?
     
     @Published var currentLevel: Level = .scene
-    
-    @Published var islandSceneActive = true
-    @Published var caveSceneActive = false
-    @Published var jungleSceneActive = false
-    @Published var volcanoSceneActive = false
     
     init() {}
 }

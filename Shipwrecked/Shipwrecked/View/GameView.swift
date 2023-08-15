@@ -118,17 +118,17 @@ struct GameView: View {
                 signVolcano3
                 signVolcano4
             }
-                
-//            Group {
-//                signBeach1
-//                signBeach2
-//                signBeach3
-//
-//                noteBeach1
-//                noteBeach2
-//                noteBeach3
-//                noteBeach4
-//            }
+            
+            //            Group {
+            //                signBeach1
+            //                signBeach2
+            //                signBeach3
+            //
+            //                noteBeach1
+            //                noteBeach2
+            //                noteBeach3
+            //                noteBeach4
+            //            }
             
             //
             
@@ -138,10 +138,10 @@ struct GameView: View {
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
-
+                    
                     //                    uiOverlay
                     uiOverlay
-
+                    
                 }
             Text(angleText)
                 .offset(y: -1000)
@@ -380,7 +380,7 @@ extension GameView {
                         // find the index of the currentSelectedItem
                         inventoryDescription = item.itemDescription
                         showInventoryDescription = true
-//                        showInventoryDescription.toggle()
+                        //                        showInventoryDescription.toggle()
                         currentSelectedItem = item
                     } label: {
                         ZStack {
@@ -414,6 +414,13 @@ extension GameView {
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
                         GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
+                        if currentSelectedItem.isFood {
+                            // Health +20
+                            inventoryDescription = "\(currentSelectedItem.name) Used! Health Increased by 20!"
+                        } else if currentSelectedItem.isWeapon {
+                            // Equip Weapon and put previous weapon in the inventory
+                            inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
+                        }
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
@@ -428,21 +435,16 @@ extension GameView {
                     }
                     Button {
                         // Make this button get rid of the item that is selected
-                        GameData().inventory.remove(at: inventoryDescriptionIndex)
+                        GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
                     } label: {
                         ZStack {
-                            //                            if showInventoryDescription && showInventory {
-                            //                                RoundedRectangle(cornerRadius: 5)
-                            //                                    .foregroundColor(.brown)
-                            //                                    .position(x: 200, y: 100)
-                            //                                    .frame(width: 70, height: 40)
-                            //                                    .background(Color.white)
-                            //                                Text("Trash")
-                            //                                    .foregroundColor(.black)
-                            //                                    .position(x: 200, y: 100)
-                            //                                    .frame(width: 70, height: 40)
-                            //                                    .background(Color.white)
-                            //                            }
+                            if showInventoryDescription && showInventory {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(.brown)
+                                    .frame(width: 70, height: 40)
+                                Text("Trash")
+                                    .foregroundColor(.black)
+                            }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
                     }
@@ -622,7 +624,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
-                
+            
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
@@ -632,7 +634,7 @@ extension GameView {
         }
         .opacity(caveScene.cave1SignImage)
     }
-
+    
     
     var signCave2: some View {
         ZStack {
@@ -640,7 +642,7 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
-                
+            
                 .overlay {
                     Text("BEWARE!: The creature produces lethal Sonic Sound Waves")
                         .frame(width: 350, height: 200)
@@ -664,7 +666,7 @@ extension GameView {
                 }
         }
         .opacity(caveScene.cave3SignImage)
-
+        
     }
     
     var signCave4: some View {
@@ -677,17 +679,15 @@ extension GameView {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
-
+                    
                         .padding(.bottom)
                         .font(CustomFontBlock.small2)
-
+                    
                         .font(CustomFontBlock.small)
-
-
                 }
         }
         .opacity(caveScene.cave4SignImage)
-
+        
     }
     // Volcano Signs
     var signVolcano1: some View {
@@ -703,7 +703,7 @@ extension GameView {
                 }
         }
         .opacity(volcanoScene.volcano1SignImage)
-
+        
     }
     var signVolcano2: some View {
         ZStack {
@@ -718,7 +718,7 @@ extension GameView {
                 }
         }
         .opacity(volcanoScene.volcano2SignImage)
-
+        
     }
     var signVolcano3: some View {
         ZStack {
@@ -733,7 +733,7 @@ extension GameView {
                 }
         }
         .opacity(volcanoScene.volcano3SignImage)
-
+        
     }
     var signVolcano4: some View {
         ZStack {
@@ -748,7 +748,7 @@ extension GameView {
                 }
         }
         .opacity(volcanoScene.volcano4SignImage)
-
+        
     }
     // Forest Signs
     var signForrest1: some View {
@@ -764,7 +764,7 @@ extension GameView {
                 }
         }
         .opacity(jungleScene.jungle1SignImage)
-
+        
     }
     var signForest2: some View {
         ZStack {
@@ -779,7 +779,7 @@ extension GameView {
                 }
         }
         .opacity(jungleScene.jungle2SignImage)
-
+        
     }
     var signForest3: some View {
         ZStack {
@@ -794,7 +794,7 @@ extension GameView {
                 }
         }
         .opacity(jungleScene.jungle3SignImage)
-
+        
     }
     var signForest4: some View {
         ZStack {
@@ -809,7 +809,7 @@ extension GameView {
                 }
         }
         .opacity(jungleScene.jungle4SignImage)
-
+        
     }
     var signSword1: some View {
         ZStack {

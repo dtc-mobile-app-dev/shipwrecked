@@ -412,8 +412,7 @@ extension GameView {
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
-                        GameData.shared.inventory.remove(at: GameData.shared.in)
-                        GameData.shared.inventory.firstIndex(of: currentSelectedItem)
+                        GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {

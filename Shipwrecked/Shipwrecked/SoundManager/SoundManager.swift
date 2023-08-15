@@ -53,6 +53,7 @@ class SoundManager {
         case slice1 = "slice1"
         case punch = "punch"
         case punch1 = "punch1"
+        
     }
     
     func playCombatmp3(sound: CombatOption) {
@@ -107,18 +108,19 @@ class SoundManager {
     var soundEffecets: AVAudioPlayer?
     
     enum SoundEffect: String {
-        case bonk = "multipleBonks"
+        case multipleBonks = "multipleBonks"
         case eat = "eat"
-        case eat1 = "eating1"
+        case eating1 = "eating1"
         case eating = "eating"
         case burp = "burp"
-        case lose = "fail"
+        case fail = "fail"
         case human = "human"
         case insane = "insane"
         case zap = "zap"
         case collectItem = "collectItem"
-        case clank = "clang"
+        case clang = "clang"
         case horse = "horse"
+        case start = "start"
     }
     
     func playSoundEffectmp3(sound: SoundEffect) {
@@ -146,10 +148,6 @@ class SoundManager {
     enum WalkSoundOption: String {
         case walk = "walk"
         case walkOnLeaves = "leavesCrunching"
-        //        case islandWalk
-        //        case caveWalk
-        //        case jungleWalk
-        //        case volcanoWalk
     }
     
     func playSoundEffect(sound: WalkSoundOption) {

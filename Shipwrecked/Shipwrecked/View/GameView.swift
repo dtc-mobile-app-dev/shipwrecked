@@ -73,6 +73,7 @@ struct GameView: View {
     @State var inventoryDescription = "Nothing"
     @State var showInventoryDescription = false
     @State var inventoryDescriptionIndex = 0
+    @State var currentSelectedItem: InventoryItem
     
     
     
@@ -375,10 +376,11 @@ extension GameView {
             LazyHGrid(rows: Array(repeating: GridItem(.flexible(), spacing: -150), count: 3), spacing: 10) {
                 ForEach(GameData.shared.inventory) { item in
                     Button {
+                        // find the index of the currentSelectedItem
                         inventoryDescription = item.itemDescription
                         showInventoryDescription = true
 //                        showInventoryDescription.toggle()
-                        
+                        currentSelectedItem = item
                     } label: {
                         ZStack {
                             Image(item.slotImage)
@@ -410,24 +412,16 @@ extension GameView {
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
-                        if inventoryDescriptionIndex < GameData.shared.inventory.count {
-                            GameData.shared.inventory.remove(at: inventoryDescriptionIndex)
-                        }
+                        GameData.shared.inventory.remove(at: GameData.shared.in)
+                        GameData.shared.inventory.firstIndex(of: currentSelectedItem)
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
-
-                                
                                 Text("Use")
                                     .foregroundColor(.black)
-                                
-
-                                Text("Use")
-                                    .foregroundColor(.black)
-
                             }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
@@ -824,7 +818,7 @@ extension GameView {
 
 
 
-struct InventoryItem: Identifiable {
+struct InventoryItem: Identifiable, Equatable {
     let id = UUID()
     let slotImage = "InventorySlot"
     let name: String

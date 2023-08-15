@@ -459,7 +459,7 @@ extension GameView {
             VStack {
                 HStack {
                     Image("HealthBar6MAX")
-                        .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 25)
+                        .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 15)
                     Spacer()
                     
                     Button {
@@ -469,7 +469,7 @@ extension GameView {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 75, height: 75)
-                            .shadow(color: .white, radius: 15)
+                            .shadow(color: .white, radius: 10)
                             .overlay {
                                 Image("InventoryIcon")
                                     .resizable()

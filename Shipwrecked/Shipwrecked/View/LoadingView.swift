@@ -10,7 +10,7 @@ import SwiftUI
 struct LoadingView: View {
     
     @State var startLoading = false
-    
+ 
     var body: some View {
         ZStack {
             Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
@@ -22,7 +22,7 @@ struct LoadingView: View {
             Button {
                 self.startLoading.toggle()
             } label: {
-                Text("Loading...")
+                Text("LOADING...")
                     .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
             }
             .background(

@@ -49,16 +49,17 @@ struct GameView: View {
     let bigCircleRadiusLeft: CGFloat = 100
     
     @State var items = [
-        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword"),
-        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special"),
-        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it"),
-        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh"),
-        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors"),
-        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors"),
-        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh"),
-        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals"),
-        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me"),
-        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe")
+        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false),
+        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false),
+        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false),
+        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false),
+        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
+        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
+        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false),
+        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true),
+        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false),
+        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true),
+        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe", isWeapon: false, isFood: false)
     ]
     
     @State var showInventory = false
@@ -672,7 +673,7 @@ extension GameView {
                 .overlay {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
-          a              .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small)
                 }
         }
         .opacity(caveScene.cave4SignImage)
@@ -823,6 +824,8 @@ struct InventoryItem: Identifiable, Equatable {
     let name: String
     let imageName: String
     let itemDescription: String
+    let isWeapon: Bool
+    let isFood: Bool
 }
 
 

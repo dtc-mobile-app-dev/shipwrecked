@@ -26,7 +26,7 @@ struct LoadingView: View {
                     .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
             }
             .background(
-                NavigationLink(destination: GameView(currentSelectedItem: InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword")).navigationBarBackButtonHidden(true), isActive: $startLoading) { }
+                NavigationLink(destination: GameView(currentSelectedItem: InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false)).navigationBarBackButtonHidden(true), isActive: $startLoading) { }
             )
             .onAppear { self.startLoading.toggle() }
         }

@@ -43,10 +43,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let volcano3Sign = SKSpriteNode()
     let volcano4Sign = SKSpriteNode()
     
-    var volcano1SignImage: Double = 0
-    var volcano2SignImage: Double = 0
-    var volcano3SignImage: Double = 0
-    var volcano4SignImage: Double = 0
+    @Published var volcano1SignImage: Double = 0
+    @Published var volcano2SignImage: Double = 0
+    @Published var volcano3SignImage: Double = 0
+    @Published var volcano4SignImage: Double = 0
     
     // MARK: - JungleScene
     

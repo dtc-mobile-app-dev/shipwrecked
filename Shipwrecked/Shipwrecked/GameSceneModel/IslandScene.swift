@@ -23,6 +23,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
     
     var isMoving = false
+    static var hasLoaded = false
     // MARK: Instances
     
     var animation = AnimationManager.instance
@@ -117,10 +118,12 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - BEACH
         
-        tileMap.createTileMapNode(tileMapSceneName: "MountainsOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "WaterOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "Sand", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 0, scene: self)
-                tileMap.createTileMapNode(tileMapSceneName: "Assets", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+        if !IslandScene.hasLoaded {
+            tileMap.createTileMapNode(tileMapSceneName: "MountainsOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "WaterOuter", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "Sand", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 0, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "Assets", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            
         
         // MARK: - SignNodes
         
@@ -128,15 +131,17 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         createTrigger(withName: "JungleEntrance", withNode: jungleEntrance)
         createTrigger(withName: "VolcanoEntrance", withNode: volcanoEntrance)
         
+        // MARK: - Camera/Controller
+        
+        camera()
+            IslandScene.hasLoaded = true
+        }
         
         // MARK: - Characters
         
         createPlayer()
-        
-        // MARK: - Camera/Controller
-        
-        camera()
     }
+        
     
     func updateAngle(isAttacking: Bool, degree: Int) {
         self.joyconAngle = degree
@@ -487,12 +492,15 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
         if contactA == ("CaveEntrance") && bodyB == playerCategory {
             transitionToCaveScene()
+            currentPlayerNode.removeFromParent()
         }
         if contactA == ("JungleEntrance") && bodyB == playerCategory {
             transitionToJungleScene()
+            currentPlayerNode.removeFromParent()
         }
         if contactA == ("VolcanoEntrance") && bodyB == playerCategory {
             transitionToVolcanoScene()
+            currentPlayerNode.removeFromParent()
         }
         
     }

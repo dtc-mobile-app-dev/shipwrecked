@@ -20,6 +20,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var leftJoyconAngle: Double = 0
     
     var isMoving = false
+    static var hasLoaded = false
     
     // MARK: Instances
     
@@ -218,36 +219,40 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - CAVE TILEMAPS
         
-        tileMap.createTileMapNode(tileMapSceneName: "CaveWater", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "CaveWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
-        tileMap.createTileMapNode(tileMapSceneName: "CavePath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
-    
-        // MARK: - Cave Triggers
-        
-        createTrigger(withName: "Cave1Trigger", withNode: cave1Trigger)
-        createTrigger(withName: "Cave2Trigger", withNode: cave2Trigger)
-        createTrigger(withName: "Cave3Trigger", withNode: cave3Trigger)
-        createTrigger(withName: "Cave4Trigger", withNode: cave4Trigger)
-        createTrigger(withName: "Cave5Trigger", withNode: cave5Trigger)
-        
-        createTrigger(withName: "IslandEntrance", withNode: islandEntrance)
-        
-        // MARK: - SignNodes
-        
-        node.createSpriteNode(spriteNode: cave1Sign, sceneNodeName: "Cave1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: cave2Sign, sceneNodeName: "Cave2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        
-        // MARK: - Characters
-        
+        if !CaveScene.hasLoaded {
+            tileMap.createTileMapNode(tileMapSceneName: "CaveWater", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "CaveWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
+            tileMap.createTileMapNode(tileMapSceneName: "CavePath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 1, scene: self)
+            
+            
+            
+            // MARK: - Cave Triggers
+            
+            createTrigger(withName: "Cave1Trigger", withNode: cave1Trigger)
+            createTrigger(withName: "Cave2Trigger", withNode: cave2Trigger)
+            createTrigger(withName: "Cave3Trigger", withNode: cave3Trigger)
+            createTrigger(withName: "Cave4Trigger", withNode: cave4Trigger)
+            createTrigger(withName: "Cave5Trigger", withNode: cave5Trigger)
+            
+            createTrigger(withName: "IslandEntrance", withNode: islandEntrance)
+            
+            // MARK: - SignNodes
+            
+            node.createSpriteNode(spriteNode: cave1Sign, sceneNodeName: "Cave1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: cave2Sign, sceneNodeName: "Cave2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            // MARK: - Bosss
+                        
+            bossEnemy(enemyName: "caveBoss", node: caveBoss, enemySceneName: "BatBoss", healthBarNode: caveBossHealthBar)
+            
+            // MARK: - Camera/Controller
+            
+            camera()
+            CaveScene.hasLoaded = true
+        }
         createPlayer()
-        
-        bossEnemy(enemyName: "caveBoss", node: caveBoss, enemySceneName: "BatBoss", healthBarNode: caveBossHealthBar)
-        
-        // MARK: - Camera/Controller
-        
-        camera()
     }
     
     // MARK: - TRANSITIONS
@@ -336,32 +341,43 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        
-        gunNode = .init(imageNamed: "Gun")
-        
-        gunNode.name = "Gun"
+        gunNode = .init(imageNamed: "FlintLock")
+
+        gunNode.name = "FlintLock"
         gunNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
-        gunNode.zPosition = 5
-        gunNode.setScale(0.1)
+        gunNode.zPosition = 4
+        gunNode.setScale(0.45)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        gunNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
         gunNode.physicsBody?.isDynamic = false
-        gunNode.anchorPoint = CGPoint(x:0.5,y: 0)
-
-        bulletNode = .init(imageNamed: "Bullet")
+        gunNode.physicsBody?.categoryBitMask = pathCategory
+        gunNode.physicsBody?.contactTestBitMask = enemyCategory
+        gunNode.physicsBody?.collisionBitMask = enemyCategory
+        gunNode.anchorPoint = CGPoint(x:0.0,y: 0.5)
         
-        bulletNode.name = "Bullet"
+        let gun = SKAction.move(to: CGPoint(
+            x: cos(gunNode.zRotation) + gunNode.position.x,
+            y: sin(gunNode.zRotation) + gunNode.position.y)
+                                  ,duration: 1.0)
+        let deleteGun = SKAction.removeFromParent()
+        
+        let gunSeq = SKAction.sequence([gun, deleteGun])
+        
+        bulletNode = .init(imageNamed: "CannonBall")
+        
+        bulletNode.name = "CannonBall"
         bulletNode.position = CGPoint(x: gunNode.position.x, y: gunNode.position.y )
-        bulletNode.zPosition = 5
+        bulletNode.zPosition = 3
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
         bulletNode.physicsBody?.affectedByGravity = false
         bulletNode.physicsBody?.categoryBitMask = rangerCategory
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
+        bulletNode.anchorPoint = CGPoint(x:0.0,y: -0.15)
         
         
         let shoot = SKAction.move(to: CGPoint(
@@ -372,8 +388,10 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
+            self.addChild(gunNode)
             self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
+            gunNode.run(gunSeq)
         }
     }
     
@@ -754,6 +772,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if contactA == ("IslandEntrance") && bodyB == playerCategory {
             transitionToIslandScene()
+            currentPlayerNode.removeFromParent()
         }
         
         

@@ -160,6 +160,10 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
+    
+    // MARK: - Transitions
+    
+    var islandEntrance = SKSpriteNode()
 
     // MARK: - PlayerAnimationBools
     
@@ -221,6 +225,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         createTrigger(withName: "Jungle4Trigger", withNode: jungle4Trigger)
         createTrigger(withName: "Jungle5Trigger", withNode: jungle5Trigger)
         
+        createTrigger(withName: "IslandEntrance", withNode: islandEntrance)
+        
         // MARK: - SignNodes
         
         node.createSpriteNode(spriteNode: jungle1Sign, sceneNodeName: "Jungle1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
@@ -239,6 +245,14 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         camera()
         
+    }
+    
+    // MARK: - Transitions
+    
+    func transitionToIslandScene() {
+        GameData.shared.currentLevel = .caveScene
+        GameData.shared.currentPlayerPositionX = 1800
+        GameData.shared.currentPlayerPositionY = 0
     }
     
     func updateAngle(isAttacking: Bool, degree: Int) {
@@ -726,6 +740,12 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle4Sign") {
             
+        }
+        
+        // MARK: - Transitions
+        
+        if contactA == ("IslandEntrance") && bodyB == playerCategory {
+            transitionToIslandScene()
         }
         
         //MARK: - JUNGLE GRAVES SECTION 1

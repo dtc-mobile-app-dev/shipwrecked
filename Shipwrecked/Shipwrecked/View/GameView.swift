@@ -93,6 +93,42 @@ struct GameView: View {
                 SpriteView(scene: volcanoScene)
                     .ignoresSafeArea()
             }
+            // MARK: - SIGNS
+            
+            Group {
+                
+                signCave1
+                signCave2
+                signCave3
+                signCave4
+            }
+            
+            Group {
+                signForrest1
+                signForest2
+                signForest3
+                signForest4
+            }
+            
+            Group {
+                signVolcano1
+                signVolcano2
+                signVolcano3
+                signVolcano4
+            }
+                
+//            Group {
+//                signBeach1
+//                signBeach2
+//                signBeach3
+//
+//                noteBeach1
+//                noteBeach2
+//                noteBeach3
+//                noteBeach4
+//            }
+            
+            //
             
             rightstick
                 .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
@@ -100,7 +136,7 @@ struct GameView: View {
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
-//                    uiOverlay
+                    uiOverlay
                 }
             Text(angleText)
                 .offset(y: -1000)
@@ -344,7 +380,8 @@ extension GameView {
                 ForEach(GameData.shared.inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
-                        showInventoryDescription.toggle()
+                        showInventoryDescription = true
+//                        showInventoryDescription.toggle()
                         
                     } label: {
                         ZStack {
@@ -377,18 +414,17 @@ extension GameView {
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
-                        GameData().inventory.remove(at: 0)
-                        inventoryDescriptionIndex += 1
+                        if inventoryDescriptionIndex < GameData.shared.inventory.count {
+                            GameData.shared.inventory.remove(at: inventoryDescriptionIndex)
+                        }
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
-
                                 Text("Use")
                                     .foregroundColor(.black)
-
                             }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
@@ -589,13 +625,14 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
-                .opacity(caveScene.cave1SignImage)
+                
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
+        .opacity(caveScene.cave1SignImage)
     }
 
    var signCave2: some View {
@@ -604,13 +641,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(caveScene.cave2SignImage)
                .overlay {
                    Text("BEWARE!: This Hellish creature produce Sonic Sound Waves that can cause harm to those around")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(caveScene.cave2SignImage)
+
    }
    var signCave3: some View {
        ZStack {
@@ -618,13 +656,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(caveScene.cave3SignImage)
                .overlay {
                    Text("Feed the Beast weekly, we don't want to make it upset")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(caveScene.cave3SignImage)
+
    }
 
    var signCave4: some View {
@@ -633,13 +672,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(caveScene.cave4SignImage)
                .overlay {
                    Text("The beast can attack from a distance")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(caveScene.cave4SignImage)
+
    }
    // Volcano Signs
    var signVolcano1: some View {
@@ -648,13 +688,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(volcanoScene.volcano1SignImage)
                .overlay {
                    Text("WATCH YOUR STEP!")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(volcanoScene.volcano1SignImage)
+
    }
    var signVolcano2: some View {
        ZStack {
@@ -662,13 +703,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(volcanoScene.volcano2SignImage)
                .overlay {
                    Text("Perform Sacrificial Rituals to prevent the Lava God from unleashing its anger upon us")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(volcanoScene.volcano2SignImage)
+
    }
    var signVolcano3: some View {
        ZStack {
@@ -676,13 +718,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(volcanoScene.volcano3SignImage)
                .overlay {
                    Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(volcanoScene.volcano3SignImage)
+
    }
    var signVolcano4: some View {
        ZStack {
@@ -690,13 +733,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(volcanoScene.volcano4SignImage)
                .overlay {
                    Text("CAUTION: If angered, It will throw lava")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(volcanoScene.volcano4SignImage)
+
    }
    // Forest Signs
    var signForrest1: some View {
@@ -705,13 +749,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(jungleScene.jungle1SignImage)
                .overlay {
                    Text("The Protector of the Green watches for intruders")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(jungleScene.jungle1SignImage)
+
    }
    var signForest2: some View {
        ZStack {
@@ -719,13 +764,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(jungleScene.jungle2SignImage)
                .overlay {
                    Text("PROTECT THE GREEN")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(jungleScene.jungle2SignImage)
+
    }
    var signForest3: some View {
        ZStack {
@@ -733,13 +779,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(jungleScene.jungle3SignImage)
                .overlay {
                    Text("A Sword of Unfathomable Power is within the Green")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(jungleScene.jungle3SignImage)
+
    }
    var signForest4: some View {
        ZStack {
@@ -747,13 +794,14 @@ extension GameView {
                .resizable()
                .frame(width: 500, height: 300)
                .padding(.top, 50)
-               .opacity(jungleScene.jungle4SignImage)
                .overlay {
                    Text("The Protector desires peace. DO NOT PROVOKE")
                        .frame(width: 350, height: 200)
                        .font(CustomFontBlock.small)
                }
        }
+       .opacity(jungleScene.jungle3SignImage)
+
    }
 var signSword1: some View {
     ZStack {

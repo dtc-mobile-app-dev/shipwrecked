@@ -23,7 +23,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
     @MainActor var currentWeapon: Weapon?
-    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yum")]
+    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true)]
     
     var animation = AnimationManager.instance
     var node = SpriteNodeManager.instance
@@ -519,7 +519,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 
 //        jungleBoss.position = CGPoint(x: 1800, y: 0)
         jungleBoss.zPosition = 5
-        jungleBoss.setScale(1)
+        jungleBoss.setScale(6)
         jungleBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: jungleBoss.size.width / 2 , height: jungleBoss.size.height) )
         jungleBoss.physicsBody?.categoryBitMask = bossCategory
         jungleBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
@@ -532,19 +532,31 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func bossAnimate() {
         
-        bossTextures.append(SKTexture(imageNamed: "BatBoss1"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss2"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss3"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss4"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss5"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss6"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss7"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss8"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss9"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss10"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss11"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss12"))
-        bossTextures.append(SKTexture(imageNamed: "BatBoss13"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss1"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss2"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss3"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss4"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss5"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss6"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss7"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss8"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss9"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss10"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss11"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss12"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss13"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss14"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss15"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss16"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss17"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss18"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss19"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss20"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss21"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss22"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss23"))
+        bossTextures.append(SKTexture(imageNamed: "FlowerBoss24"))
+       
         
         let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.1)
         let animateRepeat = SKAction.repeatForever(animation)

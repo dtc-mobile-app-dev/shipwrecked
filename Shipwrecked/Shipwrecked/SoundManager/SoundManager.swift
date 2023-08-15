@@ -46,6 +46,7 @@ class SoundManager {
         case swoosh1 = "swoosh1"
         case swoosh2 = "swoosh2"
         case swordThud = "swordThud"
+        case multipleSwords = "multipleSwords"
         case chop = "chop"
         case knife = "knife"
         case slice = "slice"
@@ -112,7 +113,8 @@ class SoundManager {
         case eating = "eating"
         case burp = "burp"
         case lose = "fail"
-        case win
+        case human = "human"
+        case insane = "insane"
         case zap = "zap"
         case collectItem = "collectItem"
         case clank = "clang"

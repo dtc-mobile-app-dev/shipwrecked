@@ -13,7 +13,6 @@ enum Level {
     case scene
     case caveScene
     case volcanoScene
-    
 }
 
 struct GameView: View {
@@ -330,27 +329,7 @@ extension GameView {
 //        return node
 //    }
     
-    // MARK: - BEACH NOTES
-    var beachNote1: some View {
-        ZStack {
-            Image("BlankPaper")
-                .resizable().frame(width: 500, height: 300).padding(.top, 25)
-                .overlay {
-                    Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
-                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
-                }
-        }
-    }
-    var beachNote2: some View {
-        ZStack {
-            Image("BlankPaper")
-                .resizable().frame(width: 500, height: 300).padding(.top, 25)
-                .overlay {
-                    Text("NOTE: Collect things you find along the way and use them to save the crew!")
-                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
-                }
-        }
-    }
+  
     // MARK: - BEACH NOTES/SIGNS
     
     var signBeach1: some View {
@@ -392,7 +371,28 @@ extension GameView {
                 }
         }
     }
-    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES
+    // MARK: - NOT A SIGN IS BLANK PAPER FOR NOTES BEACH NOTES
+    var noteBeachHint1: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                .overlay {
+                    Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
+                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                }
+        }
+    }
+    var noteBeachHint2: some View {
+        ZStack {
+            Image("BlankPaper")
+                .resizable().frame(width: 500, height: 300).padding(.top, 25)
+                .overlay {
+                    Text("NOTE: Collect things you find along the way and use them to save the crew!")
+                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                }
+        }
+    }
+    
     var noteBeach1: some View {
         ZStack {
             Image("BlankPaper")

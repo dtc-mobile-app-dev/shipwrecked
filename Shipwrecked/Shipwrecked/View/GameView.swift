@@ -464,7 +464,7 @@ extension GameView {
 //                        .font(CustomFontBlock.small)
 //                }
 //        }
-    }
+//    }
     
     // Cave Signs
     var signCave1: some View {
@@ -652,6 +652,7 @@ extension GameView {
         }
     }
 
+}
 
 struct InventoryItem: Identifiable {
     let id = UUID()

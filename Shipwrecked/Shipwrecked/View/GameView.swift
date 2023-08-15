@@ -93,6 +93,42 @@ struct GameView: View {
                 SpriteView(scene: volcanoScene)
                     .ignoresSafeArea()
             }
+            // MARK: - SIGNS
+            
+            Group {
+                
+                signCave1
+                signCave2
+                signCave3
+                signCave4
+            }
+            
+            Group {
+                signForrest1
+                signForest2
+                signForest3
+                signForest4
+            }
+            
+            Group {
+                signVolcano1
+                signVolcano2
+                signVolcano3
+                signVolcano4
+            }
+                
+//            Group {
+//                signBeach1
+//                signBeach2
+//                signBeach3
+//
+//                noteBeach1
+//                noteBeach2
+//                noteBeach3
+//                noteBeach4
+//            }
+            
+            //
             
             rightstick
                 .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
@@ -100,7 +136,10 @@ struct GameView: View {
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
+
                     //                    uiOverlay
+                    uiOverlay
+
                 }
             Text(angleText)
                 .offset(y: -1000)
@@ -337,7 +376,8 @@ extension GameView {
                 ForEach(GameData.shared.inventory) { item in
                     Button {
                         inventoryDescription = item.itemDescription
-                        showInventoryDescription.toggle()
+                        showInventoryDescription = true
+//                        showInventoryDescription.toggle()
                         
                     } label: {
                         ZStack {
@@ -370,18 +410,24 @@ extension GameView {
                 HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
-                        GameData().inventory.remove(at: 0)
-                        inventoryDescriptionIndex += 1
+                        if inventoryDescriptionIndex < GameData.shared.inventory.count {
+                            GameData.shared.inventory.remove(at: inventoryDescriptionIndex)
+                        }
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(.brown)
                                     .frame(width: 70, height: 40)
+
                                 
                                 Text("Use")
                                     .foregroundColor(.black)
                                 
+
+                                Text("Use")
+                                    .foregroundColor(.black)
+
                             }
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
@@ -582,14 +628,16 @@ extension GameView {
                 .resizable()
                 .frame(width: 500, height: 300)
                 .padding(.top, 50)
-                .opacity(caveScene.cave1SignImage)
+                
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
                         .frame(width: 350, height: 200)
                         .font(CustomFontBlock.small)
                 }
         }
+        .opacity(caveScene.cave1SignImage)
     }
+
     
     var signCave2: some View {
         ZStack {

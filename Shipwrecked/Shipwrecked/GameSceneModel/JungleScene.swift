@@ -45,10 +45,10 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     let jungleSword = SKSpriteNode()
     
-    var jungle1SignImage: Double = 0
-    var jungle2SignImage: Double = 0
-    var jungle3SignImage: Double = 0
-    var jungle4SignImage: Double = 0
+    @Published var jungle1SignImage: Double = 0
+    @Published var jungle2SignImage: Double = 0
+    @Published var jungle3SignImage: Double = 0
+    @Published var jungle4SignImage: Double = 0
     
     // MARK: - JungleScene
     

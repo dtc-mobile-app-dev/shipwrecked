@@ -24,7 +24,7 @@ class SpriteNodeManager {
         
         spriteNoder.zPosition = 4
         spriteNoder.setScale(0.2)
-        spriteNoder.physicsBody = SKPhysicsBody(rectangleOf: spriteNoder.size)
+        spriteNoder.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: spriteNoder.size.width * 2, height: spriteNoder.size.height * 2))
         spriteNoder.physicsBody?.categoryBitMask = selfCategory
         spriteNoder.physicsBody?.collisionBitMask = collisionContactCategory
         spriteNoder.physicsBody?.contactTestBitMask = collisionContactCategory

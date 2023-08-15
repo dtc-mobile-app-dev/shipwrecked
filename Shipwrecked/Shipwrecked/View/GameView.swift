@@ -672,7 +672,7 @@ extension GameView {
                 .overlay {
                     Text("The beast can attack from a distance")
                         .frame(width: 350, height: 200)
-          a              .font(CustomFontBlock.small)
+                        .font(CustomFontBlock.small)
                 }
         }
         .opacity(caveScene.cave4SignImage)

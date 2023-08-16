@@ -18,7 +18,6 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
                 Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
                 

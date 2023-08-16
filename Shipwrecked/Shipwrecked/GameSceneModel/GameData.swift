@@ -27,8 +27,8 @@ class GameData: ObservableObject {
     @Published var collectedBoatMaterial2 = false
     @Published var collectedBoatMaterial3 = false
     @Published var inventory: [InventoryItem] = [
-        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false),
-        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false),
+        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false, isRanged: false),
+        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false, isRanged: false),
         ]
     
     @Published var currentLevel: Level = .scene

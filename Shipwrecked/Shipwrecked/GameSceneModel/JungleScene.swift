@@ -351,12 +351,11 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        
         gunNode = .init(imageNamed: "FlintLock")
-
+        
         gunNode.name = "FlintLock"
         gunNode.zPosition = 4
-        gunNode.setScale(1)
+        gunNode.setScale(0.8)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -364,12 +363,12 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         gunNode.physicsBody?.categoryBitMask = pathCategory
         gunNode.physicsBody?.contactTestBitMask = enemyCategory
         gunNode.physicsBody?.collisionBitMask = enemyCategory
-        gunNode.anchorPoint = CGPoint(x:0.0,y: 0.5)
+        gunNode.anchorPoint = CGPoint(x:-0.2,y: 0.5)
         
         let gun = SKAction.move(to: CGPoint(
             x: cos(gunNode.zRotation) + gunNode.position.x,
             y: sin(gunNode.zRotation) + gunNode.position.y)
-                                  ,duration: 1.0)
+                                ,duration: 1.0)
         let deleteGun = SKAction.removeFromParent()
         
         let gunSeq = SKAction.sequence([gun, deleteGun])
@@ -378,6 +377,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         bulletNode.name = "CannonBall"
         bulletNode.zPosition = 3
+        bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
@@ -398,7 +398,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
             currentPlayerNode.addChild(gunNode)
-            currentPlayerNode.addChild(bulletNode)
+            self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }
@@ -412,7 +412,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @objc func swing() {
         swordNode = .init(imageNamed: "Cutlass")
         
-        swordNode.setScale(0.4)
+        swordNode.setScale(1)
         swordNode.zPosition = 5
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
@@ -439,7 +439,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startSwinging() {
-        swingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
+        swingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
         isStrikin = true
     }
     

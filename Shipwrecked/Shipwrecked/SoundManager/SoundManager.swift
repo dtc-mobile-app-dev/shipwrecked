@@ -17,7 +17,7 @@ class SoundManager {
     var backgroundMusic: AVAudioPlayer?
     
     enum MusicOption: String {
-        case islandTheme
+        case islandTheme 
         case caveTheme
         case caveBoss
         case jungleTheme

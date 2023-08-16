@@ -275,7 +275,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
             currentPlayerNode.addChild(gunNode)
-            currentPlayerNode.addChild(bulletNode)
+            self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }

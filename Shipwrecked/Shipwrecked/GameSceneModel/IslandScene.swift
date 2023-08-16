@@ -227,12 +227,11 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-       
         gunNode = .init(imageNamed: "FlintLock")
-
+        
         gunNode.name = "FlintLock"
         gunNode.zPosition = 4
-        gunNode.setScale(1)
+        gunNode.setScale(0.8)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -240,12 +239,12 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         gunNode.physicsBody?.categoryBitMask = pathCategory
         gunNode.physicsBody?.contactTestBitMask = enemyCategory
         gunNode.physicsBody?.collisionBitMask = enemyCategory
-        gunNode.anchorPoint = CGPoint(x:0.0,y: 0.5)
+        gunNode.anchorPoint = CGPoint(x:-0.2,y: 0.5)
         
         let gun = SKAction.move(to: CGPoint(
             x: cos(gunNode.zRotation) + gunNode.position.x,
             y: sin(gunNode.zRotation) + gunNode.position.y)
-                                  ,duration: 1.0)
+                                ,duration: 1.0)
         let deleteGun = SKAction.removeFromParent()
         
         let gunSeq = SKAction.sequence([gun, deleteGun])
@@ -253,17 +252,17 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode = .init(imageNamed: "CannonBall")
         
         bulletNode.name = "CannonBall"
+        bulletNode.zPosition = 3
         bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
-        bulletNode.zPosition = 5
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
         bulletNode.physicsBody?.affectedByGravity = false
         bulletNode.physicsBody?.categoryBitMask = rangerCategory
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-        //        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
+        bulletNode.anchorPoint = CGPoint(x:0.0,y: -0.15)
         
         
         let shoot = SKAction.move(to: CGPoint(
@@ -282,7 +281,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startShooting() {
-        
         shootTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
         isFiring = true
     }
@@ -290,8 +288,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @objc func swing() {
         swordNode = .init(imageNamed: "Cutlass")
         
-        swordNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y - 10 )
-        swordNode.setScale(0.4)
+        swordNode.setScale(1)
         swordNode.zPosition = 5
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
@@ -318,7 +315,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startSwinging() {
-        swingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
+        swingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
         isStrikin = true
     }
     

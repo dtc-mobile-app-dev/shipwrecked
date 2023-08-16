@@ -380,7 +380,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         gunNode.name = "FlintLock"
         gunNode.zPosition = 4
-        gunNode.setScale(1)
+        gunNode.setScale(0.8)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -437,7 +437,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @objc func swing() {
         swordNode = .init(imageNamed: "Cutlass")
         
-        swordNode.setScale(0.4)
+        swordNode.setScale(1)
         swordNode.zPosition = 5
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
@@ -1035,9 +1035,9 @@ override func update(_ currentTime: TimeInterval) {
     
     // MARK: -Combat
     
-    if !isStrikin {
-        startSwinging()
-    }
+//    if !isStrikin {
+//        startSwinging()
+//    }
     if !isFiring {
         startShooting()
     }
@@ -1081,7 +1081,6 @@ override func update(_ currentTime: TimeInterval) {
                     bossAnimate()
                     ifBossAnimating = true
                 }
-                
                 caveBossFightActivate1()
                 caveBossFightActivate2()
                 caveBossFightActivate3()

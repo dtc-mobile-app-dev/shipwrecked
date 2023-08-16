@@ -183,10 +183,10 @@ extension GameView {
     // MARK: - CONSTANTS
     
     private struct Constants {
-        static let rightControllerPositionX: CGFloat = 1000
+        static let rightControllerPositionX: CGFloat = 1100
         static let rightControllerPositionY: CGFloat = 500
         
-        static let leftControllerPositionX: CGFloat = 450
+        static let leftControllerPositionX: CGFloat = 480
         static let leftControllerPositionY: CGFloat = 500
     }
     

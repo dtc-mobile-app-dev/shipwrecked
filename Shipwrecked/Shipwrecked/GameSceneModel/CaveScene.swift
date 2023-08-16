@@ -389,9 +389,8 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        gunNode = .init(imageNamed: "FlintLock")
+        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName)
         
-        gunNode.name = "FlintLock"
         gunNode.zPosition = 4
         gunNode.setScale(0.8)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
@@ -448,7 +447,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func swing() {
-        swordNode = .init(imageNamed: "Cutlass")
+        swordNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName)
         
         swordNode.setScale(1)
         swordNode.zPosition = 5
@@ -1104,9 +1103,10 @@ override func update(_ currentTime: TimeInterval) {
     
     // MARK: -Combat
     
-//    if !isStrikin {
-//        startSwinging()
-//    }
+    
+    if !isStrikin && GameData.shared.currentWeapon?.isWeapon {
+        startSwinging()
+    }
     if !isFiring {
         startShooting()
     }

@@ -20,8 +20,8 @@ class GameData: ObservableObject {
     var jungleCrewMemberRescued = false
     var volcanoCrewMemberRescued = false
 
-    var currentPlayerPositionX: Double = 1000
-    var currentPlayerPositionY: Double = -600
+    var currentPlayerPositionX: Double = -1400
+    var currentPlayerPositionY: Double = 0
     @Published var currentWeapon: Weapon?
     @Published var collectedBoatMaterial1 = false
     @Published var collectedBoatMaterial2 = false
@@ -31,7 +31,7 @@ class GameData: ObservableObject {
         InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false),
         ]
     
-    @Published var currentLevel: Level = .caveScene
+    @Published var currentLevel: Level = .scene
     
     init() {}
 }

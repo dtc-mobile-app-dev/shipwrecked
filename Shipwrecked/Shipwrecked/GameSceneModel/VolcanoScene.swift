@@ -25,7 +25,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
     @MainActor var currentWeapon: Weapon?
-    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false)]
+    @MainActor var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false, isMelee: false)]
     
     var animation = AnimationManager.instance
     var node = SpriteNodeManager.instance
@@ -923,12 +923,15 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         print("\(joyconAngle)")
         
         // MARK: -Combat
-        
-        if !isStrikin && ((GameData.shared.currentWeapon?.isWeapon) != nil) {
-            startSwinging()
+        if GameData.shared.currentWeapon?.isMelee ?? false {
+            if !isStrikin{
+                startSwinging()
+            }
         }
-        if !isFiring && ((GameData.shared.currentWeapon?.isRanged) != nil) {
-            startShooting()
+        if GameData.shared.currentWeapon?.isRanged ?? false {
+            if !isFiring {
+                startShooting()
+            }
         }
         
         bossShootAngle1 += 7

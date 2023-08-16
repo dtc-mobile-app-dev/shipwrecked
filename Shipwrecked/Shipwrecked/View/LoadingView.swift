@@ -17,13 +17,13 @@ struct LoadingView: View {
             Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
             
             Image("LoadingBar")
-                .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5).padding(.leading, 75)
+                .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5).frame(width: 500, height: 750, alignment: .center)
             
             Button {
                 self.startLoading.toggle()
             } label: {
                 Text("LOADING...")
-                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
+                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 3.5).padding(.bottom, 50).kerning(3.5)
             }
             .background(
                 NavigationLink(destination: GameView(currentSelectedItem: InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false)).navigationBarBackButtonHidden(true), isActive: $startLoading) { }

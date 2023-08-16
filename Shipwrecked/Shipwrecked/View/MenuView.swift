@@ -22,13 +22,13 @@ struct MenuView: View {
                 Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
                 
                 Image("BeachForMenu")
-                    .resizable().scaledToFill().edgesIgnoringSafeArea(.all).padding(.top)
+                    .resizable().scaledToFill().edgesIgnoringSafeArea(.all).padding(.top, 25)
                 
                 NavigationLink {
                     SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
                     Text("SHIPWRECKED")
-                        .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).shadow(color: .white, radius: 3.5)
+                        .font(CustomFontBlock.title).kerning(5).foregroundColor(.black).shadow(color: .white, radius: 3.5)
                 }
             }
         }

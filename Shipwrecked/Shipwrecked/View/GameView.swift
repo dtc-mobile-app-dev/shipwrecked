@@ -145,6 +145,12 @@ struct GameView: View {
             leftStick
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
+
+                .overlay { uiOverlay }
+            
+            
+            
+
                 .overlay {
                     HStack(spacing: 0) {
                         Image(GameData.shared.collectedBoatMaterial1 ? "WoodPlank1" : "WoodPlank2")
@@ -162,6 +168,7 @@ struct GameView: View {
                     uiOverlay
                     
                 }
+
             Text(angleText)
                 .offset(y: -1000)
             Text(angleTextLeft)

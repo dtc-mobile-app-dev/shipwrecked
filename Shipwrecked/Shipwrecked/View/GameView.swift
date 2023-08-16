@@ -49,17 +49,17 @@ struct GameView: View {
     let bigCircleRadiusLeft: CGFloat = 100
     
     @State var items = [
-        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false),
-        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false),
-        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false),
-        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false),
-        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
-        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false),
-        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false),
-        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true),
-        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false),
-        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true),
-        InventoryItem(name: "WoodPlank", imageName: "WoodPlank1", itemDescription: "For the boat maybe", isWeapon: false, isFood: false)
+        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false, isRanged: false),
+        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false, isRanged: false),
+        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false, isRanged: false),
+        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false, isRanged: false),
+        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
+        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
+        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false, isRanged: false),
+        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true, isRanged: false),
+        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false, isRanged: false),
+        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false),
+        InventoryItem(name: "WoodPlank", imageName: "WoodPlank1", itemDescription: "For the boat maybe", isWeapon: false, isFood: false, isRanged: false)
     ]
     
     @State var showInventory = false
@@ -460,9 +460,7 @@ extension GameView {
                                 // Equip Weapon and put previous weapon in the inventory
                                 GameData.shared.currentWeapon = currentSelectedItem
                                 inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
-                                if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
-                                    GameData.shared.inventory.remove(at: item)
-                                }
+                                
                             }
                         } label: {
                             ZStack {
@@ -887,6 +885,7 @@ struct InventoryItem: Identifiable, Equatable {
     let itemDescription: String
     let isWeapon: Bool
     let isFood: Bool
+    let isRanged: Bool
 }
 
 

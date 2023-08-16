@@ -442,10 +442,9 @@ extension GameView {
                 Image("InventoryDescription")
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
-//                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 Text(inventoryDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
-//                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
+                    .font(CustomFontBlock.small)
                 VStack {
                     Spacer()
                     HStack {

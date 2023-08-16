@@ -10,23 +10,13 @@ import SwiftUI
 struct LoadingView: View {
     
     @State var startLoading = false
-    var loading: String
-    mutating func loading(startLoading: Bool) -> String {
-        if startLoading == true {
-            loading = Text("LoadingBar")
-        } else if startLoading == false {
-            loading = Text("LoadingBar2")
-        }
-        return loading
-    }
-  
     
     var body: some View {
         ZStack {
             Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
             Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
             
-            Image("\(image)")
+            Image("LoadingBar")
                 .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5).frame(width: 500, height: 750, alignment: .center)
             
             Button {

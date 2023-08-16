@@ -251,24 +251,24 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             // MARK: - SignNodes
             
-            node.createSpriteNode(spriteNode: volcano1Sign, sceneNodeName: "Volcano1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: volcano2Sign, sceneNodeName: "Volcano2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: volcano3Sign, sceneNodeName: "Volcano3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: volcano4Sign, sceneNodeName: "Volcano4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: volcano1Sign, sceneNodeName: "Volcano1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: volcano2Sign, sceneNodeName: "Volcano2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: volcano3Sign, sceneNodeName: "Volcano3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: volcano4Sign, sceneNodeName: "Volcano4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             // MARK: - ItemPickups
             
-            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "WoodPlank", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "WoodPlank", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             
             
             // MARK: - FoodPickups
             
-            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             
             

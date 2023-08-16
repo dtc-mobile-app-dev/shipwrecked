@@ -458,6 +458,7 @@ extension GameView {
                                 }
                             } else if currentSelectedItem.isWeapon {
                                 // Equip Weapon and put previous weapon in the inventory
+                                GameData.shared.currentWeapon = nil
                                 GameData.shared.currentWeapon = currentSelectedItem
                                 inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
                                 

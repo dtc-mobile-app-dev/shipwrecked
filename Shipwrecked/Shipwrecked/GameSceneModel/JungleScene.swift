@@ -427,7 +427,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let deleteBullet = SKAction.removeFromParent()
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
-        if isShootin {
+        if isShootin && GameData.shared.currentWeapon?.isRanged ?? false {
             currentPlayerNode.addChild(gunNode)
             self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
@@ -463,7 +463,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let deleteSword = SKAction.removeFromParent()
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
-        if isSwingin {
+        if isSwingin && GameData.shared.currentWeapon?.isMelee ?? false {
             currentPlayerNode.addChild(swordNode)
             swordNode.run(swingSeq)
         }

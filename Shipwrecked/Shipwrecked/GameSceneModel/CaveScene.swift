@@ -1107,7 +1107,7 @@ override func update(_ currentTime: TimeInterval) {
     if !isStrikin && GameData.shared.currentWeapon?.isWeapon {
         startSwinging()
     }
-    if !isFiring {
+    if !isFiring && GameData.shared.currentWeapon. {
         startShooting()
     }
     bossShootAngle1 += 7

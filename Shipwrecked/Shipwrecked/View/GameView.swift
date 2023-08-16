@@ -145,12 +145,10 @@ struct GameView: View {
             leftStick
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
-                .overlay {
-                    
-                    //                    uiOverlay
-                    uiOverlay
-                    
-                }
+                .overlay { uiOverlay }
+            
+            
+            
             Text(angleText)
                 .offset(y: -1000)
             Text(angleTextLeft)

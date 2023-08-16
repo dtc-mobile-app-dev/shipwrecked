@@ -460,9 +460,7 @@ extension GameView {
                                 // Equip Weapon and put previous weapon in the inventory
                                 GameData.shared.currentWeapon = currentSelectedItem
                                 inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
-                                if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
-                                    GameData.shared.inventory.remove(at: item)
-                                }
+                                
                             }
                         } label: {
                             ZStack {

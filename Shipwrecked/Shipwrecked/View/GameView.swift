@@ -80,20 +80,21 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            
-            switch GameData.shared.currentLevel {
-            case .jungleScene:
-                SpriteView(scene: jungleScene)
-                    .ignoresSafeArea()
-            case .scene:
-                SpriteView(scene: scene)
-                    .ignoresSafeArea()
-            case .caveScene:
-                SpriteView(scene: caveScene)
-                    .ignoresSafeArea()
-            case .volcanoScene:
-                SpriteView(scene: volcanoScene)
-                    .ignoresSafeArea()
+            if GameData.shared.currentHealth > 0 {
+                switch GameData.shared.currentLevel {
+                case .jungleScene:
+                    SpriteView(scene: jungleScene)
+                        .ignoresSafeArea()
+                case .scene:
+                    SpriteView(scene: scene)
+                        .ignoresSafeArea()
+                case .caveScene:
+                    SpriteView(scene: caveScene)
+                        .ignoresSafeArea()
+                case .volcanoScene:
+                    SpriteView(scene: volcanoScene)
+                        .ignoresSafeArea()
+                }
             }
             // MARK: - SIGNS
             
@@ -131,6 +132,13 @@ struct GameView: View {
             //            }
             
             //
+            
+            // DEATH
+            
+            if GameData.shared.currentHealth == 0 {
+                YouDiedView()
+                    .zIndex(100)
+            }
             
             rightstick
                 .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
@@ -451,7 +459,7 @@ extension GameView {
             
             VStack {
                 HStack {
-                    Image("HealthBar6MAX")
+                    Image(GameData.shared.playerHealthArray[GameData.shared.currentHealth])
                         .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 15)
                     Spacer()
                     

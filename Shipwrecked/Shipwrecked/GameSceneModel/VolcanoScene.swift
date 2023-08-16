@@ -20,6 +20,8 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var leftJoyconAngle: Double = 0
     var isMoving = false
     
+    static var hasLoaded = false
+    
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
     @MainActor var currentWeapon: Weapon?
@@ -32,6 +34,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - PlayerNode
     
     var currentPlayerNode = SKSpriteNode()
+    var playerHit = false
     
     var playerPosx: CGFloat = 0
     var playerPosy: CGFloat = 0
@@ -124,16 +127,22 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var volcano5TriggerOn = false
     
     var volcanoBoss = SKSpriteNode()
-    let volcanoBossHealthBar = SKSpriteNode()
+    var volcanoBossHealthBar = SKSpriteNode()
     var volcanoBoss1Projectile = SKSpriteNode()
     var volcanoBoss2Projectile = SKSpriteNode()
     var volcanoBoss3Projectile = SKSpriteNode()
-    var bossFightTimer = Timer()
+    var bossFightTimer1 = Timer()
+    var bossFightTimer2 = Timer()
+    var bossFightTimer3 = Timer()
     var bossFightActive = false
     var isBossShooting = false
     var bossShootAngle1: Double = 1
     var bossShootAngle2: Double = 3
     var bossShootAngle3: Double = 5
+    var bossTextures: [SKTexture] = []
+    var ifBossAnimating = false
+    var bossHealth = 6
+    let healthArray = ["1BossHealth","2BossHealth","3BossHealth","4BossHealth","5BossHealth","6BossHealth","7BossHealth"]
     
     // MARK: - Combat
     
@@ -204,7 +213,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let skullCategory: UInt32 = 0x10000000
     
     let bossCategory: UInt32 = 0x50000
-    let bossProjectileCategory: UInt32 = 0x500000
+    let bossProjectileCategory: UInt32 = 0x50000000
     
     
     override func didMove(to view: SKView) {
@@ -212,34 +221,40 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         physicsWorld.contactDelegate = self
         
         // MARK: - Tile Maps
-
-        tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: -1, scene: self)
-
-        tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
         
-        // MARK: - Triggers
-        
-        createTrigger(withName: "Volcano1Trigger", withNode: volcano1Trigger)
-        createTrigger(withName: "Volcano2Trigger", withNode: volcano2Trigger)
-        createTrigger(withName: "Volcano3Trigger", withNode: volcano3Trigger)
-        createTrigger(withName: "Volcano4Trigger", withNode: volcano4Trigger)
-        createTrigger(withName: "Volcano5Trigger", withNode: volcano5Trigger)
-        
-        // MARK: - SignNodes
-        
-        node.createSpriteNode(spriteNode: volcano1Sign, sceneNodeName: "Volcano1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: volcano2Sign, sceneNodeName: "Volcano2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: volcano3Sign, sceneNodeName: "Volcano3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: volcano4Sign, sceneNodeName: "Volcano4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        
-        // MARK: - Characters
-        
+        if !VolcanoScene.hasLoaded {
+            
+            tileMap.createTileMapNode(tileMapSceneName: "VolcanoWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: -1, scene: self)
+            
+            tileMap.createTileMapNode(tileMapSceneName: "VolcanoPath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
+            
+            // MARK: - Triggers
+            
+            createTrigger(withName: "Volcano1Trigger", withNode: volcano1Trigger)
+            createTrigger(withName: "Volcano2Trigger", withNode: volcano2Trigger)
+            createTrigger(withName: "Volcano3Trigger", withNode: volcano3Trigger)
+            createTrigger(withName: "Volcano4Trigger", withNode: volcano4Trigger)
+            createTrigger(withName: "Volcano5Trigger", withNode: volcano5Trigger)
+            
+            // MARK: - SignNodes
+            
+            node.createSpriteNode(spriteNode: volcano1Sign, sceneNodeName: "Volcano1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: volcano2Sign, sceneNodeName: "Volcano2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: volcano3Sign, sceneNodeName: "Volcano3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: volcano4Sign, sceneNodeName: "Volcano4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            // MARK: - Characters
+            
+            
+            
+            bossEnemy()
+            // MARK: - Camera/Controller
+            
+            camera()
+        }
         createPlayer()
-    
-        bossEnemy()
-        // MARK: - Camera/Controller
-        
-        camera()
+        SoundManager.instance.playMusic(sound: .VolcanoSoundtrack, volume: 0.5)
+
     }
     
     func updateAngle(isAttacking: Bool, degree: Int) {
@@ -364,8 +379,8 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
-            self.addChild(gunNode)
-            self.addChild(bulletNode)
+            currentPlayerNode.addChild(gunNode)
+            currentPlayerNode.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }
@@ -401,7 +416,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
         if isSwingin {
-            self.addChild(swordNode)
+            currentPlayerNode.addChild(swordNode)
             swordNode.run(swingSeq)
         }
     }
@@ -412,10 +427,10 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func bossCombat1() {
-        volcanoBoss1Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss1Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss1Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss1Projectile.setScale(0.15)
+        volcanoBoss1Projectile.setScale(0.25)
         volcanoBoss1Projectile.zPosition = 15
         volcanoBoss1Projectile.zRotation = CGFloat(bossShootAngle1)
         volcanoBoss1Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss1Projectile.size.width , height: volcanoBoss1Projectile.size.height ))
@@ -440,15 +455,15 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func volcanoBossFightActivate1() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
+        bossFightTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
     @objc func bossCombat2() {
-        volcanoBoss2Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss2Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss2Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss2Projectile.setScale(0.15)
+        volcanoBoss2Projectile.setScale(0.25)
         volcanoBoss2Projectile.zPosition = 15
         volcanoBoss2Projectile.zRotation = CGFloat(bossShootAngle2)
         volcanoBoss2Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss2Projectile.size.width , height: volcanoBoss2Projectile.size.height ))
@@ -473,15 +488,15 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func volcanoBossFightActivate2() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
+        bossFightTimer2 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
     @objc func bossCombat3() {
-        volcanoBoss3Projectile = .init(imageNamed: "Bullet")
+        volcanoBoss3Projectile = .init(imageNamed: "fireball")
         
         volcanoBoss3Projectile.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y )
-        volcanoBoss3Projectile.setScale(0.7)
+        volcanoBoss3Projectile.setScale(0.8)
         volcanoBoss3Projectile.zPosition = 15
         volcanoBoss3Projectile.zRotation = CGFloat(bossShootAngle3)
         volcanoBoss3Projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss3Projectile.size.width , height: volcanoBoss3Projectile.size.height ))
@@ -506,7 +521,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func volcanoBossFightActivate3() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
+        bossFightTimer3 = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
@@ -514,24 +529,47 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func bossEnemy() {
         
-        let healthBarArray = [""]
-        
-//        if let healthIndex = enemyDictionary[enemySceneName]?.health {
-//            if healthIndex >= 1 {
-                
         volcanoBoss = self.childNode(withName: "VolcanoBoss") as! SKSpriteNode
                 
-//        jungleBoss.position = CGPoint(x: 1800, y: 0)
+
         volcanoBoss.zPosition = 5
         volcanoBoss.setScale(1)
-        volcanoBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss.size.width / 2 , height: volcanoBoss.size.height) )
+        volcanoBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: volcanoBoss.size.width / 2 , height: volcanoBoss.size.height / 2) )
         volcanoBoss.physicsBody?.categoryBitMask = bossCategory
-        volcanoBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
-        volcanoBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | playerCategory
+        volcanoBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | playerCategory
+        volcanoBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory | playerCategory
         volcanoBoss.physicsBody?.allowsRotation = false
-        volcanoBoss.physicsBody?.isDynamic = false
-//            }
-//        }
+        volcanoBoss.physicsBody?.isDynamic = true
+    }
+    
+    func bossHealthBar() {
+        volcanoBossHealthBar = self.childNode(withName: "BossHealthBar") as! SKSpriteNode
+        
+        volcanoBossHealthBar.texture = SKTexture(imageNamed: healthArray[bossHealth])
+        volcanoBossHealthBar.position = CGPoint(x: volcanoBoss.position.x, y: volcanoBoss.position.y + 200 )
+        volcanoBossHealthBar.setScale(1.5)
+        volcanoBossHealthBar.zPosition = 6
+    }
+    
+    func bossAnimate() {
+        
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster1"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster2"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster3"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster4"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster5"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster6"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster7"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster8"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster9"))
+        bossTextures.append(SKTexture(imageNamed: "LavaMonster10"))
+        
+       
+        
+        let animation = SKAction.animate(with: bossTextures, timePerFrame: 0.1)
+        let animateRepeat = SKAction.repeatForever(animation)
+        
+        volcanoBoss.run(animateRepeat)
     }
     
     // MARK: - ENEMY Creation
@@ -669,11 +707,53 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     }
     
+    func contactedBossRanger() {
+        if !rangerCombatBool {
+            bossHealth -= 1
+            rangerCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                rangerCombatBool = false
+            }
+        }
+        if bossHealth < 0 {
+            volcanoBoss.removeAllActions()
+            volcanoBoss.removeFromParent()
+            volcanoBossHealthBar.removeFromParent()
+
+        }
+        
+    }
+    func contactedBossMelee() {
+        
+        if meleeCombatBool {
+            bossHealth -= 1
+            meleeCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+                meleeCombatBool = false
+            }
+        }
+        if bossHealth < 1 {
+            volcanoBoss.removeAllActions()
+            volcanoBoss.removeFromParent()
+            volcanoBossHealthBar.removeFromParent()
+            
+        }
+    }
+    
     func contactedRip(graveNode: SKNode, enemyKey: String) {
         if enemyDictionary[enemyKey]!.health == 0  {
             enemyDictionary[enemyKey]?.health -= 1
             graveNode.removeAllActions()
             graveNode.removeFromParent()
+        }
+    }
+    func playerHitFunc() {
+        if !playerHit && GameData.shared.currentHealth > 0 {
+            GameData.shared.currentHealth -= 1
+            playerHit = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                playerHit = false
+            }
         }
     }
     
@@ -721,9 +801,31 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
-        // MARK: - Scenes
+        if bodyA == bossCategory && bodyB == rangerCategory {
+            contactedBossRanger()
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == bossCategory && bodyA == rangerCategory {
+            contactedBossRanger()
+            contact.bodyA.node?.removeFromParent()
+        }
         
+        // MARK: - Player Health
         
+        if bodyA == playerCategory && bodyB == enemyCategory || bodyB == bossProjectileCategory {
+            playerHitFunc()
+        }
+        if bodyB == playerCategory && bodyA == enemyCategory || bodyA == bossProjectileCategory {
+            playerHitFunc()
+        }
+        
+        if bodyA == playerCategory && bodyB == bossProjectileCategory {
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == playerCategory && bodyA == bossProjectileCategory {
+            contact.bodyA.node?.removeFromParent()
+        }
+    
         
         // MARK: - VOLCANO TRIGGERS
         
@@ -833,15 +935,29 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 enemyMove(enemyName: "redWarrior", node: volcano4Enemy3, enemySceneName: "Volcano4Enemy3", healthBarNode: volcano4Enemy3HealthNode)
                 enemyMove(enemyName: "redWarrior", node: volcano4Enemy4, enemySceneName: "Volcano4Enemy4", healthBarNode: volcano4Enemy4HealthNode)
             }
-            if volcano5TriggerOn {
-                isBossShooting = true
-                
+        if volcano5TriggerOn {
+            isBossShooting = true
+            if bossHealth >= 0 {
+                bossHealthBar()
                 if !bossFightActive {
+                    if !ifBossAnimating {
+                        SoundManager.instance.playMusic(sound: .VolcanoBoss, volume: 0.5)
+                        bossAnimate()
+                        ifBossAnimating = true
+                    }
                     volcanoBossFightActivate1()
                     volcanoBossFightActivate2()
                     volcanoBossFightActivate3()
                 }
+            } else {
+                bossFightTimer1.invalidate()
+                bossFightTimer2.invalidate()
+                bossFightTimer3.invalidate()
+                volcano5TriggerOn = false
+                SoundManager.instance.playMusic(sound: .VolcanoSoundtrack, volume: 0.5)
             }
+        }
+        
     
         
         if isMoving {

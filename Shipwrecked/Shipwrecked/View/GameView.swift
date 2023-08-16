@@ -418,7 +418,6 @@ extension GameView {
                 Text(inventoryDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
                     .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                HStack{
                     Button {
                         // Make this button equip or consume or look at item depending on what the item is
                         GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
@@ -456,9 +455,7 @@ extension GameView {
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
                     }
-                }
             }
-            
             
             VStack {
                 HStack {

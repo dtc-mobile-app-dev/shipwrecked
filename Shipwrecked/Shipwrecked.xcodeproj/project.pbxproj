@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6A2762AB2A7ADDF600C0EC48 /* YouDiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */; };
-		6A38683B2A8AD70D00E91EAB /* SoundEffectsForGroup in Resources */ = {isa = PBXBuildFile; fileRef = 6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */; };
 		6A67FE4B2A7C4792005818DA /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4A2A7C4792005818DA /* YouWinView.swift */; };
 		6A67FE4D2A7C48B9005818DA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67FE4C2A7C48B9005818DA /* LoadingView.swift */; };
 		6A904F642A79B15D00025DD9 /* SelectPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */; };
@@ -39,8 +38,6 @@
 		FA2C007D2A8B1EBF00664990 /* JungleSoundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */; };
 		FA2C007F2A8B1EC900664990 /* VolcanoBoss.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */; };
 		FA2C00812A8B1ED000664990 /* VolcanoSoundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00802A8B1ED000664990 /* VolcanoSoundtrack.wav */; };
-		FA2C00872A8CA14100664990 /* gunFire.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00862A8CA14100664990 /* gunFire.wav */; };
-		FA2C00892A8CA1A400664990 /* Cannon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA2C00882A8CA1A400664990 /* Cannon.mp3 */; };
 		FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = FA64A5CA2A81A77F003F069F /* CaveScene.sks */; };
 		FA725EFD2A79C3B200D09378 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA725EFC2A79C3B200D09378 /* GameView.swift */; };
 		FA72F9112A7B07B600D8D25D /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */; };
@@ -74,9 +71,38 @@
 
 /* Begin PBXFileReference section */
 		6A2762AA2A7ADDF600C0EC48 /* YouDiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDiedView.swift; sourceTree = "<group>"; };
-		6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundEffectsForGroup; sourceTree = "<group>"; };
 		6A67FE4A2A7C4792005818DA /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
 		6A67FE4C2A7C48B9005818DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		6A7DA7062A8D5C54005E17F9 /* bonk1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bonk1.mp3; sourceTree = "<group>"; };
+		6A7DA7072A8D5C57005E17F9 /* bonk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bonk.mp3; sourceTree = "<group>"; };
+		6A7DA7082A8D5C5F005E17F9 /* bonk2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bonk2.mp3; sourceTree = "<group>"; };
+		6A7DA7092A8D5C65005E17F9 /* burp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = burp.mp3; sourceTree = "<group>"; };
+		6A7DA70A2A8D5C6D005E17F9 /* collectItem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = collectItem.mp3; sourceTree = "<group>"; };
+		6A7DA70B2A8D5C73005E17F9 /* eating.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eating.mp3; sourceTree = "<group>"; };
+		6A7DA70C2A8D5CBB005E17F9 /* fail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fail.mp3; sourceTree = "<group>"; };
+		6A7DA70D2A8D5CBD005E17F9 /* eat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eat.mp3; sourceTree = "<group>"; };
+		6A7DA70E2A8D5CC2005E17F9 /* insane.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = insane.mp3; sourceTree = "<group>"; };
+		6A7DA70F2A8D5CC4005E17F9 /* zap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = zap.wav; sourceTree = "<group>"; };
+		6A7DA7102A8D5CC6005E17F9 /* gun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gun.mp3; sourceTree = "<group>"; };
+		6A7DA7112A8D5CCB005E17F9 /* chop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chop.mp3; sourceTree = "<group>"; };
+		6A7DA7122A8D5CD1005E17F9 /* eating1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eating1.mp3; sourceTree = "<group>"; };
+		6A7DA7132A8D5CD3005E17F9 /* human.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = human.mp3; sourceTree = "<group>"; };
+		6A7DA7142A8D5CD8005E17F9 /* horse.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = horse.mp3; sourceTree = "<group>"; };
+		6A7DA7152A8D5CDB005E17F9 /* clang.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = clang.mp3; sourceTree = "<group>"; };
+		6A7DA7162A8D5CDD005E17F9 /* knife.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = knife.mp3; sourceTree = "<group>"; };
+		6A7DA7172A8D5CDF005E17F9 /* punch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = punch.mp3; sourceTree = "<group>"; };
+		6A7DA7182A8D5CE2005E17F9 /* multipleBonks.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = multipleBonks.mp3; sourceTree = "<group>"; };
+		6A7DA7192A8D5CE3005E17F9 /* punch1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = punch1.mp3; sourceTree = "<group>"; };
+		6A7DA71A2A8D5CF0005E17F9 /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
+		6A7DA71B2A8D5CF2005E17F9 /* start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = start.mp3; sourceTree = "<group>"; };
+		6A7DA71C2A8D5CF4005E17F9 /* slice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = slice.mp3; sourceTree = "<group>"; };
+		6A7DA71D2A8D5CF5005E17F9 /* multipleSwords.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = multipleSwords.mp3; sourceTree = "<group>"; };
+		6A7DA71E2A8D5CF9005E17F9 /* walk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = walk.mp3; sourceTree = "<group>"; };
+		6A7DA71F2A8D5CFA005E17F9 /* swordThud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swordThud.mp3; sourceTree = "<group>"; };
+		6A7DA7212A8D5CFD005E17F9 /* walkOnLeaves.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = walkOnLeaves.mp3; sourceTree = "<group>"; };
+		6A7DA7222A8D5D01005E17F9 /* slice1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = slice1.mp3; sourceTree = "<group>"; };
+		6A7DA7232A8D5D05005E17F9 /* swoosh2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh2.mp3; sourceTree = "<group>"; };
+		6A7DA7242A8D5D07005E17F9 /* swoosh1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh1.mp3; sourceTree = "<group>"; };
 		6A904F632A79B15D00025DD9 /* SelectPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayerView.swift; sourceTree = "<group>"; };
 		6A904F652A79B1D600025DD9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		6A904F682A79B67C00025DD9 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
@@ -109,8 +135,6 @@
 		FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = JungleSoundtrack.wav; sourceTree = "<group>"; };
 		FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VolcanoBoss.wav; sourceTree = "<group>"; };
 		FA2C00802A8B1ED000664990 /* VolcanoSoundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VolcanoSoundtrack.wav; sourceTree = "<group>"; };
-		FA2C00862A8CA14100664990 /* gunFire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = gunFire.wav; path = ../../../../../../../../Desktop/ShipwreckedSoundtrack/gunFire.wav; sourceTree = "<group>"; };
-		FA2C00882A8CA1A400664990 /* Cannon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Cannon.mp3; sourceTree = "<group>"; };
 		FA64A5CA2A81A77F003F069F /* CaveScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CaveScene.sks; sourceTree = "<group>"; };
 		FA725EFC2A79C3B200D09378 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA72F9102A7B07B600D8D25D /* DirectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
@@ -249,7 +273,6 @@
 			children = (
 				FA2C00732A8B1E8700664990 /* Music */,
 				FAD91E632A8AAC5300753F1D /* SoundManager.swift */,
-				6A38683A2A8AD70D00E91EAB /* SoundEffectsForGroup */,
 			);
 			path = SoundManager;
 			sourceTree = "<group>";
@@ -264,8 +287,36 @@
 				FA2C007E2A8B1EC900664990 /* VolcanoBoss.wav */,
 				FA2C007C2A8B1EBF00664990 /* JungleSoundtrack.wav */,
 				FA2C00742A8B1E9F00664990 /* IslandTheme.wav */,
-				FA2C00862A8CA14100664990 /* gunFire.wav */,
-				FA2C00882A8CA1A400664990 /* Cannon.mp3 */,
+				6A7DA7072A8D5C57005E17F9 /* bonk.mp3 */,
+				6A7DA7062A8D5C54005E17F9 /* bonk1.mp3 */,
+				6A7DA7082A8D5C5F005E17F9 /* bonk2.mp3 */,
+				6A7DA7092A8D5C65005E17F9 /* burp.mp3 */,
+				6A7DA7112A8D5CCB005E17F9 /* chop.mp3 */,
+				6A7DA7152A8D5CDB005E17F9 /* clang.mp3 */,
+				6A7DA70A2A8D5C6D005E17F9 /* collectItem.mp3 */,
+				6A7DA70C2A8D5CBB005E17F9 /* fail.mp3 */,
+				6A7DA70D2A8D5CBD005E17F9 /* eat.mp3 */,
+				6A7DA70B2A8D5C73005E17F9 /* eating.mp3 */,
+				6A7DA7122A8D5CD1005E17F9 /* eating1.mp3 */,
+				6A7DA70E2A8D5CC2005E17F9 /* insane.mp3 */,
+				6A7DA7102A8D5CC6005E17F9 /* gun.mp3 */,
+				6A7DA7142A8D5CD8005E17F9 /* horse.mp3 */,
+				6A7DA7132A8D5CD3005E17F9 /* human.mp3 */,
+				6A7DA7162A8D5CDD005E17F9 /* knife.mp3 */,
+				6A7DA7172A8D5CDF005E17F9 /* punch.mp3 */,
+				6A7DA7192A8D5CE3005E17F9 /* punch1.mp3 */,
+				6A7DA7182A8D5CE2005E17F9 /* multipleBonks.mp3 */,
+				6A7DA71D2A8D5CF5005E17F9 /* multipleSwords.mp3 */,
+				6A7DA71B2A8D5CF2005E17F9 /* start.mp3 */,
+				6A7DA71C2A8D5CF4005E17F9 /* slice.mp3 */,
+				6A7DA7222A8D5D01005E17F9 /* slice1.mp3 */,
+				6A7DA71F2A8D5CFA005E17F9 /* swordThud.mp3 */,
+				6A7DA71A2A8D5CF0005E17F9 /* swoosh.mp3 */,
+				6A7DA7232A8D5D05005E17F9 /* swoosh2.mp3 */,
+				6A7DA7242A8D5D07005E17F9 /* swoosh1.mp3 */,
+				6A7DA71E2A8D5CF9005E17F9 /* walk.mp3 */,
+				6A7DA7212A8D5CFD005E17F9 /* walkOnLeaves.mp3 */,
+				6A7DA70F2A8D5CC4005E17F9 /* zap.wav */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -401,18 +452,15 @@
 				B3497A4E2A799DE9005D645D /* AllTileSets.sks in Resources */,
 				FA2C00752A8B1E9F00664990 /* IslandTheme.wav in Resources */,
 				B3497A4B2A799DD0005D645D /* IslandScene.sks in Resources */,
-				FA2C00892A8CA1A400664990 /* Cannon.mp3 in Resources */,
 				FA2C007D2A8B1EBF00664990 /* JungleSoundtrack.wav in Resources */,
 				B34979CA2A7059CA005D645D /* Preview Assets.xcassets in Resources */,
 				988D90802A7C5BAC0050F79A /* JungleScene.sks in Resources */,
 				6A904F762A79C0B800025DD9 /* Block.ttf in Resources */,
 				6A904F752A79C0B800025DD9 /* Retro Gaming.ttf in Resources */,
-				6A38683B2A8AD70D00E91EAB /* SoundEffectsForGroup in Resources */,
 				FA2C00812A8B1ED000664990 /* VolcanoSoundtrack.wav in Resources */,
 				6A904F742A79C0B800025DD9 /* 8-bit Arcade In.ttf in Resources */,
 				FA64A5CB2A81A77F003F069F /* CaveScene.sks in Resources */,
 				FA2C00772A8B1EA900664990 /* CaveSoundtrack.wav in Resources */,
-				FA2C00872A8CA14100664990 /* gunFire.wav in Resources */,
 				B34979C72A7059CA005D645D /* Assets.xcassets in Resources */,
 				FA2C00792A8B1EB000664990 /* CaveBoss.wav in Resources */,
 				FA2C007F2A8B1EC900664990 /* VolcanoBoss.wav in Resources */,

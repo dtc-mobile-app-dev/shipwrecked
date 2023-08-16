@@ -140,9 +140,8 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     // MARK: - FoodPickups
             
-//            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-//            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-//            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
             
         
         // MARK: - Camera/Controller
@@ -532,29 +531,31 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
 
         // MARK: - Fix this crap
-//        if bodyA == playerCategory && bodyB == appleCategory {
-//            contact.bodyB.node?.removeFromParent()
-//            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
-//            print(inventory.count)
-//        }
-//        
-//        if bodyB == playerCategory && bodyA == appleCategory {
-//            contact.bodyA.node?.removeFromParent()
-//            inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "A GREEN APPLE YUM"))
-//            print(inventory.count)
-//        }
-//        
-//        if bodyA == playerCategory && contactA == ("Watermelon1") {
-//            contact.bodyB.node?.removeFromParent()
-//            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
-//            print(inventory.count)
-//        }
-//        
-//        if bodyB == playerCategory && contactB == ("Watermelon1") {
-//            contact.bodyA.node?.removeFromParent()
-//            inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "A watermelon!"))
-//            print(inventory.count)
-//        }
+        
+//    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
+//        contact.bodyA.node?.removeFromParent()
+//        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
+//    }
+//    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
+//        contact.bodyB.node?.removeFromParent()
+//        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
+//    }
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Apple1") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
+    }
+        if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Watermelon1") {
+            contact.bodyA.node?.removeFromParent()
+            GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy red", isWeapon: false, isFood: true, isRanged: false))
+        }
+        if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Watermelon1") {
+            contact.bodyB.node?.removeFromParent()
+            GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
+        }
         
     }
     

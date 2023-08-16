@@ -59,7 +59,7 @@ struct GameView: View {
         InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true),
         InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false),
         InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true),
-        InventoryItem(name: "WoodPlank", imageName: "WoodPlank", itemDescription: "For the boat maybe", isWeapon: false, isFood: false)
+        InventoryItem(name: "WoodPlank", imageName: "WoodPlank1", itemDescription: "For the boat maybe", isWeapon: false, isFood: false)
     ]
     
     @State var showInventory = false
@@ -138,8 +138,19 @@ struct GameView: View {
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
             
                 .overlay {
+                    HStack(spacing: 0) {
+                        Image(GameData.shared.collectedBoatMaterial1 ? "WoodPlank1" : "WoodPlank2")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                        Image(GameData.shared.collectedBoatMaterial2 ? "SentientStick1" : "SentientStick2")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                        Image(GameData.shared.collectedBoatMaterial3 ? "Oar1" : "Oar2")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 300, bottom: 300, trailing: 0))
                     
-                    //                    uiOverlay
                     uiOverlay
                     
                 }
@@ -337,10 +348,11 @@ extension GameView {
         return "\(degrees)°"
     }
     
+    // MARK: - Inventory
+    
+    
     var uiOverlay: some View {
         ZStack {
-            // MARK: - Inventory
-            
             Rectangle()
                 .ignoresSafeArea()
                 .frame(maxWidth: showInventory ? .infinity : 0)
@@ -361,6 +373,15 @@ extension GameView {
                     Button {
                         withAnimation() {
                             showInventory.toggle()
+                            if currentSelectedItem.imageName == "WoodPlank1" {
+                                GameData.shared.collectedBoatMaterial1 = true
+                            }
+                            if currentSelectedItem.imageName == "SentientStick1" {
+                                GameData.shared.collectedBoatMaterial2 = true
+                            }
+                            if currentSelectedItem.imageName == "Oar1" {
+                                GameData.shared.collectedBoatMaterial3 = true
+                            }
                         }
                     } label: {
                         Image("InventoryX")
@@ -406,35 +427,51 @@ extension GameView {
                 Image("InventoryDescription")
                     .resizable()
                     .frame(width: showInventoryDescription && showInventory ? 160 : 0, height: showInventoryDescription && showInventory ? 220 : 0)
-                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
+//                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
                 Text(inventoryDescription)
                     .opacity(showInventoryDescription && showInventory ? 1.0 : 0)
-                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
-                    Button {
-                        // Make this button equip or consume or look at item depending on what the item is
-                        GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
-                        if currentSelectedItem.isFood {
-                            // Health +20
-                            inventoryDescription = "\(currentSelectedItem.name) Used! Health Increased by 20!"
-                        } else if currentSelectedItem.isWeapon {
-                            // Equip Weapon and put previous weapon in the inventory
-                            inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
-                        }
-                    } label: {
-                        ZStack {
-                            if showInventoryDescription && showInventory {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundColor(.brown)
-                                    .frame(width: 70, height: 40)
-                                Text("Use")
-                                    .foregroundColor(.black)
+//                    .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
+                VStack {
+                    Spacer()
+                    HStack {
+                        Button {
+                            // Make this button equip or consume or look at item depending on what the item is
+                            if currentSelectedItem.isFood {
+                                // Health +20
+                                inventoryDescription = "\(currentSelectedItem.name) Used! Health Increased by 20!"
+                                if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
+                                    GameData.shared.inventory.remove(at: item)
+                                }
+                            } else if currentSelectedItem.isWeapon {
+                                // Equip Weapon and put previous weapon in the inventory
+                                inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
+                                if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
+                                    GameData.shared.inventory.remove(at: item)
+                                }
                             }
+                        } label: {
+                            ZStack {
+                                if showInventoryDescription && showInventory {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(.brown)
+                                        .frame(width: 70, height: 40)
+                                    Text("Use")
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            .opacity(showInventoryDescription ? 1.0 : 0)
                         }
-                        .opacity(showInventoryDescription ? 1.0 : 0)
                     }
                     Button {
+                        
                         // Make this button get rid of the item that is selected
-                        GameData.shared.inventory.remove(at: GameData.shared.inventory.firstIndex(of: currentSelectedItem)!)
+                        if !currentSelectedItem.isFood && !currentSelectedItem.isWeapon && GameData.shared.collectedBoatMaterial1 && !GameData.shared.collectedBoatMaterial2 && !GameData.shared.collectedBoatMaterial3 {
+                            if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
+                                GameData.shared.inventory.remove(at: item)
+                                inventoryDescription = "Item Trashed!"
+                            }
+                        }
+                        
                     } label: {
                         ZStack {
                             if showInventoryDescription && showInventory {
@@ -447,7 +484,9 @@ extension GameView {
                         }
                         .opacity(showInventoryDescription ? 1.0 : 0)
                     }
+                }
             }
+            .padding(EdgeInsets(top: 50, leading: 560, bottom: 0, trailing: 0))
             
             VStack {
                 HStack {

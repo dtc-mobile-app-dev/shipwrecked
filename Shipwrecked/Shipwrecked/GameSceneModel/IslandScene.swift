@@ -60,8 +60,9 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     // MARK: - Food
     
-    let apple1 = SKSpriteNode()
-    let watermelon1 = SKSpriteNode()
+        let apple1 = SKSpriteNode()
+        let apple2 = SKSpriteNode()
+        let watermelon1 = SKSpriteNode()
     
     
     // MARK: - Camera/Controller
@@ -137,8 +138,12 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - FoodPickups
         
-//        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
-//        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: appleCategory, collisionContactCategory: playerCategory, scene: self)
+    // MARK: - FoodPickups
+            
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
         
         // MARK: - Camera/Controller
         
@@ -223,6 +228,10 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         nodeTrigger.physicsBody?.allowsRotation = false
         nodeTrigger.physicsBody?.isDynamic = false
     }
+    
+    
+    
+    
     
     // MARK: - COMBAT
     

@@ -51,6 +51,19 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @Published var volcano3SignImage: Double = 0
     @Published var volcano4SignImage: Double = 0
     
+    
+    // MARK: - Pickups
+    
+    var boatItemPickup = SKSpriteNode()
+    
+    // MARK: - Food
+    
+        let apple1 = SKSpriteNode()
+        let apple2 = SKSpriteNode()
+        let apple3 = SKSpriteNode()
+        let watermelon1 = SKSpriteNode()
+        let watermelon2 = SKSpriteNode()
+    
     // MARK: - JungleScene
     
     // Section 1
@@ -242,6 +255,22 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             node.createSpriteNode(spriteNode: volcano2Sign, sceneNodeName: "Volcano2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
             node.createSpriteNode(spriteNode: volcano3Sign, sceneNodeName: "Volcano3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
             node.createSpriteNode(spriteNode: volcano4Sign, sceneNodeName: "Volcano4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            // MARK: - ItemPickups
+            
+            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "WoodPlank", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            
+            
+            // MARK: - FoodPickups
+            
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            
             
             // MARK: - Characters
             

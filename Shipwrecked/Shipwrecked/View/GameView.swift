@@ -152,16 +152,16 @@ struct GameView: View {
             
 
                 .overlay {
-                    HStack(spacing: 0) {
+                    HStack(spacing: -10) {
                         Image(GameData.shared.collectedBoatMaterial1 ? "WoodPlank1" : "WoodPlank2")
                             .resizable()
-                            .frame(width: 70, height: 70)
+                            .frame(width: 50, height: 50)
                         Image(GameData.shared.collectedBoatMaterial2 ? "SentientStick1" : "SentientStick2")
                             .resizable()
-                            .frame(width: 70, height: 70)
+                            .frame(width: 50, height: 50)
                         Image(GameData.shared.collectedBoatMaterial3 ? "Oar1" : "Oar2")
                             .resizable()
-                            .frame(width: 70, height: 70)
+                            .frame(width: 50, height: 50)
                     }
                     .padding(EdgeInsets(top: 0, leading: 300, bottom: 300, trailing: 0))
                     

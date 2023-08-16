@@ -39,6 +39,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var playerPosx: CGFloat = 0
     var playerPosy: CGFloat = 0
     
+    
+    // MARK: - Pickups
+    
+    var boatItemPickup = SKSpriteNode()
+    
     // MARK: - CaveEnemies
     
     var caveSceneActive = false
@@ -155,11 +160,11 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     // MARK: - Food
     
-    //    let apple1 = SKSpriteNode()
-    //    let apple2 = SKSpriteNode()
-    //    let apple3 = SKSpriteNode()
-    //    let watermelon1 = SKSpriteNode()
-    //    let watermelon2 = SKSpriteNode()
+        let apple1 = SKSpriteNode()
+        let apple2 = SKSpriteNode()
+        let apple3 = SKSpriteNode()
+        let watermelon1 = SKSpriteNode()
+        let watermelon2 = SKSpriteNode()
     
     // MARK: - Combat
     
@@ -263,6 +268,23 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
             node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
             
+            
+            // MARK: - ItemPickups
+            
+            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "SentientStick", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            
+            
+            // MARK: - FoodPickups
+            
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            
+            
             // MARK: - Bosss
             bossEnemy()
             
@@ -270,15 +292,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             camera()
             
-            
-            
-            // MARK: - FoodPickups
-            
-            //        node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            //        node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            //        node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            //        node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            //        node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
             
             CaveScene.hasLoaded = true
         }
@@ -898,6 +911,60 @@ func didBegin(_ contact: SKPhysicsContact) {
     
     print("Contact A\(bodyA) Contact B \(bodyB)")
     
+    // MARK: - Boat Items
+    
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("SentientStick") {
+        GameData.shared.collectedBoatMaterial2 = true
+        contact.bodyA.node?.removeFromParent()
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("SentientStick") {
+        GameData.shared.collectedBoatMaterial2 = true
+        contact.bodyB.node?.removeFromParent()
+    }
+    
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Apple1") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Apple2") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple2") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Apple3") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple3") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Watermelon1") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Watermelon1") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Watermelon2") {
+        contact.bodyA.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Watermelon2") {
+        contact.bodyB.node?.removeFromParent()
+        GameData.shared.inventory.append(InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Yummy green", isWeapon: false, isFood: true))
+    }
+    
+    
+    
     // MARK: - Enemy Health Contact
     
     if bodyA == enemyCategory && bodyB == meleeCategory {
@@ -940,6 +1007,8 @@ func didBegin(_ contact: SKPhysicsContact) {
     if bodyA == playerCategory && bodyB == signCategory && contactB == ("GunnerRescue") {
         rescueCrewMember = true
     }
+    
+    
     
     
     // MARK: - Scene Transition

@@ -402,6 +402,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         bulletNode.name = "CannonBall"
         bulletNode.zPosition = 3
+        bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
@@ -422,7 +423,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
             currentPlayerNode.addChild(gunNode)
-            currentPlayerNode.addChild(bulletNode)
+            self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }

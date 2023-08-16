@@ -383,9 +383,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        gunNode = .init(imageNamed: "FlintLock")
+        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
         
-        gunNode.name = "FlintLock"
         gunNode.zPosition = 4
         gunNode.setScale(0.8)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
@@ -442,7 +441,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func swing() {
-        swordNode = .init(imageNamed: "Cutlass")
+        swordNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
         
         swordNode.setScale(1)
         swordNode.zPosition = 5
@@ -962,13 +961,12 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: -Combat
         
-        if !isFiring {
+        if !isStrikin && ((GameData.shared.currentWeapon?.isWeapon) != nil) {
+            startSwinging()
+        }
+        if !isFiring && ((GameData.shared.currentWeapon?.isRanged) != nil) {
             startShooting()
         }
-        
-        //        if !isStrikin {
-        //            startSwinging()
-        //        }
         
         bossShootAngle1 += 7
         bossShootAngle2 += 7

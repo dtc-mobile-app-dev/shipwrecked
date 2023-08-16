@@ -389,7 +389,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName)
+        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
         
         gunNode.zPosition = 4
         gunNode.setScale(0.8)
@@ -447,7 +447,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     @objc func swing() {
-        swordNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName)
+        swordNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
         
         swordNode.setScale(1)
         swordNode.zPosition = 5
@@ -1104,10 +1104,10 @@ override func update(_ currentTime: TimeInterval) {
     // MARK: -Combat
     
     
-    if !isStrikin && GameData.shared.currentWeapon?.isWeapon {
+    if !isStrikin && ((GameData.shared.currentWeapon?.isWeapon) != nil) {
         startSwinging()
     }
-    if !isFiring && GameData.shared.currentWeapon. {
+    if !isFiring && ((GameData.shared.currentWeapon?.isRanged) != nil) {
         startShooting()
     }
     bossShootAngle1 += 7

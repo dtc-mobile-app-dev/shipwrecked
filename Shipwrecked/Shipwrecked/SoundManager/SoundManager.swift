@@ -26,12 +26,12 @@ class SoundManager {
         case volcanoBoss
     }
     
-    func playMusic(sound: MusicOption) {
+    func playMusic(sound: MusicOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             backgroundMusic = try AVAudioPlayer(contentsOf: url)
             backgroundMusic?.play()
-            backgroundMusic?.volume = 1.0
+            backgroundMusic?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
@@ -56,21 +56,21 @@ class SoundManager {
         
     }
     
-    func playCombatmp3(sound: CombatOption) {
+    func playCombatmp3(sound: CombatOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else { return }
         do {
             combatSounds = try AVAudioPlayer(contentsOf: url)
             combatSounds?.play()
-            combatSounds?.volume = 1.0
+            combatSounds?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
-    func playCombat(sound: CombatOption) {
+    func playCombat(sound: CombatOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             combatSounds = try AVAudioPlayer(contentsOf: url)
             combatSounds?.play()
-            combatSounds?.volume = 1.0
+            combatSounds?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
@@ -83,21 +83,21 @@ class SoundManager {
         case tikiBonk = "bonk2"
     }
     
-    func playTikiSoundmp3(sound: TikiOption) {
+    func playTikiSoundmp3(sound: TikiOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else { return }
         do {
             tikiGuys = try AVAudioPlayer(contentsOf: url)
             tikiGuys?.play()
-            tikiGuys?.volume = 1.0
+            tikiGuys?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
-    func playTikiSound(sound: TikiOption) {
+    func playTikiSound(sound: TikiOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             tikiGuys = try AVAudioPlayer(contentsOf: url)
             tikiGuys?.play()
-            tikiGuys?.volume = 1.0
+            tikiGuys?.volume = volume
         } catch let error {
             print("Error playing sound \(error.localizedDescription)")
         }
@@ -123,21 +123,21 @@ class SoundManager {
         case start = "start"
     }
     
-    func playSoundEffectmp3(sound: SoundEffect) {
+    func playSoundEffectmp3(sound: SoundEffect, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".mp3") else { return }
         do {
             soundEffecets = try AVAudioPlayer(contentsOf: url)
             soundEffecets?.play()
-            soundEffecets?.volume = 1.0
+            soundEffecets?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
-    func playSoundEffect(sound: SoundEffect) {
+    func playSoundEffect(sound: SoundEffect, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             soundEffecets = try AVAudioPlayer(contentsOf: url)
             soundEffecets?.play()
-            soundEffecets?.volume = 1.0
+            soundEffecets?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
@@ -150,21 +150,21 @@ class SoundManager {
         case walkOnLeaves = "walkOnLeaves"
     }
     
-    func playSoundEffect(sound: WalkSoundOption) {
+    func playSoundEffect(sound: WalkSoundOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             walkSound = try AVAudioPlayer(contentsOf: url)
             walkSound?.play()
-            walkSound?.volume = 1.0
+            walkSound?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
-    func playSoundEffectmp3(sound: WalkSoundOption) {
+    func playSoundEffectmp3(sound: WalkSoundOption, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             walkSound = try AVAudioPlayer(contentsOf: url)
             walkSound?.play()
-            walkSound?.volume = 1.0
+            walkSound?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
 }

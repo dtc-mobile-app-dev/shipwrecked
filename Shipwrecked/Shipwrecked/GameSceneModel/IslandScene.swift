@@ -228,9 +228,31 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     @objc func gunFire() {
        
-        bulletNode = .init(imageNamed: "Bullet")
+        gunNode = .init(imageNamed: "FlintLock")
+
+        gunNode.name = "FlintLock"
+        gunNode.zPosition = 4
+        gunNode.setScale(1)
+        gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
+        gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
+        gunNode.physicsBody?.affectedByGravity = false
+        gunNode.physicsBody?.isDynamic = false
+        gunNode.physicsBody?.categoryBitMask = pathCategory
+        gunNode.physicsBody?.contactTestBitMask = enemyCategory
+        gunNode.physicsBody?.collisionBitMask = enemyCategory
+        gunNode.anchorPoint = CGPoint(x:0.0,y: 0.5)
         
-        bulletNode.name = "Bullet"
+        let gun = SKAction.move(to: CGPoint(
+            x: cos(gunNode.zRotation) + gunNode.position.x,
+            y: sin(gunNode.zRotation) + gunNode.position.y)
+                                  ,duration: 1.0)
+        let deleteGun = SKAction.removeFromParent()
+        
+        let gunSeq = SKAction.sequence([gun, deleteGun])
+        
+        bulletNode = .init(imageNamed: "CannonBall")
+        
+        bulletNode.name = "CannonBall"
         bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
         bulletNode.zPosition = 5
         bulletNode.setScale(0.1)
@@ -252,9 +274,10 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
-            SoundManager.instance.playCombat(sound: .gunFire, volume: 0.2)
-            self.addChild(bulletNode)
+            currentPlayerNode.addChild(gunNode)
+            currentPlayerNode.addChild(bulletNode)
             bulletNode.run(bulletSeq)
+            gunNode.run(gunSeq)
         }
     }
     
@@ -289,7 +312,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
         if isSwingin {
-            self.addChild(swordNode)
+            currentPlayerNode.addChild(swordNode)
             swordNode.run(swingSeq)
         }
     }

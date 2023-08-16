@@ -355,9 +355,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         gunNode = .init(imageNamed: "FlintLock")
 
         gunNode.name = "FlintLock"
-        gunNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
         gunNode.zPosition = 4
-        gunNode.setScale(0.45)
+        gunNode.setScale(1)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -378,7 +377,6 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         bulletNode = .init(imageNamed: "CannonBall")
         
         bulletNode.name = "CannonBall"
-        bulletNode.position = CGPoint(x: gunNode.position.x, y: gunNode.position.y )
         bulletNode.zPosition = 3
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
@@ -399,8 +397,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
-            self.addChild(gunNode)
-            self.addChild(bulletNode)
+            currentPlayerNode.addChild(gunNode)
+            currentPlayerNode.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }
@@ -414,7 +412,6 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @objc func swing() {
         swordNode = .init(imageNamed: "Cutlass")
         
-        swordNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y - 10 )
         swordNode.setScale(0.4)
         swordNode.zPosition = 5
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
@@ -436,7 +433,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
         if isSwingin {
-            self.addChild(swordNode)
+            currentPlayerNode.addChild(swordNode)
             swordNode.run(swingSeq)
         }
     }

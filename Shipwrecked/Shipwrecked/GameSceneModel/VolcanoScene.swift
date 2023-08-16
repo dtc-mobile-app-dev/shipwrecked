@@ -379,8 +379,8 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
-            self.addChild(gunNode)
-            self.addChild(bulletNode)
+            currentPlayerNode.addChild(gunNode)
+            currentPlayerNode.addChild(bulletNode)
             bulletNode.run(bulletSeq)
             gunNode.run(gunSeq)
         }
@@ -416,7 +416,7 @@ class VolcanoScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
         if isSwingin {
-            self.addChild(swordNode)
+            currentPlayerNode.addChild(swordNode)
             swordNode.run(swingSeq)
         }
     }

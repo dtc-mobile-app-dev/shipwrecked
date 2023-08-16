@@ -16,8 +16,6 @@ class SoundManager {
     
     var backgroundMusic: AVAudioPlayer?
     
-    
-    
     enum MusicOption: String {
         case IslandTheme
         case CaveSoundtrack

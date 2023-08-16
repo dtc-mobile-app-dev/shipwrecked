@@ -17,13 +17,13 @@ class SoundManager {
     var backgroundMusic: AVAudioPlayer?
     
     enum MusicOption: String {
-        case islandTheme 
-        case caveTheme
-        case caveBoss
-        case jungleTheme
-        case jungleBoss
-        case volcanoTheme
-        case volcanoBoss
+        case IslandTheme
+        case CaveSoundtrack
+        case CaveBoss
+        case JungleSoundtrack
+        case JungleBoss
+        case VolcanoSoundtrack
+        case VolcanoBoss
     }
     
     func playMusic(sound: MusicOption, volume: Float) {
@@ -40,19 +40,19 @@ class SoundManager {
     var combatSounds: AVAudioPlayer?
     
     enum CombatOption: String {
-        case gunfire = "gun"
-        case hit = "bonk1"
-        case swoosh = "swoosh"
-        case swoosh1 = "swoosh1"
-        case swoosh2 = "swoosh2"
-        case swordThud = "swordThud"
-        case multipleSwords = "multipleSwords"
-        case chop = "chop"
-        case knife = "knife"
-        case slice = "slice"
-        case slice1 = "slice1"
-        case punch = "punch"
-        case punch1 = "punch1"
+        case gunfire
+        case hit
+        case swoosh
+        case swoosh1
+        case swoosh2
+        case swordThud
+        case multipleSwords
+        case chop
+        case knife
+        case slice
+        case slice1
+        case punch
+        case punch1
         
     }
     
@@ -108,19 +108,19 @@ class SoundManager {
     var soundEffecets: AVAudioPlayer?
     
     enum SoundEffect: String {
-        case multipleBonks = "multipleBonks"
-        case eat = "eat"
-        case eating1 = "eating1"
-        case eating = "eating"
-        case burp = "burp"
-        case fail = "fail"
-        case human = "human"
-        case insane = "insane"
-        case zap = "zap"
-        case collectItem = "collectItem"
-        case clang = "clang"
-        case horse = "horse"
-        case start = "start"
+        case multipleBonks
+        case eat
+        case eating1
+        case eating
+        case burp
+        case fail
+        case human
+        case insane
+        case zap
+        case collectItem
+        case clang
+        case horse
+        case start
     }
     
     func playSoundEffectmp3(sound: SoundEffect, volume: Float) {

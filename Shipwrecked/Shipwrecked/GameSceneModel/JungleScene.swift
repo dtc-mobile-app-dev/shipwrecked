@@ -260,25 +260,25 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             // MARK: - SignNodes
             
-            node.createSpriteNode(spriteNode: jungle1Sign, sceneNodeName: "Jungle1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: jungle2Sign, sceneNodeName: "Jungle2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: jungle3Sign, sceneNodeName: "Jungle3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: jungle4Sign, sceneNodeName: "Jungle4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: jungleSword, sceneNodeName: "Sword", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: jungle1Sign, sceneNodeName: "Jungle1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: jungle2Sign, sceneNodeName: "Jungle2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: jungle3Sign, sceneNodeName: "Jungle3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: jungle4Sign, sceneNodeName: "Jungle4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: jungleSword, sceneNodeName: "Sword", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             // MARK: - ItemPickups
             
-            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "Oar", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "Oar", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             
             
             // MARK: - FoodPickups
             
-            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
-            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
             
             
             

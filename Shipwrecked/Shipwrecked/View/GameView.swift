@@ -451,7 +451,7 @@ extension GameView {
                         Button {
                             // Make this button equip or consume or look at item depending on what the item is
                             if currentSelectedItem.isFood {
-                                // Health +20
+                                GameData.shared.currentHealth += 1
                                 inventoryDescription = "\(currentSelectedItem.name) Used! Health Increased by 20!"
                                 if let item = GameData.shared.inventory.firstIndex(of: currentSelectedItem) {
                                     GameData.shared.inventory.remove(at: item)

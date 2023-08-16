@@ -19,6 +19,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var joyconAngle = 0
     @MainActor var leftJoyconAngle: Double = 0
     var isMoving = false
+    static var hasLoaded = false
     
     @MainActor var currentHealth = 0
     @MainActor var currentPlayer: Player?
@@ -32,6 +33,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - PlayerNode
     
     var currentPlayerNode = SKSpriteNode()
+    var playerHit = false
     
     var playerPosx: CGFloat = 0
     var playerPosy: CGFloat = 0
@@ -126,11 +128,13 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var jungle5TriggerOn = false
     
     var jungleBoss = SKSpriteNode()
-    let jungleBossHealthBar = SKSpriteNode()
+    var jungleBossHealthBar = SKSpriteNode()
     var jungleBoss1Projectile = SKSpriteNode()
     var jungleBoss2Projectile = SKSpriteNode()
     var jungleBoss3Projectile = SKSpriteNode()
-    var bossFightTimer = Timer()
+    var bossFightTimer1 = Timer()
+    var bossFightTimer2 = Timer()
+    var bossFightTimer3 = Timer()
     var bossFightActive = false
     var isBossShooting = false
     var bossShootAngle1: Double = 1
@@ -138,6 +142,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var bossShootAngle3: Double = 5
     var bossTextures: [SKTexture] = []
     var ifBossAnimating = false
+    var bossHealth = 6
+    let healthArray = ["1BossHealth","2BossHealth","3BossHealth","4BossHealth","5BossHealth","6BossHealth","7BossHealth"]
 
     
     // MARK: - Combat
@@ -212,7 +218,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let skullCategory: UInt32 = 0x10000000
     
     let bossCategory: UInt32 = 0x50000
-    let bossProjectileCategory: UInt32 = 0x500000
+    let bossProjectileCategory: UInt32 = 0x50000000
     
     
     override func didMove(to view: SKView) {
@@ -221,37 +227,44 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - TileMaps
         
-        tileMap.createTileMapNode(tileMapSceneName: "JungleWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: -1, scene: self)
-
-        tileMap.createTileMapNode(tileMapSceneName: "JunglePath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
-
-       // MARK: - Jungle Triggers
-
-        createTrigger(withName: "Jungle1Trigger", withNode: jungle1Trigger)
-        createTrigger(withName: "Jungle2Trigger", withNode: jungle2Trigger)
-        createTrigger(withName: "Jungle3Trigger", withNode: jungle3Trigger)
-        createTrigger(withName: "Jungle4Trigger", withNode: jungle4Trigger)
-        createTrigger(withName: "Jungle5Trigger", withNode: jungle5Trigger)
+        if !JungleScene.hasLoaded {
+            tileMap.createTileMapNode(tileMapSceneName: "JungleWall", selfCategory: wallCategory, collisionCategory: playerCategory, zPosition: -1, scene: self)
+            
+            tileMap.createTileMapNode(tileMapSceneName: "JunglePath", selfCategory: pathCategory, collisionCategory: playerCategory, zPosition: 2, scene: self)
+            
+            // MARK: - Jungle Triggers
+            
+            createTrigger(withName: "Jungle1Trigger", withNode: jungle1Trigger)
+            createTrigger(withName: "Jungle2Trigger", withNode: jungle2Trigger)
+            createTrigger(withName: "Jungle3Trigger", withNode: jungle3Trigger)
+            createTrigger(withName: "Jungle4Trigger", withNode: jungle4Trigger)
+            createTrigger(withName: "Jungle5Trigger", withNode: jungle5Trigger)
+            
+            createTrigger(withName: "IslandEntrance", withNode: islandEntrance)
+            
+            // MARK: - SignNodes
+            
+            node.createSpriteNode(spriteNode: jungle1Sign, sceneNodeName: "Jungle1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: jungle2Sign, sceneNodeName: "Jungle2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: jungle3Sign, sceneNodeName: "Jungle3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: jungle4Sign, sceneNodeName: "Jungle4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            node.createSpriteNode(spriteNode: jungleSword, sceneNodeName: "Sword", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
+            
+            // MARK: - Characters
+            
+            
+            
+            bossEnemy()
+            
+            // MARK: - Camera/Controller
+            
+            camera()
+            
+            JungleScene.hasLoaded = true
+        }
         
-        createTrigger(withName: "IslandEntrance", withNode: islandEntrance)
-        
-        // MARK: - SignNodes
-        
-        node.createSpriteNode(spriteNode: jungle1Sign, sceneNodeName: "Jungle1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: jungle2Sign, sceneNodeName: "Jungle2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: jungle3Sign, sceneNodeName: "Jungle3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: jungle4Sign, sceneNodeName: "Jungle4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        node.createSpriteNode(spriteNode: jungleSword, sceneNodeName: "Sword", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
-        
-        // MARK: - Characters
-        
+        SoundManager.instance.playMusic(sound: .JungleSoundtrack, volume: 0.5)
         createPlayer()
-        
-        bossEnemy()
-        
-        // MARK: - Camera/Controller
-        
-        camera()
         
     }
     
@@ -278,7 +291,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
-        currentPlayerNode.position = CGPoint(x: -1700 , y: 700)
+        currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX , y: GameData.shared.currentPlayerPositionY)
         currentPlayerNode.zPosition = 5
         currentPlayerNode.setScale(0.5)
         currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / 2, height: currentPlayerNode.size.height / 10))
@@ -338,20 +351,44 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        bulletNode = .init(imageNamed: "Bullet")
         
-        bulletNode.name = "Bullet"
-        bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
-        bulletNode.zPosition = 5
+        gunNode = .init(imageNamed: "FlintLock")
+
+        gunNode.name = "FlintLock"
+        gunNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
+        gunNode.zPosition = 4
+        gunNode.setScale(0.45)
+        gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
+        gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
+        gunNode.physicsBody?.affectedByGravity = false
+        gunNode.physicsBody?.isDynamic = false
+        gunNode.physicsBody?.categoryBitMask = pathCategory
+        gunNode.physicsBody?.contactTestBitMask = enemyCategory
+        gunNode.physicsBody?.collisionBitMask = enemyCategory
+        gunNode.anchorPoint = CGPoint(x:0.0,y: 0.5)
+        
+        let gun = SKAction.move(to: CGPoint(
+            x: cos(gunNode.zRotation) + gunNode.position.x,
+            y: sin(gunNode.zRotation) + gunNode.position.y)
+                                  ,duration: 1.0)
+        let deleteGun = SKAction.removeFromParent()
+        
+        let gunSeq = SKAction.sequence([gun, deleteGun])
+        
+        bulletNode = .init(imageNamed: "CannonBall")
+        
+        bulletNode.name = "CannonBall"
+        bulletNode.position = CGPoint(x: gunNode.position.x, y: gunNode.position.y )
+        bulletNode.zPosition = 3
         bulletNode.setScale(0.1)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: bulletNode.size)
+        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
         bulletNode.physicsBody?.affectedByGravity = false
         bulletNode.physicsBody?.categoryBitMask = rangerCategory
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-        //        bulletNode.anchorPoint = CGPoint(x:0.5,y: 0)
+        bulletNode.anchorPoint = CGPoint(x:0.0,y: -0.15)
         
         
         let shoot = SKAction.move(to: CGPoint(
@@ -362,8 +399,10 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
+            self.addChild(gunNode)
             self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
+            gunNode.run(gunSeq)
         }
     }
     
@@ -436,7 +475,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func jungleBossFightActivate1() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
+        bossFightTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
@@ -469,7 +508,7 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func jungleBossFightActivate2() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
+        bossFightTimer2 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
@@ -502,32 +541,33 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func jungleBossFightActivate3() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
+        bossFightTimer3 = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
     // MARK: - ENEMY Creation
     
     func bossEnemy() {
-        
-        let healthBarArray = [""]
-        
-//        if let healthIndex = enemyDictionary[enemySceneName]?.health {
-//            if healthIndex >= 1 {
                 
         jungleBoss = self.childNode(withName: "JungleBoss") as! SKSpriteNode
                 
-//        jungleBoss.position = CGPoint(x: 1800, y: 0)
         jungleBoss.zPosition = 5
         jungleBoss.setScale(6)
-        jungleBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: jungleBoss.size.width / 2 , height: jungleBoss.size.height) )
+        jungleBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: jungleBoss.size.width / 3 , height: jungleBoss.size.height / 3) )
         jungleBoss.physicsBody?.categoryBitMask = bossCategory
-        jungleBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
-        jungleBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | playerCategory
+        jungleBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | playerCategory
+        jungleBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory | playerCategory
         jungleBoss.physicsBody?.allowsRotation = false
-        jungleBoss.physicsBody?.isDynamic = false
-//            }
-//        }
+        jungleBoss.physicsBody?.isDynamic = true
+    }
+    
+    func bossHealthBar() {
+        jungleBossHealthBar = self.childNode(withName: "BossHealthBar") as! SKSpriteNode
+        
+        jungleBossHealthBar.texture = SKTexture(imageNamed: healthArray[bossHealth])
+        jungleBossHealthBar.position = CGPoint(x: jungleBoss.position.x, y: jungleBoss.position.y + 200 )
+        jungleBossHealthBar.setScale(1.5)
+        jungleBossHealthBar.zPosition = 6
     }
     
     func bossAnimate() {
@@ -698,6 +738,38 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
     }
+    func contactedBossRanger() {
+        if !rangerCombatBool {
+            bossHealth -= 1
+            rangerCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                rangerCombatBool = false
+            }
+        }
+        if bossHealth < 0 {
+            jungleBoss.removeAllActions()
+            jungleBoss.removeFromParent()
+            jungleBossHealthBar.removeFromParent()
+
+        }
+        
+    }
+    func contactedBossMelee() {
+        
+        if meleeCombatBool {
+            bossHealth -= 1
+            meleeCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+                meleeCombatBool = false
+            }
+        }
+        if bossHealth < 1 {
+            jungleBoss.removeAllActions()
+            jungleBoss.removeFromParent()
+            jungleBossHealthBar.removeFromParent()
+            
+        }
+    }
     
     func contactedRip(graveNode: SKNode, enemyKey: String) {
         if enemyDictionary[enemyKey]!.health == 0  {
@@ -707,6 +779,15 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
     }
     
+    func playerHitFunc() {
+        if !playerHit && GameData.shared.currentHealth > 0 {
+            GameData.shared.currentHealth -= 1
+            playerHit = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                playerHit = false
+            }
+        }
+    }
     // MARK: - CAMERA
     
     func camera() {
@@ -751,6 +832,31 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
+        if bodyA == bossCategory && bodyB == rangerCategory {
+            contactedBossRanger()
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == bossCategory && bodyA == rangerCategory {
+            contactedBossRanger()
+            contact.bodyA.node?.removeFromParent()
+        }
+        
+        if bodyA == playerCategory && bodyB == bossProjectileCategory {
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == playerCategory && bodyA == bossProjectileCategory {
+            contact.bodyA.node?.removeFromParent()
+        }
+        
+        // MARK: - Player Health
+        
+        if bodyA == playerCategory && bodyB == enemyCategory || bodyB == bossProjectileCategory {
+            playerHitFunc()
+        }
+        if bodyB == playerCategory && bodyA == enemyCategory || bodyA == bossProjectileCategory {
+            playerHitFunc()
+        }
+        
         // MARK: - JUNGLE TRIGGERS
         
         if contactA == ("Jungle1Trigger") && bodyB == playerCategory  {
@@ -783,6 +889,8 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if bodyA == playerCategory && bodyB == signCategory && contactB == ("Jungle4Sign") {
             jungle4SignImage = 1
         }
+        
+       
         
         // MARK: - Transitions
         
@@ -865,17 +973,28 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if jungle5TriggerOn {
             isBossShooting = true
-            
-            if !bossFightActive {
-                if !ifBossAnimating {
-                    bossAnimate()
-                    ifBossAnimating = true
+            if bossHealth >= 0 {
+                bossHealthBar()
+                if !bossFightActive {
+                    if !ifBossAnimating {
+                        SoundManager.instance.playMusic(sound: .JungleBoss, volume: 0.5)
+                        bossAnimate()
+                        ifBossAnimating = true
+                    }
+                    jungleBossFightActivate1()
+                    jungleBossFightActivate2()
+                    jungleBossFightActivate3()
                 }
-                jungleBossFightActivate1()
-                jungleBossFightActivate2()
-                jungleBossFightActivate3()
+            } else {
+                bossFightTimer1.invalidate()
+                bossFightTimer2.invalidate()
+                bossFightTimer3.invalidate()
+                jungle5TriggerOn = false
+                SoundManager.instance.playMusic(sound: .JungleSoundtrack, volume: 0.5)
             }
         }
+       
+        
         
         if isMoving {
             if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT

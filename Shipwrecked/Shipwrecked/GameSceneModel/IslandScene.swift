@@ -17,11 +17,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @MainActor var joyconAngle = 0
     @MainActor var leftJoyconAngle: Double = 0
     
-    @Published var currentHealth = 0
-    @Published var currentPlayer: Player?
-    @Published var currentWeapon: Weapon?
-    @Published var inventory = [InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true)]
-    
     var isMoving = false
     static var hasLoaded = false
     // MARK: Instances
@@ -154,6 +149,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         // MARK: - Characters
         
         createPlayer()
+        SoundManager.instance.playMusic(sound: .IslandTheme,volume: 0.5)
     }
         
     
@@ -172,22 +168,16 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func transitionToJungleScene() {
         GameData.shared.currentLevel = .jungleScene
-        GameData.shared.currentHealth = self.currentHealth
-        GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = -1700
         GameData.shared.currentPlayerPositionY = 700
     }
     func transitionToCaveScene() {
         GameData.shared.currentLevel = .caveScene
-        GameData.shared.currentHealth = self.currentHealth
-        GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = 0
-        GameData.shared.currentPlayerPositionY = 0
+        GameData.shared.currentPlayerPositionY = -1800
     }
     func transitionToVolcanoScene() {
         GameData.shared.currentLevel = .volcanoScene
-        GameData.shared.currentHealth = self.currentHealth
-        GameData.shared.currentPlayer = self.currentPlayer
         GameData.shared.currentPlayerPositionX = -1700
         GameData.shared.currentPlayerPositionY = 900
     }
@@ -196,7 +186,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func createPlayer() {
         
-        currentPlayerNode = .init(imageNamed: currentPlayer?.character ?? "nil")
+        currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
         currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
         currentPlayerNode.zPosition = 5
@@ -237,6 +227,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - COMBAT
     
     @objc func gunFire() {
+       
         bulletNode = .init(imageNamed: "Bullet")
         
         bulletNode.name = "Bullet"
@@ -261,12 +252,14 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin {
+            SoundManager.instance.playCombat(sound: .gunFire, volume: 0.2)
             self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
         }
     }
     
     func startShooting() {
+        
         shootTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
         isFiring = true
     }
@@ -461,15 +454,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         addChild(cam)
         camera = cam
     }
-    func realTransition() {
-        GameData.shared.currentPlayer = self.currentPlayer
-        GameData.shared.currentLevel = .caveScene
-        
-        let caveScene = SKScene(fileNamed: "CaveScene.sks") as! CaveScene
-        let transition = SKTransition.fade(withDuration: 0.5) // You can choose the transition effect and duration
-        
-        self.view?.presentScene(caveScene, transition: transition)
-    }
     
     // MARK: - PHYSICS INTERACTION
     
@@ -567,14 +551,14 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 currentPlayerNode.position.x += 2.5
                 
                 if !isAnimatingUpRightDiagonalPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .upRight)
                 }
             } else if leftJoyconAngle >= 67.5 && leftJoyconAngle <= 112.5 { // UP
                 currentPlayerNode.position.y += 5
                 
                 if !isAnimatingUpPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .up)
                 }
             } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
@@ -582,13 +566,13 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 currentPlayerNode.position.x += -2.5
                 
                 if !isAnimatingUpLeftDiagonalPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .upLeft)
                 }
             } else if leftJoyconAngle >= 157.5 && leftJoyconAngle <= 202.5 { // LEFT
                 currentPlayerNode.position.x -= 5
                 if !isAnimatingLeftPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .left)
                 }
             } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
@@ -596,14 +580,14 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 currentPlayerNode.position.x += -2.5
                 
                 if !isAnimatingDownLeftDiagonalPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .downLeft)
                 }
             } else if leftJoyconAngle >= 247.5 && leftJoyconAngle <= 292.5 { // DOWN
                 currentPlayerNode.position.y -= 5
                 
                 if !isAnimatingDownPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .down)
                 }
             } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
@@ -611,13 +595,13 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 currentPlayerNode.position.x += 2.5
                 
                 if !isAnimatingDownRightDiagonalPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .downRight)
                 }
             } else if leftJoyconAngle >= 337.5 || leftJoyconAngle <= 22.5  { // RIGHT
                 currentPlayerNode.position.x += 5
                 if !isAnimatingRightPlayer {
-                    animation.animate(character: currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
+                    animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .right)
                 }
             }

@@ -32,13 +32,13 @@ struct SelectPlayerView: View {
             }
 
             HStack(spacing: -50) {
-                Button { scene.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
+                Button { GameData.shared.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("GunnerProfilePic").resizable().frame(width: 225, height: 225).padding(.top, 125) }
-                Button { scene.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
+                Button { GameData.shared.currentPlayer = Player(character: "WelderRight1", weapon: "welder", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("WelderProfilePic").resizable().frame(width: 200, height: 200).padding(.top, 175) }
-                Button { scene.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
+                Button { GameData.shared.currentPlayer = Player(character: "KevinRight1", weapon: "kevin", heathPoints: 10)
                     self.playerIsSelected.toggle()
                 } label: { Image("KevinProfilePic").resizable().frame(width: 225, height: 225).padding(.top, 125) }
             }

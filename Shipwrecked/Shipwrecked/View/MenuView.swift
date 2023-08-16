@@ -18,6 +18,7 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                
                 Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
                 Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
                 
@@ -30,6 +31,10 @@ struct MenuView: View {
                     Text("SHIPWRECKED")
                         .font(CustomFontBlock.title).kerning(3.5).foregroundColor(.black).shadow(color: .white, radius: 3.5)
                 }
+            }
+            .onAppear {
+                SoundManager.instance.playMusic(sound: .IslandTheme, volume: 0.5)
+                GameData.shared.currentHealth = 6
             }
         }
         .environmentObject(scene)

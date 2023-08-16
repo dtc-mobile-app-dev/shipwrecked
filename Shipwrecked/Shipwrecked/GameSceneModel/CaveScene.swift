@@ -31,6 +31,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - PlayerNode
     
     var currentPlayerNode = SKSpriteNode()
+    var playerHit = false
     
     var playerMapPositonX: Double = 1700
     var playerMapPositionY: Double = -1800
@@ -117,17 +118,21 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var cave5TriggerOn = false
     
     var caveBoss = SKSpriteNode()
-    let caveBossHealthBar = SKSpriteNode()
+    var caveBossHealthBar = SKSpriteNode()
     var caveBoss1Projectile = SKSpriteNode()
     var caveBoss2Projectile = SKSpriteNode()
     var caveBoss3Projectile = SKSpriteNode()
-    var bossFightTimer = Timer()
+    var bossFightTimer1 = Timer()
+    var bossFightTimer2 = Timer()
+    var bossFightTimer3 = Timer()
     var bossFightActive = false
     var isBossShooting = false
     var bossShootAngle1: Double = 1
     var bossShootAngle2: Double = 3
     var bossShootAngle3: Double = 5
     var ifBossAnimating = false
+    var bossHealth = 6
+    let healthArray = ["1BossHealth","2BossHealth","3BossHealth","4BossHealth","5BossHealth","6BossHealth","7BossHealth"]
     
     // MARK: - SIGNS
     
@@ -222,7 +227,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let skullCategory: UInt32 = 0x10000000
     
     let bossCategory: UInt32 = 0x50000
-    let bossProjectileCategory: UInt32 = 0x500000
+    let bossProjectileCategory: UInt32 = 0x50000000
     
     
     override func didMove(to view: SKView) {
@@ -256,7 +261,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self)
             
             // MARK: - Bosss
-                        
+            bossEnemy()
             
             // MARK: - Camera/Controller
             
@@ -277,8 +282,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         // MARK: - Characters
-        bossEnemy()
+        
         createPlayer()
+        SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.5)
     }
     
     // MARK: - TRANSITIONS
@@ -422,7 +428,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startShooting() {
-        shootTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
+        shootTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
         isFiring = true
     }
     
@@ -490,7 +496,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func caveBossFightActivate1() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
+        bossFightTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat1), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
@@ -523,7 +529,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func caveBossFightActivate2() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
+        bossFightTimer2 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(bossCombat2), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
@@ -556,31 +562,32 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func caveBossFightActivate3() {
-        bossFightTimer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
+        bossFightTimer3 = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(bossCombat3), userInfo: nil, repeats: true)
         bossFightActive = true
     }
     
     // MARK: - ENEMY Creation
     
     func bossEnemy() {
-        
-
-        
-//        if let healthIndex = enemyDictionary[enemySceneName]?.health {
-//            if healthIndex >= 1 {
-                
         caveBoss = self.childNode(withName: "BatBoss") as! SKSpriteNode
                 
         caveBoss.zPosition = 5
         caveBoss.setScale(0.4)
-        caveBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: caveBoss.size.width / 2 , height: caveBoss.size.height) )
+        caveBoss.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: caveBoss.size.width / 3 , height: caveBoss.size.height / 3))
         caveBoss.physicsBody?.categoryBitMask = bossCategory
-        caveBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | playerCategory
-        caveBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | playerCategory
+        caveBoss.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | playerCategory
+        caveBoss.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | playerCategory
         caveBoss.physicsBody?.allowsRotation = false
-        caveBoss.physicsBody?.isDynamic = false
-//            }
-//        }
+        
+    }
+    
+    func bossHealthBar() {
+        caveBossHealthBar = self.childNode(withName: "BossHealthBar") as! SKSpriteNode
+        
+        caveBossHealthBar.texture = SKTexture(imageNamed: healthArray[bossHealth])
+        caveBossHealthBar.position = CGPoint(x: caveBoss.position.x, y: caveBoss.position.y + 200 )
+        caveBossHealthBar.setScale(1.5)
+        caveBossHealthBar.zPosition = 6
     }
     
     func bossAnimate() {
@@ -709,17 +716,33 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // MARK: - Combat Contacts
     
     func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
-        if enemyDictionary[contactName]!.health < 1 {
-            enemyNode.removeAllActions()
-            enemyNode.removeFromParent()
-            enemyDictionary[contactName]?.health -= 1
-        }
         if meleeCombatBool {
             enemyDictionary[contactName]?.health -= 1
             meleeCombatBool = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                 meleeCombatBool = false
             }
+        }
+        if enemyDictionary[contactName]!.health < 1 {
+            enemyNode.removeAllActions()
+            enemyNode.removeFromParent()
+            
+        }
+    }
+    func contactedBossMelee() {
+        
+        if meleeCombatBool {
+            bossHealth -= 1
+            meleeCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+                meleeCombatBool = false
+            }
+        }
+        if bossHealth < 1 {
+            caveBoss.removeAllActions()
+            caveBoss.removeFromParent()
+            caveBossHealthBar.removeFromParent()
+            
         }
     }
     
@@ -738,11 +761,37 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     }
     
+    func contactedBossRanger() {
+        if !rangerCombatBool {
+            bossHealth -= 1
+            rangerCombatBool = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                rangerCombatBool = false
+            }
+        }
+        if bossHealth < 0 {
+            caveBoss.removeAllActions()
+            caveBoss.removeFromParent()
+            caveBossHealthBar.removeFromParent()
+
+        }
+        
+    }
+    
     func contactedRip(graveNode: SKNode, enemyKey: String) {
         if enemyDictionary[enemyKey]!.health == 0  {
             enemyDictionary[enemyKey]?.health -= 1
             graveNode.removeAllActions()
             graveNode.removeFromParent()
+        }
+    }
+    func playerHitFunc() {
+        if !playerHit && GameData.shared.currentHealth > 0 {
+            GameData.shared.currentHealth -= 1
+            playerHit = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                playerHit = false
+            }
         }
     }
     
@@ -789,6 +838,22 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             contact.bodyA.node?.removeFromParent()
         }
         
+        if bodyA == bossCategory && bodyB == rangerCategory {
+            contactedBossRanger()
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == bossCategory && bodyA == rangerCategory {
+            contactedBossRanger()
+            contact.bodyA.node?.removeFromParent()
+        }
+        
+        if bodyA == playerCategory && bodyB == bossProjectileCategory {
+            contact.bodyB.node?.removeFromParent()
+        }
+        if bodyB == playerCategory && bodyA == bossProjectileCategory {
+            contact.bodyA.node?.removeFromParent()
+        }
+        
 
         // MARK: - Scene Transition
         
@@ -797,7 +862,14 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             currentPlayerNode.removeFromParent()
         }
         
-        // MARK: - Scenes
+        // MARK: - Player Health
+        
+        if bodyA == playerCategory && bodyB == enemyCategory || bodyB == bossProjectileCategory {
+            playerHitFunc()
+        }
+        if bodyB == playerCategory && bodyA == enemyCategory || bodyA == bossProjectileCategory {
+            playerHitFunc()
+        }
 
         // MARK: - CAVE TRIGGERS
         
@@ -877,6 +949,8 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 //        print("\(joyconAngle)")
 //        print("\(leftJoyconAngle)")
         
+        print("\(GameData.shared.currentHealth)")
+        print("\(bossHealth)")
         
         
         // MARK: -Combat
@@ -919,15 +993,26 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         if cave5TriggerOn {
             isBossShooting = true
-            
-            if !bossFightActive {
-                if !ifBossAnimating {
-                    bossAnimate()
-                    ifBossAnimating = true
+            if bossHealth >= 0 {
+                bossHealthBar()
+                if !bossFightActive {
+                    if !ifBossAnimating {
+                        SoundManager.instance.playMusic(sound: .CaveBoss, volume: 0.5)
+                        
+                        bossAnimate()
+                        ifBossAnimating = true
+                    }
+                    
+                    caveBossFightActivate1()
+                    caveBossFightActivate2()
+                    caveBossFightActivate3()
                 }
-                caveBossFightActivate1()
-                caveBossFightActivate2()
-                caveBossFightActivate3()
+            } else {
+                bossFightTimer1.invalidate()
+                bossFightTimer2.invalidate()
+                bossFightTimer3.invalidate()
+                cave5TriggerOn = false
+                SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.5)
             }
         }
         

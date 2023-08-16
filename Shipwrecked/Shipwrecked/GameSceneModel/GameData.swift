@@ -12,12 +12,12 @@ class GameData: ObservableObject {
     
     static let shared = GameData()
     
-    @Published var currentHealth = 0
+    @Published var currentHealth = 6
+    @Published var playerHealthArray = ["HealthBar0MIN", "HealthBar1", "HealthBar2", "HealthBar3", "HealthBar4", "HealthBar5", "HealthBar6MAX"]
     var currentPlayer: Player?
-    
 
-    var currentPlayerPositionX: Double = -1000
-    var currentPlayerPositionY: Double = 0
+    var currentPlayerPositionX: Double = 1000
+    var currentPlayerPositionY: Double = 1500
     @Published var currentWeapon: Weapon?
     @Published var inventory: [InventoryItem] = [
         InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false),

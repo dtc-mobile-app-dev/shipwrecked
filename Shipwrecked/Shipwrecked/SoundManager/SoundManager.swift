@@ -147,7 +147,7 @@ class SoundManager {
     
     enum WalkSoundOption: String {
         case walk = "walk"
-        case walkOnLeaves = "leavesCrunching"
+        case walkOnLeaves = "walkOnLeaves"
     }
     
     func playSoundEffect(sound: WalkSoundOption) {

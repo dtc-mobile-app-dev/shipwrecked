@@ -22,7 +22,7 @@ class GameData: ObservableObject {
 
     var currentPlayerPositionX: Double = -1400
     var currentPlayerPositionY: Double = 0
-    @Published var currentWeapon: Weapon?
+    @Published var currentWeapon: InventoryItem?
     @Published var collectedBoatMaterial1 = false
     @Published var collectedBoatMaterial2 = false
     @Published var collectedBoatMaterial3 = false

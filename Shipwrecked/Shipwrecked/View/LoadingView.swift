@@ -23,7 +23,7 @@ struct LoadingView: View {
                 self.startLoading.toggle()
             } label: {
                 Text("LOADING...")
-                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 125).kerning(2.5)
+                    .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 3.5).padding(.bottom, 100).kerning(3.5)
             }
             .background(
                 NavigationLink(destination: GameView(currentSelectedItem: InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false)).navigationBarBackButtonHidden(true), isActive: $startLoading) { }

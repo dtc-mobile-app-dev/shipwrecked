@@ -10,7 +10,7 @@ import SwiftUI
 struct LoadingView: View {
     
     @State var startLoading = false
- 
+    
     var body: some View {
         ZStack {
             Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)

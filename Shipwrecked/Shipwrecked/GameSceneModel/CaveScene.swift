@@ -140,8 +140,12 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let healthArray = ["1BossHealth","2BossHealth","3BossHealth","4BossHealth","5BossHealth","6BossHealth","7BossHealth"]
     
     
-    var rescueCrewMember = false
-    var crewMemberNode = SKSpriteNode()
+    // MARK: - Crew
+    
+    var gunnerCrew = SKSpriteNode()
+    var kevinCrew = SKSpriteNode()
+    var captainCrew = SKSpriteNode()
+    
     // MARK: - SIGNS
     
     let cave1Sign = SKSpriteNode()
@@ -263,30 +267,32 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             // MARK: - SignNodes
             
-            node.createSpriteNode(spriteNode: cave1Sign, sceneNodeName: "Cave1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: cave2Sign, sceneNodeName: "Cave2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: cave1Sign, sceneNodeName: "Cave1Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.2)
+            node.createSpriteNode(spriteNode: cave2Sign, sceneNodeName: "Cave2Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.2)
+            node.createSpriteNode(spriteNode: cave3Sign, sceneNodeName: "Cave3Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.2)
+            node.createSpriteNode(spriteNode: cave4Sign, sceneNodeName: "Cave4Sign", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.2)
             
             
             // MARK: - ItemPickups
             
-            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "SentientStick", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "SentientStick", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.3)
             
             
             
             // MARK: - FoodPickups
             
-            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
-            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 1)
+            node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
+            node.createSpriteNode(spriteNode: apple2, sceneNodeName: "Apple2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
+            node.createSpriteNode(spriteNode: apple3, sceneNodeName: "Apple3", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
+            node.createSpriteNode(spriteNode: watermelon1, sceneNodeName: "Watermelon1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
+            node.createSpriteNode(spriteNode: watermelon2, sceneNodeName: "Watermelon2", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
             
             
+            node.createSpriteNode(spriteNode: gunnerCrew, sceneNodeName: "GunnerRescue", selfCategory: signCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.6)
             
             // MARK: - Bosss
             bossEnemy()
+            createPlayer()
             
             // MARK: - Camera/Controller
             
@@ -298,17 +304,16 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         // MARK: - Characters
-        
-        createPlayer()
-        SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.5)
+        SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.5, loops: 5)
     }
     
     // MARK: - TRANSITIONS
     
     func transitionToIslandScene() {
+        currentPlayerNode.removeFromParent()
         GameData.shared.currentLevel = .scene
-        GameData.shared.currentPlayerPositionX = 1800
-        GameData.shared.currentPlayerPositionY = 2000
+        GameData.shared.currentPlayerPositionX = 1700
+        GameData.shared.currentPlayerPositionY = 2200
     }
     
     
@@ -666,7 +671,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 let differenceX = nodeEnemy.position.x - currentPlayerNode.position.x
                 let differenceY = nodeEnemy.position.y - currentPlayerNode.position.y
                 let angle = atan2(differenceY, differenceX)
-                let chaseSpeed: CGFloat = -3
+                let chaseSpeed: CGFloat = -2
                 let vx = chaseSpeed * cos(angle)
                 let vy = chaseSpeed * sin(angle)
                 
@@ -725,7 +730,7 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
     }
-    func rescueMove(animationName: String, node: SKSpriteNode, sceneName: String) {
+    func rescueMove(animationName: String, node: SKSpriteNode, sceneName: String, ifRescued: Bool, posX: CGFloat, posY: CGFloat) {
         
         var rescueNode = node
         
@@ -739,7 +744,8 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         rescueNode.physicsBody?.contactTestBitMask = wallCategory | playerCategory | enemyCategory
         rescueNode.physicsBody?.allowsRotation = false
         
-        if rescueCrewMember {
+        if ifRescued {
+            rescueNode.position = CGPoint(x: posX, y: posY)
             let differenceX = rescueNode.position.x - currentPlayerNode.position.x
             let differenceY = rescueNode.position.y - currentPlayerNode.position.y
             let angle = atan2(differenceY, differenceX)
@@ -806,7 +812,8 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 // MARK: - Combat Contacts
 
 func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
-    if meleeCombatBool {
+    if !meleeCombatBool {
+        SoundManager.instance.playTikiSound(sound: .EnemyHitSound, volume: 5.0)
         enemyDictionary[contactName]?.health -= 1
         meleeCombatBool = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
@@ -821,7 +828,8 @@ func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
 }
 func contactedBossMelee() {
     
-    if meleeCombatBool {
+    if !meleeCombatBool {
+        SoundManager.instance.playBossSound(sound: .BatBossHitSound, volume: 5.0)
         bossHealth -= 1
         meleeCombatBool = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
@@ -838,6 +846,7 @@ func contactedBossMelee() {
 
 func contactedEnemyRanger(enemyNode: SKNode, contactName: String) {
     if !rangerCombatBool {
+        SoundManager.instance.playTikiSound(sound: .EnemyHitSound, volume: 5.0)
         enemyDictionary[contactName]?.health -= 1
         rangerCombatBool = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
@@ -853,6 +862,7 @@ func contactedEnemyRanger(enemyNode: SKNode, contactName: String) {
 
 func contactedBossRanger() {
     if !rangerCombatBool {
+        SoundManager.instance.playBossSound(sound: .BatBossHitSound, volume: 5.0)
         bossHealth -= 1
         rangerCombatBool = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
@@ -877,11 +887,18 @@ func contactedRip(graveNode: SKNode, enemyKey: String) {
 }
 func playerHitFunc() {
     if !playerHit && GameData.shared.currentHealth > 0 {
+        SoundManager.instance.playerSound(sound: .PlayerHitSound, volume: 5.0)
         GameData.shared.currentHealth -= 1
         playerHit = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
             playerHit = false
         }
+    } else if GameData.shared.currentHealth <= 0 {
+        GameData.shared.deathCounter += 1
+        GameData.shared.currentPlayerPositionX = 0
+        GameData.shared.currentPlayerPositionY = -1800
+        GameData.shared.currentHealth = 6
+        
     }
 }
 
@@ -1001,14 +1018,13 @@ func didBegin(_ contact: SKPhysicsContact) {
     // MARK: - Gunner Rescue
     
     if bodyB == playerCategory && bodyA == signCategory && contactA == ("GunnerRescue") {
-        rescueCrewMember = true
+        GameData.shared.caveCrewMemberRescued = true
+        contact.bodyA.node?.removeFromParent()
     }
     if bodyA == playerCategory && bodyB == signCategory && contactB == ("GunnerRescue") {
-        rescueCrewMember = true
+        GameData.shared.caveCrewMemberRescued = true
+        contact.bodyB.node?.removeFromParent()
     }
-    
-    
-    
     
     // MARK: - Scene Transition
     
@@ -1150,7 +1166,7 @@ override func update(_ currentTime: TimeInterval) {
             bossHealthBar()
             if !bossFightActive {
                 if !ifBossAnimating {
-                    SoundManager.instance.playMusic(sound: .CaveBoss, volume: 0.5)
+                    SoundManager.instance.playMusic(sound: .CaveBoss, volume: 0.3, loops: 5)
                     
                     bossAnimate()
                     ifBossAnimating = true
@@ -1164,15 +1180,14 @@ override func update(_ currentTime: TimeInterval) {
             bossFightTimer2.invalidate()
             bossFightTimer3.invalidate()
             cave5TriggerOn = false
-            SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.5)
+            SoundManager.instance.playMusic(sound: .CaveSoundtrack, volume: 0.3, loops: 5)
         }
     }
-    rescueMove(animationName: "gunner", node: crewMemberNode, sceneName: "GunnerRescue")
     
     if isMoving {
         if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += 2.5
+            currentPlayerNode.position.y += 2.8
+            currentPlayerNode.position.x += 2.8
             
             if !isAnimatingUpRightDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
@@ -1186,8 +1201,8 @@ override func update(_ currentTime: TimeInterval) {
                 setAnimateBoolsPlayer(direction: .up)
             }
         } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
-            currentPlayerNode.position.y += 2.5
-            currentPlayerNode.position.x += -2.5
+            currentPlayerNode.position.y += 2.8
+            currentPlayerNode.position.x += -2.8
             
             if !isAnimatingUpLeftDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
@@ -1200,8 +1215,8 @@ override func update(_ currentTime: TimeInterval) {
                 setAnimateBoolsPlayer(direction: .left)
             }
         } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += -2.5
+            currentPlayerNode.position.y += -2.8
+            currentPlayerNode.position.x += -2.8
             
             if !isAnimatingDownLeftDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
@@ -1215,8 +1230,8 @@ override func update(_ currentTime: TimeInterval) {
                 setAnimateBoolsPlayer(direction: .down)
             }
         } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
-            currentPlayerNode.position.y += -2.5
-            currentPlayerNode.position.x += 2.5
+            currentPlayerNode.position.y += -2.8
+            currentPlayerNode.position.x += 2.8
             
             if !isAnimatingDownRightDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
@@ -1248,11 +1263,16 @@ override func update(_ currentTime: TimeInterval) {
     
     
     
-    // MARK: - ENEMY CHASE
-    
-    //        print("\(enemyDictionary["Cave1Enemy1"]?.health)")
-    
-    
+    // MARK: - Crew CHASE
+//    rescueMove(animationName: "gunner", node: gunnerCrew, sceneName: "GunnerRescue", ifRescued: GameData.shared.caveCrewMemberRescued, posX: GameData.shared.gunnerPlayerPositionX, posY: GameData.shared.gunnerPlayerPositionY)
+//    
+//    if GameData.shared.volcanoCrewMemberRescued {
+//        rescueMove(animationName: "captain", node: gunnerCrew, sceneName: "CaptainRescue", ifRescued: GameData.shared.volcanoCrewMemberRescued, posX: GameData.shared.captainPlayerPositionX, posY: GameData.shared.captainPlayerPositionY)
+//    }
+//    if GameData.shared.jungleCrewMemberRescued {
+//        rescueMove(animationName: "kevin", node: gunnerCrew, sceneName: "KevinRescue", ifRescued: GameData.shared.jungleCrewMemberRescued, posX: GameData.shared.kevinPlayerPositionX, posY: GameData.shared.kevinPlayerPositionY)
+//    }
+//    
 }
 
 // MARK: - RESET ANIMATION PLAYER

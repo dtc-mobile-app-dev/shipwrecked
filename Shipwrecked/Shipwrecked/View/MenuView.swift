@@ -33,8 +33,7 @@ struct MenuView: View {
                 }
             }
             .onAppear {
-                SoundManager.instance.playMusic(sound: .IslandTheme, volume: 0.5)
-                GameData.shared.currentHealth = 6
+                SoundManager.instance.playMusic(sound: .IslandTheme, volume: 0.5, loops: 5)
             }
         }
         .environmentObject(scene)

@@ -19,13 +19,37 @@ class GameData: ObservableObject {
     var caveCrewMemberRescued = false
     var jungleCrewMemberRescued = false
     var volcanoCrewMemberRescued = false
+    
+    @Published var win = false
+    
+    @Published var deathOpacity: Double = 0
 
-    var currentPlayerPositionX: Double = -1400
+    var currentPlayerPositionX: Double = -1000
     var currentPlayerPositionY: Double = 0
+    
+    var gunnerPlayerPositionX: Double = -500
+    var gunnerPlayerPositionY: Double = 1300
+    
+    var captainPlayerPositionX: Double = 1800
+    var captainPlayerPositionY: Double = -1800
+    
+    var kevinPlayerPositionX: Double = 1800
+    var kevinPlayerPositionY: Double = 0
+    
+    func islandLoad() {
+        
+    }
+
+    @Published var deathCounter = 0
+    
+    
     @Published var currentWeapon: InventoryItem?
+    
     @Published var collectedBoatMaterial1 = false
     @Published var collectedBoatMaterial2 = false
     @Published var collectedBoatMaterial3 = false
+
+    
     @Published var inventory: [InventoryItem] = [
         InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false, isRanged: false, isMelee: true),
         InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false, isRanged: false, isMelee: false),

@@ -18,14 +18,6 @@ struct YouWinView: View {
             Text("YOU SURVIVED")
                 .font(CustomFontBlock.title).foregroundColor(.white)
                 .shadow(color: .pink, radius: 2.5).padding(.bottom, 150)
-            
-            NavigationLink {
-                MenuView().navigationBarBackButtonHidden(true)
-            } label: {
-                Text("PLAY AGAIN")
-                    .font(CustomFontBlock.small).foregroundColor(.white).padding(.top, 300)
-                    .padding(.trailing, 500).shadow(color: .pink.opacity(0.75), radius: 1.5)
-            }
         }
     }
 }

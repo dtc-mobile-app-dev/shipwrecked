@@ -20,14 +20,14 @@ struct SelectPlayerView: View {
     
     var body: some View {
         ZStack {
-            Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
-            Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
+            Constants.backgroundColorOne.edgesIgnoringSafeArea(.all)
+            Constants.backgroundColorTwo.edgesIgnoringSafeArea(.all)
             
-            Image("BoatPiecesOnBeachWithTreesMenu")
+            Constants.playerImage
                 .resizable().ignoresSafeArea(.all).scaledToFit().padding(.top, 50)
             
             VStack {
-                Text("SELECT A CHARACTER TO CONTINUE")
+                Constants.playerTitle
                     .font(CustomFontBlock.medium).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 275).frame(width: UIScreen.main.bounds.width)
             }
 

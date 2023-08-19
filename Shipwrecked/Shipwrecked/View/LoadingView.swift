@@ -13,16 +13,16 @@ struct LoadingView: View {
     
     var body: some View {
         ZStack {
-            Color.cyan.opacity(0.5).edgesIgnoringSafeArea(.all)
-            Color.white.opacity(0.1).edgesIgnoringSafeArea(.all)
+            Constants.backgroundColorOne.edgesIgnoringSafeArea(.all)
+            Constants.backgroundColorTwo.edgesIgnoringSafeArea(.all)
             
-            Image("LoadingBar")
+            Constants.loadingImage
                 .resizable().scaledToFit().padding(.top, 150).shadow(color: .white.opacity(0.25), radius: 2.5).frame(width: 500, height: 750, alignment: .center)
             
             Button {
                 self.startLoading.toggle()
             } label: {
-                Text("LOADING...")
+                Constants.loadingTitle
                     .font(CustomFontBlock.title).foregroundColor(.black).shadow(color: .white, radius: 3.5).padding(.bottom, 50).kerning(3.5)
             }
             .background(

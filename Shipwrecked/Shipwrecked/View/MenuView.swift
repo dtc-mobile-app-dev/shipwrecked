@@ -57,5 +57,12 @@ struct Constants {
     static let gunner = Image("GunnerProfilePic")
     static let welder = Image("WelderProfilePic")
     static let kevin = Image("KevinProfilePic")
-    
+    static let storyTitle = Text("You and your crewmates were sailing across the seven seas. One day, a vicious storm approached the boat with such might and destroyed the ship. You and the crew wash up on an island and are immediatley surrounded by the Native Boku Tribe. You are able to escape while the rest of the crew are captured. You must travel the island to find the rest of the crew and escape unharmed.")
+    static let loadingTitle = Text("LOADING...")
+    static let loadingImage = Image("LoadingBar")
+    static let failTitle = Text("YOU DIED")
+    static let failImage = Image("SkullDetailed")
+    static let restart  = Text("RESTART")
+    static let winTitle = Text("YOU SURVIVED")
+    static let winImage = Image("PurpleSun")
 }

@@ -14,7 +14,7 @@ struct SelectPlayerView: View {
     @EnvironmentObject var caveScene: CaveScene
     @EnvironmentObject var jungleScene: JungleScene
     @EnvironmentObject var volcanoScene: VolcanoScene
-
+    
     @State var playerIsSelected = false
     @State var goToNextView = StoryView()
     
@@ -30,7 +30,7 @@ struct SelectPlayerView: View {
                 Constants.playerTitle
                     .font(CustomFontBlock.medium).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 275).frame(width: UIScreen.main.bounds.width)
             }
-
+            
             HStack(spacing: -50) {
                 Button { GameData.shared.currentPlayer = Player(character: "GunnerRight1", weapon: "gunner", heathPoints: 10)
                     self.playerIsSelected.toggle()

@@ -44,6 +44,9 @@ struct SelectPlayerView: View {
             }
             if playerIsSelected { goToNextView }
         }
+        .onAppear {
+            GameData.shared.currentHealth = 6
+        }
     }
 }
 

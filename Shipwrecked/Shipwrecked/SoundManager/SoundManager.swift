@@ -24,14 +24,16 @@ class SoundManager {
         case JungleBoss
         case VolcanoSoundtrack
         case VolcanoBoss
+        case DeathSound
     }
     
-    func playMusic(sound: MusicOption, volume: Float) {
+    func playMusic(sound: MusicOption, volume: Float, loops: Int) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
             backgroundMusic = try AVAudioPlayer(contentsOf: url)
             backgroundMusic?.play()
             backgroundMusic?.volume = volume
+            backgroundMusic?.numberOfLoops = loops
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
@@ -40,20 +42,7 @@ class SoundManager {
     var combatSounds: AVAudioPlayer?
     
     enum CombatOption: String {
-        case gunfire
-        case hit
-        case swoosh
-        case swoosh1
-        case swoosh2
-        case swordThud
-        case multipleSwords
-        case chop
-        case knife
-        case slice
-        case slice1
-        case punch
-        case punch1
-        
+        case gunFire
     }
     
     func playCombatmp3(sound: CombatOption, volume: Float) {
@@ -79,8 +68,7 @@ class SoundManager {
     var tikiGuys: AVAudioPlayer?
     
     enum TikiOption: String {
-        case tikiHit = "bonk"
-        case tikiBonk = "bonk2"
+        case EnemyHitSound
     }
     
     func playTikiSoundmp3(sound: TikiOption, volume: Float) {
@@ -98,6 +86,27 @@ class SoundManager {
             tikiGuys = try AVAudioPlayer(contentsOf: url)
             tikiGuys?.play()
             tikiGuys?.volume = volume
+        } catch let error {
+            print("Error playing sound \(error.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Boss Guys sounds
+    
+    var bossGuys: AVAudioPlayer?
+    
+    enum BossSound: String {
+        case BatBossHitSound
+        case LavaBossHitSound
+        case PlantBossHitSound
+    }
+    
+    func playBossSound(sound: BossSound, volume: Float) {
+        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
+        do {
+            bossGuys = try AVAudioPlayer(contentsOf: url)
+            bossGuys?.play()
+            bossGuys?.volume = volume
         } catch let error {
             print("Error playing sound \(error.localizedDescription)")
         }
@@ -143,28 +152,19 @@ class SoundManager {
     
     // MARK: - Walking Sound
     
-    var walkSound: AVAudioPlayer?
+    var playerSounds: AVAudioPlayer?
     
-    enum WalkSoundOption: String {
-        case walk = "walk"
-        case walkOnLeaves = "walkOnLeaves"
+    enum PlayerSounds: String {
+        case PlayerHitSound
     }
     
-    func playSoundEffect(sound: WalkSoundOption, volume: Float) {
+    func playerSound(sound: PlayerSounds, volume: Float) {
         guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
         do {
-            walkSound = try AVAudioPlayer(contentsOf: url)
-            walkSound?.play()
-            walkSound?.volume = volume
+            playerSounds = try AVAudioPlayer(contentsOf: url)
+            playerSounds?.play()
+            playerSounds?.volume = volume
         } catch let error { print("Error playing sound \(error.localizedDescription)") }
     }
     
-    func playSoundEffectmp3(sound: WalkSoundOption, volume: Float) {
-        guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: ".wav") else { return }
-        do {
-            walkSound = try AVAudioPlayer(contentsOf: url)
-            walkSound?.play()
-            walkSound?.volume = volume
-        } catch let error { print("Error playing sound \(error.localizedDescription)") }
-    }
 }

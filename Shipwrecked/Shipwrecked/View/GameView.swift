@@ -48,19 +48,19 @@ struct GameView: View {
     
     let bigCircleRadiusLeft: CGFloat = 100
     
-    @State var items = [
-        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false, isRanged: false),
-        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false, isRanged: false),
-        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false, isRanged: false),
-        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false, isRanged: false),
-        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
-        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
-        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false, isRanged: false),
-        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true, isRanged: false),
-        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false, isRanged: false),
-        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false),
-        InventoryItem(name: "WoodPlank", imageName: "WoodPlank1", itemDescription: "For the boat maybe", isWeapon: false, isFood: false, isRanged: false)
-    ]
+//    @State var items = [
+//        InventoryItem(name: "Cutlass", imageName: "Cutlass", itemDescription: "Bendy sword", isWeapon: true, isFood: false, isRanged: false),
+//        InventoryItem(name: "Clam", imageName: "Clam", itemDescription: "Nothin special", isWeapon: false, isFood: false, isRanged: false),
+//        InventoryItem(name: "Chest", imageName: "Chest", itemDescription: "MAN would this be cool if we coded something for it", isWeapon: false, isFood: false, isRanged: false),
+//        InventoryItem(name: "Boomerang", imageName: "Boomerang", itemDescription: "Whoosh", isWeapon: true, isFood: false, isRanged: false),
+//        InventoryItem(name: "Skull 1", imageName: "Skull1", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
+//        InventoryItem(name: "Skull 2", imageName: "Skull2", itemDescription: "From the islands previous visitors", isWeapon: false, isFood: false, isRanged: false),
+//        InventoryItem(name: "Boomerang 2", imageName: "Boomerang2", itemDescription: "Shoosh", isWeapon: true, isFood: false, isRanged: false),
+//        InventoryItem(name: "Watermelon", imageName: "Watermelon", itemDescription: "Speed Boost maybe, or just some heals", isWeapon: false, isFood: true, isRanged: false),
+//        InventoryItem(name: "Note", imageName: "Note", itemDescription: "Read Me", isWeapon: false, isFood: false, isRanged: false),
+//        InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false),
+//        InventoryItem(name: "WoodPlank", imageName: "WoodPlank1", itemDescription: "For the boat maybe", isWeapon: false, isFood: false, isRanged: false)
+//    ]
     
     @State var showInventory = false
     @State var isAHint = false
@@ -75,6 +75,11 @@ struct GameView: View {
     @State var showInventoryDescription = false
     @State var inventoryDescriptionIndex = 0
     @State var currentSelectedItem: InventoryItem
+    
+    var lavaLoadArray: [Image] = []
+    var jungleLoadArray: [Image] = []
+    var caveLoadArray: [Image] = []
+    var islandLoadArray: [Image] = []
     
     
     
@@ -99,20 +104,17 @@ struct GameView: View {
             // MARK: - SIGNS
             
             Group {
-                
                 signCave1
                 signCave2
                 signCave3
                 signCave4
             }
-            
             Group {
                 signForrest1
                 signForest2
                 signForest3
                 signForest4
             }
-            
             Group {
                 signVolcano1
                 signVolcano2
@@ -135,8 +137,10 @@ struct GameView: View {
             
             // DEATH
             
-            if GameData.shared.currentHealth == 0 {
-                YouDiedView()
+
+            
+            if GameData.shared.win {
+                win
                     .zIndex(100)
             }
             
@@ -144,15 +148,20 @@ struct GameView: View {
                 .position(x: Constants.rightControllerPositionX, y: Constants.rightControllerPositionY)
             leftStick
                 .position(x: Constants.leftControllerPositionX, y: Constants.leftControllerPositionY)
-            
-
                 .overlay { uiOverlay }
-            
-            
-            
-
                 .overlay {
                     HStack(spacing: -10) {
+                        Image(GameData.shared.caveCrewMemberRescued ? "GunnerDown1" : "GunnerShadow")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                        Image(GameData.shared.jungleCrewMemberRescued ? "KevinDown1" : "KevinShadow")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                        Image(GameData.shared.volcanoCrewMemberRescued ? "Capdwn1" : "CaptainShadow")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                        
+                        
                         Image(GameData.shared.collectedBoatMaterial1 ? "WoodPlank1" : "WoodPlank2")
                             .resizable()
                             .frame(width: 50, height: 50)
@@ -190,7 +199,60 @@ extension GameView {
         static let leftControllerPositionY: CGFloat = 500
     }
     
+    var loadToIsland: some View {
+        ZStack {
+            Image("IslandLoadingScreen1")
+        }
+    }
+    var loadtoCave: some View {
+        ZStack {
+            Image("CaveLoadingScreen1")
+        }
+    }
+    var loadtoJungle: some View {
+        ZStack {
+            Image("JungleLoadingScreen1")
+        }
+    }
+    var loadtoVolcano: some View {
+        ZStack {
+            Image("VolcanoLoadingScreen1")
+        }
+    }
+    
+    var deathView: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            Image("SkullDetailed")
+                .resizable().scaledToFit().scaleEffect(1.15).shadow(color: .red, radius: 10)
+            
+            Text("YOU DIED")
+                .font(CustomFontBlock.mediumLarge).kerning(10).foregroundColor(.red).shadow(color: .black, radius: 3.5)
+            
+            NavigationLink {
+                SelectPlayerView().navigationBarBackButtonHidden(true)
+            } label: {
+                Text("RESTART")
+                    .font(CustomFontBlock.small).foregroundColor(.white).padding(.top, 325).padding(.leading, 525).shadow(color: .red, radius: 1.5).kerning(1.5)
+            }
+        }
+    }
+    
     // MARK: - Right CONTROLLER VIEW
+    
+    var win: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            Image("PurpleSun")
+                .resizable().scaledToFit().scaleEffect(1.35).padding(.top)
+            
+            Text("YOU SURVIVED")
+                .font(CustomFontBlock.title).foregroundColor(.white)
+                .shadow(color: .pink, radius: 2.5).padding(.bottom, 150)
+        }
+    }
     
     var rightstick: some View {
         ZStack {
@@ -458,6 +520,7 @@ extension GameView {
                                 }
                             } else if currentSelectedItem.isWeapon {
                                 // Equip Weapon and put previous weapon in the inventory
+                                GameData.shared.currentWeapon = nil
                                 GameData.shared.currentWeapon = currentSelectedItem
                                 inventoryDescription = "\(currentSelectedItem.name) Used! It is now equipped!"
                                 
@@ -505,6 +568,9 @@ extension GameView {
                 HStack {
                     Image(GameData.shared.playerHealthArray[GameData.shared.currentHealth])
                         .resizable().scaledToFill().padding().frame(width: 225, height: 15).shadow(color: .white, radius: 15)
+                    
+                    Text("Deaths: \(GameData.shared.deathCounter)")
+                        .font(CustomFontBlock.small2)
                     Spacer()
                     
                     Button {
@@ -886,6 +952,7 @@ struct InventoryItem: Identifiable, Equatable {
     let isWeapon: Bool
     let isFood: Bool
     let isRanged: Bool
+    let isMelee: Bool
 }
 
 

@@ -16,14 +16,14 @@ class SpriteNodeManager {
         
     }
     
-    func createSpriteNode(spriteNode: SKSpriteNode, sceneNodeName: String, selfCategory: UInt32, collisionContactCategory: UInt32, scene: SKScene) {
+    func createSpriteNode(spriteNode: SKSpriteNode, sceneNodeName: String, selfCategory: UInt32, collisionContactCategory: UInt32, scene: SKScene, scale: CGFloat) {
         
         var spriteNoder = spriteNode
         
         spriteNoder = scene.childNode(withName: sceneNodeName) as! SKSpriteNode
         
         spriteNoder.zPosition = 4
-        spriteNoder.setScale(0.2)
+        spriteNoder.setScale(scale)
         spriteNoder.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: spriteNoder.size.width * 2, height: spriteNoder.size.height * 2))
         spriteNoder.physicsBody?.categoryBitMask = selfCategory
         spriteNoder.physicsBody?.collisionBitMask = collisionContactCategory

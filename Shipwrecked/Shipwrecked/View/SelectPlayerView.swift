@@ -20,14 +20,14 @@ struct SelectPlayerView: View {
     
     var body: some View {
         ZStack {
-            Constants.backgroundColorOne.edgesIgnoringSafeArea(.all)
-            Constants.backgroundColorTwo.edgesIgnoringSafeArea(.all)
+            ConstantsView.backgroundColorOne.edgesIgnoringSafeArea(.all)
+            ConstantsView.backgroundColorTwo.edgesIgnoringSafeArea(.all)
             
-            Constants.playerImage
+            ConstantsView.playerImage
                 .resizable().ignoresSafeArea(.all).scaledToFit().padding(.top, 50)
             
             VStack {
-                Constants.playerTitle
+                ConstantsView.playerTitle
                     .font(CustomFontBlock.medium).foregroundColor(.black).shadow(color: .white, radius: 2.5).padding(.bottom, 275).frame(width: UIScreen.main.bounds.width)
             }
             

@@ -12,10 +12,10 @@ struct YouWinView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
-            Constants.winImage
+            ConstantsView.winImage
                 .resizable().scaledToFit().scaleEffect(1.35).padding(.top)
             
-            Constants.winTitle
+            ConstantsView.winTitle
                 .font(CustomFontBlock.title).foregroundColor(.white)
                 .shadow(color: .pink, radius: 2.5).padding(.bottom, 150)
         }

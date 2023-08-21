@@ -12,12 +12,12 @@ struct StoryView: View {
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-            Constants.backgroundColorOne.edgesIgnoringSafeArea(.all)
+            ConstantsView.backgroundColorOne.edgesIgnoringSafeArea(.all)
             
             NavigationLink {
                 LoadingView().navigationBarBackButtonHidden(true)
             } label: {
-                Constants.storyTitle
+                ConstantsView.storyTitle
                     .font(CustomFontBlock.body).foregroundColor(.black).shadow(color: .white, radius: 5).padding(.leading, 75).padding(.trailing, 75)
             }
         }

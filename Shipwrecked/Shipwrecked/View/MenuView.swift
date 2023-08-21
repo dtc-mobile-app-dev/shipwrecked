@@ -18,16 +18,16 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Constants.backgroundColorOne.edgesIgnoringSafeArea(.all)
-                Constants.backgroundColorTwo.edgesIgnoringSafeArea(.all)
+                ConstantsView.backgroundColorOne.edgesIgnoringSafeArea(.all)
+                ConstantsView.backgroundColorTwo.edgesIgnoringSafeArea(.all)
                 
-                Constants.menuImage
+                ConstantsView.menuImage
                     .resizable().scaledToFill().edgesIgnoringSafeArea(.all).padding(.top, 25)
                 
                 NavigationLink {
                     SelectPlayerView().navigationBarBackButtonHidden(true)
                 } label: {
-                    Constants.menuTitle
+                    ConstantsView.menuTitle
                         .font(CustomFontBlock.title).kerning(5).foregroundColor(.black).shadow(color: .white, radius: 3.5)
                 }
             }
@@ -47,7 +47,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct Constants {
+struct ConstantsView {
     static let backgroundColorOne = Color.cyan.opacity(0.5)
     static let backgroundColorTwo = Color.white.opacity(0.1)
     static let menuTitle = Text("SHIPWRECKED")

@@ -24,8 +24,8 @@ class GameData: ObservableObject {
     
     @Published var deathOpacity: Double = 0
 
-    var currentPlayerPositionX: Double = -1000
-    var currentPlayerPositionY: Double = 0
+    var currentPlayerPositionX: Double = -0
+    var currentPlayerPositionY: Double = -1800
     
     var gunnerPlayerPositionX: Double = -500
     var gunnerPlayerPositionY: Double = 1300

@@ -227,9 +227,9 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
         currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
-        currentPlayerNode.zPosition = 5
-        currentPlayerNode.setScale(0.5)
-        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / 2, height: currentPlayerNode.size.height / 10))
+        currentPlayerNode.zPosition = CGFloat(SceneConstants.playerZposition)
+        currentPlayerNode.setScale(SceneConstants.playerScale)
+        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / SceneConstants.playerWidth, height: currentPlayerNode.size.height / SceneConstants.playerHeight))
         currentPlayerNode.physicsBody?.categoryBitMask = playerCategory
         currentPlayerNode.physicsBody?.collisionBitMask = wallCategory
         currentPlayerNode.physicsBody?.contactTestBitMask = wallCategory
@@ -237,12 +237,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         self.addChild(currentPlayerNode)
     }
-    
-    // MARK: - EnemieStorage
-    
-    var enemyDictionary: [String : (health: Int, strength: Int)] = [
-        "Test" : (health: 10, strength: 10)
-    ]
     
     // MARK: - ENEMY TRIGGER
     
@@ -262,17 +256,13 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         nodeTrigger.physicsBody?.isDynamic = false
     }
     
-    
-    
-    
-    
     // MARK: - COMBAT
     
     @objc func gunFire() {
-        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
+        gunNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nil")
         
-        gunNode.zPosition = 4
-        gunNode.setScale(0.8)
+        gunNode.zPosition = SceneConstants.gunZPosition
+        gunNode.setScale(SceneConstants.gunScale)
         gunNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
         gunNode.physicsBody = SKPhysicsBody(rectangleOf: gunNode.size)
         gunNode.physicsBody?.affectedByGravity = false
@@ -280,41 +270,41 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         gunNode.physicsBody?.categoryBitMask = pathCategory
         gunNode.physicsBody?.contactTestBitMask = enemyCategory
         gunNode.physicsBody?.collisionBitMask = enemyCategory
-        gunNode.anchorPoint = CGPoint(x:-0.2,y: 0.5)
+        gunNode.anchorPoint = CGPoint(x: SceneConstants.gunAnchorX,y: SceneConstants.gunAnchorY)
         
         let gun = SKAction.move(to: CGPoint(
             x: cos(gunNode.zRotation) + gunNode.position.x,
             y: sin(gunNode.zRotation) + gunNode.position.y)
-                                ,duration: 1.0)
+                                ,duration: SceneConstants.gunDuration)
         let deleteGun = SKAction.removeFromParent()
         
         let gunSeq = SKAction.sequence([gun, deleteGun])
         
-        bulletNode = .init(imageNamed: "CannonBall")
+        bulletNode = .init(imageNamed: SceneConstants.bulletImage)
         
-        bulletNode.name = "CannonBall"
-        bulletNode.zPosition = 3
+        bulletNode.name = SceneConstants.bulletImage
+        bulletNode.zPosition = SceneConstants.bulletZPosition
         bulletNode.position = CGPoint(x: currentPlayerNode.position.x, y: currentPlayerNode.position.y )
-        bulletNode.setScale(0.1)
+        bulletNode.setScale(SceneConstants.bulletScale)
         bulletNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / 3 , height: bulletNode.size.height * 1.6))
+        bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bulletNode.size.width / SceneConstants.bulletWidth , height: bulletNode.size.height * SceneConstants.bulletHeight))
         bulletNode.physicsBody?.affectedByGravity = false
         bulletNode.physicsBody?.categoryBitMask = rangerCategory
         bulletNode.physicsBody?.contactTestBitMask = enemyCategory
         bulletNode.physicsBody?.collisionBitMask = enemyCategory
         bulletNode.physicsBody?.isDynamic = false
-        bulletNode.anchorPoint = CGPoint(x:0.0,y: -0.15)
+        bulletNode.anchorPoint = CGPoint(x:SceneConstants.bulletAnchorX,y: SceneConstants.bulletAnchorY)
         
         
         let shoot = SKAction.move(to: CGPoint(
-            x: 2000 * cos(bulletNode.zRotation) + bulletNode.position.x,
-            y: 2000 * sin(bulletNode.zRotation) + bulletNode.position.y)
-                                  ,duration: 3.0)
+            x: SceneConstants.projecticleDistance * cos(bulletNode.zRotation) + bulletNode.position.x,
+            y: SceneConstants.projecticleDistance * sin(bulletNode.zRotation) + bulletNode.position.y)
+                                  ,duration: SceneConstants.projecticleDistance)
         let deleteBullet = SKAction.removeFromParent()
         
         let bulletSeq = SKAction.sequence([shoot, deleteBullet])
         if isShootin && GameData.shared.currentWeapon?.isRanged ?? false {
-            SoundManager.instance.playCombat(sound: .gunFire, volume: 0.4)
+            SoundManager.instance.playCombat(sound: .gunFire, volume: SceneConstants.gunFireVolume)
             currentPlayerNode.addChild(gunNode)
             self.addChild(bulletNode)
             bulletNode.run(bulletSeq)
@@ -323,30 +313,30 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startShooting() {
-        shootTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
+        shootTimer = Timer.scheduledTimer(timeInterval: SceneConstants.bulletTimer, target: self, selector: #selector(gunFire), userInfo: nil, repeats: true)
         isFiring = true
     }
     
     @objc func swing() {
         swordNode = .init(imageNamed: GameData.shared.currentWeapon?.imageName ?? "nona")
     
-        swordNode.setScale(1)
-        swordNode.zPosition = 5
+        swordNode.setScale(SceneConstants.meleeScale)
+        swordNode.zPosition = SceneConstants.meleeZPosition
         swordNode.zRotation = CGFloat(joyconAngle.degreesToRadians)
-        swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / 3 , height: swordNode.size.height * 1.6))
+        swordNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: swordNode.size.width / SceneConstants.meleeWidth , height: swordNode.size.height * SceneConstants.meleeHeight))
         swordNode.physicsBody?.affectedByGravity = false
         swordNode.physicsBody?.categoryBitMask = meleeCategory
         swordNode.physicsBody?.contactTestBitMask = enemyCategory
         swordNode.physicsBody?.collisionBitMask = enemyCategory
         swordNode.physicsBody?.isDynamic = false
-        swordNode.anchorPoint = CGPoint(x:0,y: -0.2)
+        swordNode.anchorPoint = CGPoint(x:SceneConstants.meleeAnchorX,y: SceneConstants.meleeAnchorY)
         
         var rotation = swordNode.zRotation
-        rotation += pi / 4 * 8.3
+        rotation += pi / SceneConstants.swingRotation
         swordNode.zRotation = rotation
         
         
-        let swing = SKAction.rotate(byAngle: -pi * 2 / 3, duration: 0.7)
+        let swing = SKAction.rotate(byAngle: -pi * SceneConstants.swingAngle, duration: SceneConstants.swingDuration)
         let deleteSword = SKAction.removeFromParent()
         
         let swingSeq = SKAction.sequence([swing, deleteSword])
@@ -357,229 +347,8 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     }
     
     func startSwinging() {
-        swingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
+        swingTimer = Timer.scheduledTimer(timeInterval: SceneConstants.meleeTimer, target: self, selector: #selector(swing), userInfo: nil, repeats: true)
         isStrikin = true
-    }
-    
-    // MARK: - ENEMY Creation
-    
-    func enemyMove(enemyName: String, node: SKSpriteNode, enemySceneName: String, healthBarNode: SKSpriteNode) {
-        
-        var nodeEnemy = node
-        var healthNode = healthBarNode
-        
-        let healthBarArray = ["Skull3","1HealthBarEnemy","2HealthBarEnemy","3HealthBarEnemy"]
-        
-        if let healthIndex = enemyDictionary[enemySceneName]?.health {
-            if healthIndex >= 0 {
-                
-                if healthIndex >= 1 {
-                    
-                    nodeEnemy = self.childNode(withName: enemySceneName) as! SKSpriteNode
-                    
-                    nodeEnemy.zPosition = 5
-                    nodeEnemy.setScale(0.5)
-                    nodeEnemy.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: nodeEnemy.size.width / 2 , height: nodeEnemy.size.height) )
-                    nodeEnemy.physicsBody?.categoryBitMask = enemyCategory
-                    nodeEnemy.physicsBody?.collisionBitMask = rangerCategory | meleeCategory | wallCategory | playerCategory | enemyCategory
-                    nodeEnemy.physicsBody?.contactTestBitMask = rangerCategory | meleeCategory  | wallCategory | playerCategory | enemyCategory
-                    nodeEnemy.physicsBody?.allowsRotation = false
-                }
-                
-                healthNode = self.childNode(withName: "\(enemySceneName)HealthBar") as! SKSpriteNode
-                
-                healthNode.texture = SKTexture(imageNamed: healthBarArray[healthIndex])
-                if healthIndex >= 1 {
-                    healthNode.position = CGPoint(x: nodeEnemy.position.x, y: nodeEnemy.position.y + 70 )
-                }
-                healthNode.setScale(0.5)
-                healthNode.zPosition = 6
-                healthNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: healthNode.size.width / 3 , height: healthNode.size.height * 1.6))
-                healthNode.physicsBody?.categoryBitMask = skullCategory
-                healthNode.physicsBody?.collisionBitMask = playerCategory
-                healthNode.physicsBody?.contactTestBitMask = playerCategory
-                healthNode.physicsBody?.isDynamic = false
-                healthNode.physicsBody?.allowsRotation = false
-                
-                let differenceX = nodeEnemy.position.x - currentPlayerNode.position.x
-                let differenceY = nodeEnemy.position.y - currentPlayerNode.position.y
-                let angle = atan2(differenceY, differenceX)
-                let chaseSpeed: CGFloat = -3
-                let vx = chaseSpeed * cos(angle)
-                let vy = chaseSpeed * sin(angle)
-                
-                let pi = Double.pi
-                
-                var angle2 = angle + 7 * pi/8
-                
-                if angle2 < 0 {
-                    angle2 = angle2 + 2 * pi
-                }
-                
-                if angle2 < pi/4 { // UPRIGHT
-                    if !isAnimatingUpRightDiagonalEnemy {
-                        animation.animate(character: enemyName, direction: .upRight, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .upRight)
-                    }
-                } else if angle2 < pi/2 { // UP
-                    if !isAnimatingUpEnemy {
-                        animation.animate(character: enemyName, direction: .up, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .up)
-                    }
-                } else if angle2 < 3 * pi/4 { // UPLEFT
-                    if !isAnimatingUpLeftDiagonalEnemy {
-                        animation.animate(character: enemyName, direction: .upLeft, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .upLeft)
-                    }
-                } else if angle2 < pi { // LEFT
-                    if !isAnimatingLeftEnemy {
-                        animation.animate(character: enemyName, direction: .left, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .left)
-                    }
-                } else if angle2 < 5 * pi/4 { // DOWNLEFT
-                    if !isAnimatingDownLeftDiagonalEnemy {
-                        animation.animate(character: enemyName, direction: .downLeft, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .downLeft)
-                    }
-                } else if angle2 < 3 * pi/2 { // DOWN
-                    if !isAnimatingDownEnemy {
-                        animation.animate(character: enemyName, direction: .down, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .down)
-                    }
-                } else if angle2 < 7 * pi/4 { // DOWNRIGHT
-                    if !isAnimatingDownRightDiagonalEnemy {
-                        animation.animate(character: enemyName, direction: .downRight, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .downRight)
-                    }
-                } else { // RIGHT
-                    if !isAnimatingRightEnemy {
-                        animation.animate(character: enemyName, direction: .right, characterNode: nodeEnemy)
-                        setAnimateBoolsEnemy(direction: .right)
-                    }
-                }
-                
-                nodeEnemy.position.x += vx
-                nodeEnemy.position.y += vy
-            }
-        }
-    }
-    
-    func rescueMove(animationName: String, node: SKSpriteNode, sceneName: String, ifRescued: Bool) {
-        
-        var rescueNode = node
-        
-        rescueNode = self.childNode(withName: sceneName) as! SKSpriteNode
-        
-        rescueNode.zPosition = 5
-        rescueNode.setScale(0.4)
-        rescueNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: rescueNode.size.width / 2 , height: rescueNode.size.height) )
-        rescueNode.physicsBody?.categoryBitMask = signCategory
-        rescueNode.physicsBody?.collisionBitMask = wallCategory | playerCategory | enemyCategory
-        rescueNode.physicsBody?.contactTestBitMask = wallCategory | playerCategory | enemyCategory
-        rescueNode.physicsBody?.allowsRotation = false
-        
-        if ifRescued {
-            rescueNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
-            let differenceX = rescueNode.position.x - currentPlayerNode.position.x
-            let differenceY = rescueNode.position.y - currentPlayerNode.position.y
-            let angle = atan2(differenceY, differenceX)
-            let chaseSpeed: CGFloat = -4
-            let vx = chaseSpeed * cos(angle)
-            let vy = chaseSpeed * sin(angle)
-            
-            let pi = Double.pi
-            
-            var angle2 = angle + 7 * pi/8
-            
-            if angle2 < 0 {
-                angle2 = angle2 + 2 * pi
-            }
-            
-            if angle2 < pi/4 { // UPRIGHT
-                if !isAnimatingUpRightDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .upRight, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .upRight)
-                }
-            } else if angle2 < pi/2 { // UP
-                if !isAnimatingUpEnemy {
-                    animation.animate(character: animationName, direction: .up, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .up)
-                }
-            } else if angle2 < 3 * pi/4 { // UPLEFT
-                if !isAnimatingUpLeftDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .upLeft, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .upLeft)
-                }
-            } else if angle2 < pi { // LEFT
-                if !isAnimatingLeftEnemy {
-                    animation.animate(character: animationName, direction: .left, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .left)
-                }
-            } else if angle2 < 5 * pi/4 { // DOWNLEFT
-                if !isAnimatingDownLeftDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .downLeft, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .downLeft)
-                }
-            } else if angle2 < 3 * pi/2 { // DOWN
-                if !isAnimatingDownEnemy {
-                    animation.animate(character: animationName, direction: .down, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .down)
-                }
-            } else if angle2 < 7 * pi/4 { // DOWNRIGHT
-                if !isAnimatingDownRightDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .downRight, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .downRight)
-                }
-            } else { // RIGHT
-                if !isAnimatingRightEnemy {
-                    animation.animate(character: animationName, direction: .right, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .right)
-                }
-            }
-            
-            rescueNode.position.x += vx
-            rescueNode.position.y += vy
-        }
-    }
-    
-    // MARK: - Combat Contacts
-    
-    func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
-        if enemyDictionary[contactName]!.health < 1 {
-            enemyNode.removeAllActions()
-            enemyNode.removeFromParent()
-            enemyDictionary[contactName]?.health -= 1
-        }
-        if meleeCombatBool {
-            enemyDictionary[contactName]?.health -= 1
-            meleeCombatBool = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
-                meleeCombatBool = false
-            }
-        }
-    }
-    
-    func contactedEnemyRanger(enemyNode: SKNode, contactName: String) {
-        if !rangerCombatBool {
-            enemyDictionary[contactName]?.health -= 1
-            rangerCombatBool = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
-                rangerCombatBool = false
-            }
-        }
-        if enemyDictionary[contactName]!.health < 1 {
-            enemyNode.removeAllActions()
-            enemyNode.removeFromParent()
-        }
-        
-    }
-    
-    func contactedRip(graveNode: SKNode, enemyKey: String) {
-        if enemyDictionary[enemyKey]!.health == 0  {
-            enemyDictionary[enemyKey]?.health -= 1
-            graveNode.removeAllActions()
-            graveNode.removeFromParent()
-        }
     }
     
     // MARK: - CAMERA
@@ -587,9 +356,8 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     func camera() {
         
         cam = SKCameraNode()
-        cam.zPosition = 10
-        cam.position = CGPoint(x: 0, y: 0)
-        cam.setScale(2)
+        cam.zPosition = SceneConstants.camZPosition
+        cam.setScale(SceneConstants.camScale)
         
         addChild(cam)
         camera = cam
@@ -608,24 +376,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         print("Contact A\(contactA) Contact B \(bodyB)")
         
         // MARK: - Enemy Health Contact
-        
-        if bodyA == enemyCategory && bodyB == meleeCategory {
-            contactedEnemyMelee(enemyNode: contact.bodyA.node ?? SKNode(), contactName: contactA ?? "nil")
-        }
-        if bodyB == enemyCategory && bodyA == meleeCategory {
-            contactedEnemyMelee(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
-        }
-        
-        
-        if bodyA == enemyCategory && bodyB == rangerCategory {
-            contactedEnemyRanger(enemyNode: contact.bodyA.node ?? SKNode(), contactName: contactA ?? "nil")
-            contact.bodyB.node?.removeFromParent()
-        }
-        if bodyB == enemyCategory && bodyA == rangerCategory {
-            contactedEnemyRanger(enemyNode: contact.bodyB.node ?? SKNode(), contactName: contactB ?? "nil")
-            contact.bodyA.node?.removeFromParent()
-        }
-        
+
         if bodyB == playerCategory && bodyA == signCategory && contactA == ("Boat") {
             if GameData.shared.caveCrewMemberRescued && GameData.shared.jungleCrewMemberRescued  && GameData.shared.volcanoCrewMemberRescued && GameData.shared.collectedBoatMaterial1 && GameData.shared.collectedBoatMaterial2 && GameData.shared.collectedBoatMaterial3 {
                 GameData.shared.win = true
@@ -650,14 +401,6 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
 
         // MARK: - Fix this crap
         
-//    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
-//        contact.bodyA.node?.removeFromParent()
-//        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
-//    }
-//    if bodyA == playerCategory && bodyB == skullCategory && contactB == ("Apple1") {
-//        contact.bodyB.node?.removeFromParent()
-//        GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false))
-//    }
     if bodyB == playerCategory && bodyA == skullCategory && contactA == ("Apple1") {
         contact.bodyA.node?.removeFromParent()
         GameData.shared.inventory.append(InventoryItem(name: "Apple", imageName: "Apple", itemDescription: "Yummy green", isWeapon: false, isFood: true, isRanged: false, isMelee: false))
@@ -681,10 +424,7 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     override func update(_ currentTime: TimeInterval) {
         
-        print("\(leftJoyconAngle)")
-        
         // MARK: -Combat
-        
         
         if GameData.shared.currentWeapon?.isMelee ?? false {
             if !isStrikin{
@@ -696,69 +436,67 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
         
-        print("\(GameData.shared.currentWeapon)")
-        
         if isMoving {
-            
             if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT
-                currentPlayerNode.position.y += 2.8
-                currentPlayerNode.position.x += 2.8
+                currentPlayerNode.position.y += SceneConstants.diagonalMove
+                currentPlayerNode.position.x += SceneConstants.diagonalMove
                 
                 if !isAnimatingUpRightDiagonalPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .upRight)
                 }
             } else if leftJoyconAngle >= 67.5 && leftJoyconAngle <= 112.5 { // UP
-                currentPlayerNode.position.y += 5
+                currentPlayerNode.position.y += SceneConstants.dPadMove
                 
                 if !isAnimatingUpPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .up)
                 }
             } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
-                currentPlayerNode.position.y += 2.8
-                currentPlayerNode.position.x += -2.8
+                currentPlayerNode.position.y += SceneConstants.diagonalMove
+                currentPlayerNode.position.x += -SceneConstants.diagonalMove
                 
                 if !isAnimatingUpLeftDiagonalPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .upLeft)
                 }
             } else if leftJoyconAngle >= 157.5 && leftJoyconAngle <= 202.5 { // LEFT
-                currentPlayerNode.position.x -= 5
+                currentPlayerNode.position.x -= SceneConstants.dPadMove
                 if !isAnimatingLeftPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .left)
                 }
             } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
-                currentPlayerNode.position.y += -2.8
-                currentPlayerNode.position.x += -2.8
+                currentPlayerNode.position.y += -SceneConstants.diagonalMove
+                currentPlayerNode.position.x += -SceneConstants.diagonalMove
                 
                 if !isAnimatingDownLeftDiagonalPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .downLeft)
                 }
             } else if leftJoyconAngle >= 247.5 && leftJoyconAngle <= 292.5 { // DOWN
-                currentPlayerNode.position.y -= 5
+                currentPlayerNode.position.y -= SceneConstants.dPadMove
                 
                 if !isAnimatingDownPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .down)
                 }
             } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
-                currentPlayerNode.position.y += -2.8
-                currentPlayerNode.position.x += 2.8
+                currentPlayerNode.position.y += -SceneConstants.diagonalMove
+                currentPlayerNode.position.x += SceneConstants.diagonalMove
                 
                 if !isAnimatingDownRightDiagonalPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .downRight)
                 }
             } else if leftJoyconAngle >= 337.5 || leftJoyconAngle <= 22.5  { // RIGHT
-                currentPlayerNode.position.x += 5
+                currentPlayerNode.position.x += SceneConstants.dPadMove
                 if !isAnimatingRightPlayer {
                     animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
                     setAnimateBoolsPlayer(direction: .right)
                 }
             }
+
         } else {
             currentPlayerNode.removeAllActions()
             isAnimatingLeftPlayer = false
@@ -771,19 +509,10 @@ class IslandScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             isAnimatingDownLeftDiagonalPlayer = false
         }
         
-        
-        
-       
         // MARK: - Cam with Player
         
         cam.position.x = currentPlayerNode.position.x
         cam.position.y = currentPlayerNode.position.y
-        
-        // MARK: - ENEMY CHASE
-        
-        //        print("\(enemyDictionary["Cave1Enemy1"]?.health)")
-        
-        
     }
     
     // MARK: - RESET ANIMATION PLAYER

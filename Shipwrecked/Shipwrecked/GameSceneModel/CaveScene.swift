@@ -190,15 +190,10 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var swingTimer = Timer()
     
     var signNode = SKSpriteNode()
-    
-    let wSentientStick: Weapon = Weapon(name: "Sentient Stick", image: Image("SentientStickFront"), damage: 6, isGun: false)
-    let wGun: Weapon = Weapon(name: "Musket", image: Image("CannonBall"), damage: 11, isGun: true)
-    let wSword: Weapon = Weapon(name: "Sword", image: Image("Cutlass"), damage: 13, isGun: false)
-    
+
     // MARK: - Camera/Controller
     
     var cam: SKCameraNode!
-    
     
     // MARK: - PlayerAnimationBools
     
@@ -277,8 +272,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             
             node.createSpriteNode(spriteNode: boatItemPickup ,sceneNodeName: "SentientStick", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.3)
             
-            
-            
             // MARK: - FoodPickups
             
             node.createSpriteNode(spriteNode: apple1, sceneNodeName: "Apple1", selfCategory: skullCategory, collisionContactCategory: playerCategory, scene: self, scale: 0.5)
@@ -316,8 +309,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         GameData.shared.currentPlayerPositionY = 2200
     }
     
-    
-    
     func updateAngle(isAttacking: Bool, degree: Int) {
         self.joyconAngle = degree
         self.isShootin = isAttacking
@@ -335,9 +326,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
         currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
-        currentPlayerNode.zPosition = 5
-        currentPlayerNode.setScale(0.5)
-        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / 2, height: currentPlayerNode.size.height / 10))
+        currentPlayerNode.zPosition = CGFloat(SceneConstants.playerZposition)
+        currentPlayerNode.setScale(SceneConstants.playerScale)
+        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / SceneConstants.playerWidth, height: currentPlayerNode.size.height / SceneConstants.playerHeight))
         currentPlayerNode.physicsBody?.categoryBitMask = playerCategory
         currentPlayerNode.physicsBody?.collisionBitMask = wallCategory
         currentPlayerNode.physicsBody?.contactTestBitMask = wallCategory
@@ -352,25 +343,25 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - Cave Enemies
         
-        "Cave1Enemy1" : (health: 3, strength: 1),
-        "Cave1Enemy2" : (health: 3, strength: 1),
-        "Cave1Enemy3" : (health: 3, strength: 1),
-        "Cave1Enemy4" : (health: 3, strength: 1),
+        "Cave1Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave1Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave1Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave1Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Cave2Enemy1" : (health: 3, strength: 1),
-        "Cave2Enemy2" : (health: 3, strength: 1),
-        "Cave2Enemy3" : (health: 3, strength: 1),
-        "Cave2Enemy4" : (health: 3, strength: 1),
+        "Cave2Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave2Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave2Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave2Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Cave3Enemy1" : (health: 3, strength: 1),
-        "Cave3Enemy2" : (health: 3, strength: 1),
-        "Cave3Enemy3" : (health: 3, strength: 1),
-        "Cave3Enemy4" : (health: 3, strength: 1),
+        "Cave3Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave3Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave3Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave3Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Cave4Enemy1" : (health: 3, strength: 1),
-        "Cave4Enemy2" : (health: 3, strength: 1),
-        "Cave4Enemy3" : (health: 3, strength: 1),
-        "Cave4Enemy4" : (health: 3, strength: 1),
+        "Cave4Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave4Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave4Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Cave4Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
     ]
     
     // MARK: - ENEMY TRIGGER
@@ -500,9 +491,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         caveBoss1Projectile.physicsBody?.isDynamic = false
         
         let shoot = SKAction.move(to: CGPoint(
-            x: 2000 * cos(caveBoss1Projectile.zRotation) + caveBoss1Projectile.position.x,
-            y: 2000 * sin(caveBoss1Projectile.zRotation) + caveBoss1Projectile.position.y)
-                                  ,duration: 5.0)
+            x: SceneConstants.projecticleDistance * cos(caveBoss1Projectile.zRotation) + caveBoss1Projectile.position.x,
+            y: SceneConstants.projecticleDistance * sin(caveBoss1Projectile.zRotation) + caveBoss1Projectile.position.y)
+                                  ,duration: SceneConstants.projectileDuration)
         let deleteBullet = SKAction.removeFromParent()
         
         let bossSeq = SKAction.sequence([shoot, deleteBullet])
@@ -533,9 +524,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         caveBoss2Projectile.physicsBody?.isDynamic = false
         
         let shoot = SKAction.move(to: CGPoint(
-            x: 2000 * cos(caveBoss2Projectile.zRotation) + caveBoss2Projectile.position.x,
-            y: 2000 * sin(caveBoss2Projectile.zRotation) + caveBoss2Projectile.position.y)
-                                  ,duration: 5.0)
+            x: SceneConstants.projecticleDistance * cos(caveBoss2Projectile.zRotation) + caveBoss2Projectile.position.x,
+            y: SceneConstants.projecticleDistance * sin(caveBoss2Projectile.zRotation) + caveBoss2Projectile.position.y)
+                                  ,duration: SceneConstants.projectileDuration)
         let deleteBullet = SKAction.removeFromParent()
         
         let bossSeq = SKAction.sequence([shoot, deleteBullet])
@@ -566,9 +557,9 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         caveBoss3Projectile.physicsBody?.isDynamic = false
         
         let shoot = SKAction.move(to: CGPoint(
-            x: 2000 * cos(caveBoss3Projectile.zRotation) + caveBoss3Projectile.position.x,
-            y: 2000 * sin(caveBoss3Projectile.zRotation) + caveBoss3Projectile.position.y)
-                                  ,duration: 4.0)
+            x: SceneConstants.projecticleDistance * cos(caveBoss3Projectile.zRotation) + caveBoss3Projectile.position.x,
+            y: SceneConstants.projecticleDistance * sin(caveBoss3Projectile.zRotation) + caveBoss3Projectile.position.y)
+                                  ,duration: SceneConstants.projectileDuration)
         let deleteBullet = SKAction.removeFromParent()
         
         let bossSeq = SKAction.sequence([shoot, deleteBullet])
@@ -730,84 +721,6 @@ class CaveScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
     }
-    func rescueMove(animationName: String, node: SKSpriteNode, sceneName: String, ifRescued: Bool, posX: CGFloat, posY: CGFloat) {
-        
-        var rescueNode = node
-        
-        rescueNode = self.childNode(withName: sceneName) as! SKSpriteNode
-        
-        rescueNode.zPosition = 5
-        rescueNode.setScale(0.4)
-        rescueNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: rescueNode.size.width / 2 , height: rescueNode.size.height) )
-        rescueNode.physicsBody?.categoryBitMask = signCategory
-        rescueNode.physicsBody?.collisionBitMask = wallCategory | playerCategory | enemyCategory
-        rescueNode.physicsBody?.contactTestBitMask = wallCategory | playerCategory | enemyCategory
-        rescueNode.physicsBody?.allowsRotation = false
-        
-        if ifRescued {
-            rescueNode.position = CGPoint(x: posX, y: posY)
-            let differenceX = rescueNode.position.x - currentPlayerNode.position.x
-            let differenceY = rescueNode.position.y - currentPlayerNode.position.y
-            let angle = atan2(differenceY, differenceX)
-            let chaseSpeed: CGFloat = -4
-            let vx = chaseSpeed * cos(angle)
-            let vy = chaseSpeed * sin(angle)
-            
-            let pi = Double.pi
-            
-            var angle2 = angle + 7 * pi/8
-            
-            if angle2 < 0 {
-                angle2 = angle2 + 2 * pi
-            }
-            
-            if angle2 < pi/4 { // UPRIGHT
-                if !isAnimatingUpRightDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .upRight, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .upRight)
-                }
-            } else if angle2 < pi/2 { // UP
-                if !isAnimatingUpEnemy {
-                    animation.animate(character: animationName, direction: .up, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .up)
-                }
-            } else if angle2 < 3 * pi/4 { // UPLEFT
-                if !isAnimatingUpLeftDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .upLeft, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .upLeft)
-                }
-            } else if angle2 < pi { // LEFT
-                if !isAnimatingLeftEnemy {
-                    animation.animate(character: animationName, direction: .left, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .left)
-                }
-            } else if angle2 < 5 * pi/4 { // DOWNLEFT
-                if !isAnimatingDownLeftDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .downLeft, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .downLeft)
-                }
-            } else if angle2 < 3 * pi/2 { // DOWN
-                if !isAnimatingDownEnemy {
-                    animation.animate(character: animationName, direction: .down, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .down)
-                }
-            } else if angle2 < 7 * pi/4 { // DOWNRIGHT
-                if !isAnimatingDownRightDiagonalEnemy {
-                    animation.animate(character: animationName, direction: .downRight, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .downRight)
-                }
-            } else { // RIGHT
-                if !isAnimatingRightEnemy {
-                    animation.animate(character: animationName, direction: .right, characterNode: rescueNode)
-                    setAnimateBoolsEnemy(direction: .right)
-                }
-            }
-            
-            rescueNode.position.x += vx
-            rescueNode.position.y += vy
-        }
-    }
-
 
 // MARK: - Combat Contacts
 
@@ -826,6 +739,7 @@ func contactedEnemyMelee(enemyNode: SKNode, contactName: String) {
         
     }
 }
+    
 func contactedBossMelee() {
     
     if !meleeCombatBool {
@@ -885,6 +799,7 @@ func contactedRip(graveNode: SKNode, enemyKey: String) {
         graveNode.removeFromParent()
     }
 }
+    
 func playerHitFunc() {
     if !playerHit && GameData.shared.currentHealth > 0 {
         SoundManager.instance.playerSound(sound: .PlayerHitSound, volume: 5.0)
@@ -1131,9 +1046,9 @@ override func update(_ currentTime: TimeInterval) {
         }
     }
     
-    bossShootAngle1 += 7
-    bossShootAngle2 += 7
-    bossShootAngle3 += 7
+    bossShootAngle1 += SceneConstants.bossAttackAngle
+    bossShootAngle2 += SceneConstants.bossAttackAngle
+    bossShootAngle3 += SceneConstants.bossAttackAngle
     // MARK: - CaveEnemyActivate
     
     if cave1TriggerOn {
@@ -1186,59 +1101,59 @@ override func update(_ currentTime: TimeInterval) {
     
     if isMoving {
         if leftJoyconAngle >= 22.5 && leftJoyconAngle <= 67.5  { // UPRIGHT
-            currentPlayerNode.position.y += 2.8
-            currentPlayerNode.position.x += 2.8
+            currentPlayerNode.position.y += SceneConstants.diagonalMove
+            currentPlayerNode.position.x += SceneConstants.diagonalMove
             
             if !isAnimatingUpRightDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upRight, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .upRight)
             }
         } else if leftJoyconAngle >= 67.5 && leftJoyconAngle <= 112.5 { // UP
-            currentPlayerNode.position.y += 5
+            currentPlayerNode.position.y += SceneConstants.dPadMove
             
             if !isAnimatingUpPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .up, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .up)
             }
         } else if leftJoyconAngle >= 112.5 && leftJoyconAngle <= 157.5 { // UPLEFT
-            currentPlayerNode.position.y += 2.8
-            currentPlayerNode.position.x += -2.8
+            currentPlayerNode.position.y += SceneConstants.diagonalMove
+            currentPlayerNode.position.x += -SceneConstants.diagonalMove
             
             if !isAnimatingUpLeftDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .upLeft, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .upLeft)
             }
         } else if leftJoyconAngle >= 157.5 && leftJoyconAngle <= 202.5 { // LEFT
-            currentPlayerNode.position.x -= 5
+            currentPlayerNode.position.x -= SceneConstants.dPadMove
             if !isAnimatingLeftPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .left, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .left)
             }
         } else if leftJoyconAngle >= 202.5 && leftJoyconAngle <= 247.5 { // DOWNLEFT
-            currentPlayerNode.position.y += -2.8
-            currentPlayerNode.position.x += -2.8
+            currentPlayerNode.position.y += -SceneConstants.diagonalMove
+            currentPlayerNode.position.x += -SceneConstants.diagonalMove
             
             if !isAnimatingDownLeftDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downLeft, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .downLeft)
             }
         } else if leftJoyconAngle >= 247.5 && leftJoyconAngle <= 292.5 { // DOWN
-            currentPlayerNode.position.y -= 5
+            currentPlayerNode.position.y -= SceneConstants.dPadMove
             
             if !isAnimatingDownPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .down, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .down)
             }
         } else if leftJoyconAngle >= 292.5 && leftJoyconAngle <= 337.5 { // DOWNRIGHT
-            currentPlayerNode.position.y += -2.8
-            currentPlayerNode.position.x += 2.8
+            currentPlayerNode.position.y += -SceneConstants.diagonalMove
+            currentPlayerNode.position.x += SceneConstants.diagonalMove
             
             if !isAnimatingDownRightDiagonalPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .downRight, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .downRight)
             }
         } else if leftJoyconAngle >= 337.5 || leftJoyconAngle <= 22.5  { // RIGHT
-            currentPlayerNode.position.x += 5
+            currentPlayerNode.position.x += SceneConstants.dPadMove
             if !isAnimatingRightPlayer {
                 animation.animate(character: GameData.shared.currentPlayer?.weapon ?? "nil", direction: .right, characterNode: currentPlayerNode)
                 setAnimateBoolsPlayer(direction: .right)
@@ -1260,19 +1175,6 @@ override func update(_ currentTime: TimeInterval) {
     
     cam.position.x = currentPlayerNode.position.x
     cam.position.y = currentPlayerNode.position.y
-    
-    
-    
-    // MARK: - Crew CHASE
-//    rescueMove(animationName: "gunner", node: gunnerCrew, sceneName: "GunnerRescue", ifRescued: GameData.shared.caveCrewMemberRescued, posX: GameData.shared.gunnerPlayerPositionX, posY: GameData.shared.gunnerPlayerPositionY)
-//    
-//    if GameData.shared.volcanoCrewMemberRescued {
-//        rescueMove(animationName: "captain", node: gunnerCrew, sceneName: "CaptainRescue", ifRescued: GameData.shared.volcanoCrewMemberRescued, posX: GameData.shared.captainPlayerPositionX, posY: GameData.shared.captainPlayerPositionY)
-//    }
-//    if GameData.shared.jungleCrewMemberRescued {
-//        rescueMove(animationName: "kevin", node: gunnerCrew, sceneName: "KevinRescue", ifRescued: GameData.shared.jungleCrewMemberRescued, posX: GameData.shared.kevinPlayerPositionX, posY: GameData.shared.kevinPlayerPositionY)
-//    }
-//    
 }
 
 // MARK: - RESET ANIMATION PLAYER

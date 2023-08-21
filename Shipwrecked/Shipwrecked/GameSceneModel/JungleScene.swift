@@ -334,10 +334,10 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         currentPlayerNode = .init(imageNamed: GameData.shared.currentPlayer?.character ?? "nil")
         
-        currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX , y: GameData.shared.currentPlayerPositionY)
-        currentPlayerNode.zPosition = 5
-        currentPlayerNode.setScale(0.5)
-        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / 2, height: currentPlayerNode.size.height / 10))
+        currentPlayerNode.position = CGPoint(x: GameData.shared.currentPlayerPositionX, y: GameData.shared.currentPlayerPositionY)
+        currentPlayerNode.zPosition = CGFloat(SceneConstants.playerZposition)
+        currentPlayerNode.setScale(SceneConstants.playerScale)
+        currentPlayerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: currentPlayerNode.size.width / SceneConstants.playerWidth, height: currentPlayerNode.size.height / SceneConstants.playerHeight))
         currentPlayerNode.physicsBody?.categoryBitMask = playerCategory
         currentPlayerNode.physicsBody?.collisionBitMask = wallCategory
         currentPlayerNode.physicsBody?.contactTestBitMask = wallCategory
@@ -352,25 +352,25 @@ class JungleScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         // MARK: - Jungle Enemies
         
-        "Jungle1Enemy1" : (health: 3, strength: 1),
-        "Jungle1Enemy2" : (health: 3, strength: 1),
-        "Jungle1Enemy3" : (health: 3, strength: 1),
-        "Jungle1Enemy4" : (health: 3, strength: 1),
+        "Jungle1Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle1Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle1Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle1Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Jungle2Enemy1" : (health: 3, strength: 1),
-        "Jungle2Enemy2" : (health: 3, strength: 1),
-        "Jungle2Enemy3" : (health: 3, strength: 1),
-        "Jungle2Enemy4" : (health: 3, strength: 1),
+        "Jungle2Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle2Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle2Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle2Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Jungle3Enemy1" : (health: 3, strength: 1),
-        "Jungle3Enemy2" : (health: 3, strength: 1),
-        "Jungle3Enemy3" : (health: 3, strength: 1),
-        "Jungle3Enemy4" : (health: 3, strength: 1),
+        "Jungle3Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle3Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle3Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle3Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
         
-        "Jungle4Enemy1" : (health: 3, strength: 1),
-        "Jungle4Enemy2" : (health: 3, strength: 1),
-        "Jungle4Enemy3" : (health: 3, strength: 1),
-        "Jungle4Enemy4" : (health: 3, strength: 1),
+        "Jungle4Enemy1" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle4Enemy2" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle4Enemy3" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
+        "Jungle4Enemy4" : (health: SceneConstants.enemyHealth, strength: SceneConstants.enemyStrength),
     ]
    
     // MARK: - ENEMY TRIGGER

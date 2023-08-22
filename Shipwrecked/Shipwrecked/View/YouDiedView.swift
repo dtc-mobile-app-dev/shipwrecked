@@ -12,16 +12,16 @@ struct YouDiedView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             
-            Image("SkullDetailed")
+            ConstantsView.failImage
                 .resizable().scaledToFit().scaleEffect(1.15).shadow(color: .red, radius: 10)
             
-            Text("YOU DIED")
+            ConstantsView.failTitle
                 .font(CustomFontBlock.mediumLarge).kerning(10).foregroundColor(.red).shadow(color: .black, radius: 3.5)
             
             NavigationLink {
                 MenuView().navigationBarBackButtonHidden(true)
             } label: {
-                Text("RESTART")
+                ConstantsView.restart
                     .font(CustomFontBlock.small).foregroundColor(.white).padding(.top, 325).padding(.leading, 525).shadow(color: .red, radius: 1.5).kerning(1.5)
             }
         }

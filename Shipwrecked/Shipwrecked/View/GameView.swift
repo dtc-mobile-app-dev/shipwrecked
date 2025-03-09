@@ -63,10 +63,10 @@ struct GameView: View {
 //    ]
     
     @State var showInventory = false
-    @State var isAHint = false
-    @State var isASign = false {
-        didSet { isAHint.toggle() }
-    }
+//    @State var isAHint = false
+//    @State var isASign = false {
+//        didSet { isAHint.toggle() }
+//    }
     
     //    let item: InventoryItem
     @State var showItem = false
@@ -603,16 +603,20 @@ extension GameView {
     
     
     // MARK: - BEACH NOTES/SIGNS
+    static var signWidth: CGFloat = 500
+    static var signHeight: CGFloat = 300
+    static var signTextWidth: CGFloat = 350
+    static var signTextHeight: CGFloat = 200
     
     var signBeach1: some View {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Entrance to the Cave of the Beast")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -621,11 +625,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Entrance to the Depths of the Volcano")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -634,11 +638,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Entrance to the Green of the Jungle")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -650,7 +654,7 @@ extension GameView {
                 .resizable().frame(width: 500, height: 300).padding(.top, 25)
                 .overlay {
                     Text("NOTE: Your crew members have been captured! Find them and get off the island before it's too late!")
-                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                        .frame(width: GameView.signTextWidth, height: 200).font(CustomFontBlock.small)
                 }
         }
     }
@@ -660,7 +664,7 @@ extension GameView {
                 .resizable().frame(width: 500, height: 300).padding(.top, 25)
                 .overlay {
                     Text("NOTE: Collect things you find along the way and use them to save the crew!")
-                        .frame(width: 350, height: 200).font(CustomFontBlock.small)
+                        .frame(width: GameView.signTextWidth, height: 200).font(CustomFontBlock.small)
                 }
         }
     }
@@ -669,11 +673,11 @@ extension GameView {
         ZStack {
             Image("BlankPaper")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 25)
                 .overlay {
                     Text("What is Kevin doing here? He does literally nothing! - Gerald the Gunner")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -682,11 +686,11 @@ extension GameView {
         ZStack {
             Image("BlankPaper")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 25)
                 .overlay {
                     Text("Captain Doug is Kinda Smelly - Lizzie The Welder")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -695,11 +699,11 @@ extension GameView {
         ZStack {
             Image("BlankPaper")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 25)
                 .overlay {
                     Text("Gerald is giving me a mean look, I don't like that - Kevin")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -708,11 +712,11 @@ extension GameView {
         ZStack {
             Image("BlankPaper")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 25)
                 .overlay {
                     Text("Lizzie don't like the sea, and if she don't like the sea, me don't like she - Captain Doug")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -737,12 +741,12 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
             
                 .overlay {
                     Text("CAUTION: Many enter, but NONE have returned!")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .padding(.bottom)
                         .font(CustomFontBlock.small2)
                 }
@@ -755,12 +759,12 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
             
                 .overlay {
                     Text("BEWARE!: The creature produces lethal Sonic Sound Waves")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .padding(.bottom)
                         .font(CustomFontBlock.small2)
                 }
@@ -771,11 +775,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Feed the Beast weekly, we don't want to make it upset")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .padding(.bottom)
                         .font(CustomFontBlock.small2)
                 }
@@ -788,11 +792,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("The beast can attack from a distance")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small)
                     
                         .padding(.bottom)
@@ -809,11 +813,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("WATCH YOUR STEP!")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -824,11 +828,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Perform Sacrificial Rituals to prevent the Lava God from being angry")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -839,11 +843,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Don't Forget Sunscreen and Stay Hydrated due to the intense heat")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -854,11 +858,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("CAUTION: If angered, It will throw lava")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -870,11 +874,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("The Protector of the Green watches for intruders")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -885,11 +889,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("PROTECT THE GREEN")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -900,11 +904,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("A Sword of Unfathomable Power is within the Green")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -915,11 +919,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("The Protector desires peace. DO NOT PROVOKE")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
@@ -930,11 +934,11 @@ extension GameView {
         ZStack {
             Image("SIGN 1")
                 .resizable()
-                .frame(width: 500, height: 300)
+                .frame(width: GameView.signWidth, height: GameView.signHeight)
                 .padding(.top, 50)
                 .overlay {
                     Text("Only those worthy can hold the Sword of the Green")
-                        .frame(width: 350, height: 200)
+                        .frame(width: GameView.signTextWidth, height: GameView.signTextHeight)
                         .font(CustomFontBlock.small2)
                 }
         }
